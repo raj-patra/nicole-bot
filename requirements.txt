@@ -1,7 +1,2 @@
-tkinter
 python-aiml
 python-telegram-bot
-gtts
-SpeechRecognition
-pyttsx3
-pyaudio
