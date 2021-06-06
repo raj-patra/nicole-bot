@@ -1,0 +1,18 @@
+<aiml version="1.0">
+
+<!-- This category works with the Standard AIML Set -->
+<category>
+<pattern>LOAD AIML B</pattern>
+<template>
+
+<!-- Load standard AIML set -->
+<learn>aiml_files/alice/*.aiml</learn>
+<learn>aiml_files/standard/std-*.aiml</learn>
+<learn>aiml_files/standard/dev-*.aiml</learn>
+<learn>aiml_files/standard/per-*.aiml</learn>
+
+
+</template>
+</category>
+
+</aiml>
