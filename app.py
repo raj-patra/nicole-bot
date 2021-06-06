@@ -12,7 +12,7 @@ def start(update, context):
     update.message.reply_text("Hi! I am Nicole, a conversational chatbot. GLHF")
 
 def help(update, context):
-    update.message.reply_text("Made with Py3 and AIML. For any queries contact https://t.me/a_ignorant_mortal")
+    update.message.reply_text("Made with Py3 and AIML. For any queries contact https://t.me/a_ignorant_mortal Bot Token = {}".format(os.environ['BOT_TOKEN']))
 
 def echo(update, context):
     update.message.reply_text(update.message.text)
