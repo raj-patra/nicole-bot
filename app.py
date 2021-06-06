@@ -5,14 +5,13 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# TOKEN = os.environ['BOT_TOKEN']
-TOKEN = "1366850729:AAEJIY-hCEPqzQD84o9hKmtvRkcqS2CZ_Xw"
+TOKEN = str(os.environ['BOT_TOKEN'])
 
 def start(update, context):
     update.message.reply_text("Hi! I am Nicole, a conversational chatbot. GLHF")
 
 def help(update, context):
-    update.message.reply_text("Made with Py3 and AIML. For any queries contact https://t.me/a_ignorant_mortal Bot Token = {}".format(os.environ['BOT_TOKEN']))
+    update.message.reply_text("Made with Py3 and AIML. For any queries contact https://t.me/a_ignorant_mortal")
 
 def echo(update, context):
     update.message.reply_text(update.message.text)
