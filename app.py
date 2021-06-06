@@ -1,13 +1,10 @@
-from flask import Flask, request
-import telegram, logging
+import logging, os
 from config import *
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-URL = 'https://nicole-bot.herokuapp.com/'
-
-bot = telegram.Bot(token=TOKEN)
-app = Flask(__name__)
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -23,9 +20,10 @@ def echo(update, context):
 def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+PORT = int(os.environ.get('PORT', 8443))
 
-@app.route('/{}'.format(TOKEN), methods=['POST'])
-def respond():
+def main():
+    """Start the bot."""
 
     # Create the Updater and pass it to your bot's token.
     updater = Updater(TOKEN, use_context=True)
@@ -43,20 +41,12 @@ def respond():
     # log all errors
     dp.add_error_handler(error)
 
+    # Start the Bot
+    # updater.start_polling()
+    updater.start_webhook(listen='0.0.0.0', port=int(PORT), url_path=TOKEN)
+    updater.bot.setWebhook('https://nicole-bot.herokuapp.com/' + TOKEN)
 
-@app.route('/setwebhook', methods=['GET', 'POST'])
-def set_webhook():
-    try:
-        s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
-        return "webhook setup ok"
-    except Exception as e:
-        return "webhook setup failed "+str(e)
-
-
-@app.route('/')
-def index():
-    return 'Hey'
-
+    # updater.idle()
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    main()
