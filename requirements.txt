@@ -1,4 +1,2 @@
 python-aiml
-flask
-gunicorn
 python-telegram-bot

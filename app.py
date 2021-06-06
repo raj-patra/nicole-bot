@@ -1,12 +1,12 @@
 import logging, os
-# from config import *
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
-TOKEN = os.environ['BOT_TOKEN']
+
+# TOKEN = os.environ['BOT_TOKEN']
+TOKEN = "1366850729:AAEJIY-hCEPqzQD84o9hKmtvRkcqS2CZ_Xw"
 
 def start(update, context):
     update.message.reply_text("Hi! I am Nicole, a conversational chatbot. GLHF")
@@ -20,7 +20,7 @@ def echo(update, context):
 def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-PORT = int(os.environ.get('PORT', 8443))
+# PORT = int(os.environ.get('PORT', 8443))
 
 def main():
     """Start the bot."""
@@ -46,7 +46,7 @@ def main():
     # updater.start_webhook(listen='0.0.0.0', port=int(PORT), url_path=TOKEN)
     # updater.bot.setWebhook('https://nicole-bot.herokuapp.com/' + TOKEN)
 
-    # updater.idle()
+    updater.idle()
 
 if __name__ == '__main__':
     main()
