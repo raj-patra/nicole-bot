@@ -4,3 +4,4 @@ beautifulsoup4
 Pillow
 gunicorn
 flask
+requests
