@@ -2,3 +2,4 @@ python-aiml
 python-telegram-bot
 beautifulsoup4
 Pillow
+gunicorn

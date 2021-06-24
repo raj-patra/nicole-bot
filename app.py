@@ -1,11 +1,11 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-# from config import *
+from config import *
 from bot import NicoleBot
 
 import os
 
 PORT = int(os.environ.get('PORT', 8443))
-TOKEN = str(os.environ['BOT_TOKEN'])
+# TOKEN = str(os.environ['BOT_TOKEN'])
 
 def main():
     """Start the bot."""
@@ -21,8 +21,8 @@ def main():
 
     dp.add_error_handler(nicole.error)
 
-    # updater.start_polling()
-    updater.start_webhook(listen='0.0.0.0', port=int(PORT), url_path=TOKEN, webhook_url='https://nicole-bot.herokuapp.com/' + TOKEN)
+    updater.start_polling()
+    # updater.start_webhook(listen='0.0.0.0', port=int(PORT), url_path=TOKEN, webhook_url='https://nicole-bot.herokuapp.com/' + TOKEN)
     # updater.bot.setWebhook('https://nicole-bot.herokuapp.com/' + TOKEN)
 
     updater.idle()
