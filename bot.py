@@ -29,8 +29,8 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('Utilities', callback_data="tools")],
                         ]
         self.image_menu=[
+                            [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='person')],
                             [tg.InlineKeyboardButton('Cute Doggo 🐶', callback_data='doggo'), tg.InlineKeyboardButton('Little Kitty 🐱', callback_data='kitty')],
-                            [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='person')], 
                             [tg.InlineKeyboardButton('◀ Back', callback_data='back')]
                         ]
         self.text_menu =[
@@ -46,7 +46,7 @@ class NicoleBot:
 
     def start(self, update, context):
         self.kernel.setPredicate("name", "Chodi")
-
+        print(update)
         reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
         update.message.reply_text("Hi! I am Nicole, a conversational chatbot. \n\nUse the menu for tools or send a text to chat. \nGLHF", reply_markup=reply_markup)
 

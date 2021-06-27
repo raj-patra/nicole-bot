@@ -3,9 +3,10 @@ from flask import Flask
 from bs4 import BeautifulSoup
 from PIL import Image
 
-# doggo = requests.get('https://random.dog/woof.json').json()    
-# url = doggo['url']
-# print(url)
+
+caption = requests.get("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1").json()
+print(caption)
+
 
 # rdm = requests.get('https://www.boredbutton.com/random')
 # soup = BeautifulSoup(rdm.text, features="html.parser")
@@ -17,8 +18,3 @@ from PIL import Image
 
 # print(requests.get("https://evilinsult.com/generate_insult.php?lang={}&type=json".format('en')).json()['insult'])
 
-from app import NicoleBot
-
-nic = NicoleBot()
-
-print(nic.main_menu)
