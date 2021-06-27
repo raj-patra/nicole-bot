@@ -8,7 +8,7 @@ PORT = int(os.environ.get('PORT', 3000))
 URL = 'https://nicole-bot.herokuapp.com/'
 TOKEN = str(os.environ['BOT_TOKEN'])
 
-def main():
+def app():
     """Start the bot."""
     nicole = NicoleBot()
     updater = Updater(TOKEN, use_context=True)
@@ -28,4 +28,4 @@ def main():
     updater.idle()
 
 if __name__ == '__main__':
-    main()
+    app()
