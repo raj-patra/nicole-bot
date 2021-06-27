@@ -46,7 +46,6 @@ class NicoleBot:
 
     def start(self, update, context):
         self.kernel.setPredicate("name", "Chodi")
-        print(update)
         reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
         update.message.reply_text("Hi! I am Nicole, a conversational chatbot. \n\nUse the menu for tools or send a text to chat. \nGLHF", reply_markup=reply_markup)
 
