@@ -30,6 +30,7 @@ class NicoleBot:
                         ]
         self.image_menu=[
                             [tg.InlineKeyboardButton('Summon a Meme 🤙', callback_data='meme')],
+                            [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='namo')],
                             [tg.InlineKeyboardButton('Cute Doggo 🐶', callback_data='doggo'), tg.InlineKeyboardButton('Little Kitty 🐱', callback_data='kitty')],
                             [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='human')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='back')]
@@ -121,6 +122,12 @@ class NicoleBot:
             else:
                 context.bot.send_photo(chat_id=query.message.chat.id, photo=meme, caption=caption, parse_mode="Markdown")
 
+            self.update_chat(query, context, query.message.chat.id, query.message.message_id, self.image_menu)
+
+        if query.data == 'namo':
+            response = requests.get(NAMO_URL).json()[0]
+            meme = response["url"]
+            context.bot.send_photo(chat_id=query.message.chat.id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown")
             self.update_chat(query, context, query.message.chat.id, query.message.message_id, self.image_menu)
 
         # Functionalities from Text Menu

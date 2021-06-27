@@ -7,6 +7,7 @@ CAT_CAP_URL = "https://cat-fact.herokuapp.com/facts/random"
 RANDOM_HUMAN_URL = "https://thispersondoesnotexist.com/image"
 
 MEME_URL = "https://meme-api.herokuapp.com/gimme"
+NAMO_URL = "https://namo-memes.herokuapp.com/memes/1"
 
 QUOTE_URL = "https://api.quotable.io/random"
 INSULT_URL = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
