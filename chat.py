@@ -18,3 +18,6 @@ else:
 
 while(1):
     print(kernel.respond(input(">>> ")))
+
+# heroku ps:scale web=1 
+# TOKEN = "1366850729:AAEJIY-hCEPqzQD84o9hKmtvRkcqS2CZ_Xw"

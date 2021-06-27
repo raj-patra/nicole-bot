@@ -1,10 +1,10 @@
 from flask import Flask, request
-from config import *
 from bot import NicoleBot
 import os, logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
 PORT = int(os.environ.get('PORT', 3000))
+TOKEN = str(os.environ['BOT_TOKEN'])
 URL = 'https://e9352f78c058.ngrok.io'
 
 app = Flask(__name__)
