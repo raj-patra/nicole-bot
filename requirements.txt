@@ -5,3 +5,4 @@ Pillow
 gunicorn
 flask
 requests
+regex

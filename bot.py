@@ -1,4 +1,4 @@
-import logging, os, aiml, requests, pickle, random, string
+import logging, os, aiml, requests, pickle, random, string, re
 import telegram as tg
 
 from PIL import Image
@@ -203,7 +203,8 @@ class NicoleBot:
 
     def slap(self, update, context):
         chat_id = update.message.chat.id
-        user_id = int(str(update).split("'id': ")[-1].split(',')[0])
+        # user_id = int(str(update).split("'id': ")[-1].split(',')[0])
+        user_id = int(re.findall(r'[0-9]+', str(update.message))[-1])
 
         photo = random.choice(context.bot.getUserProfilePhotos(user_id=user_id)['photos'])
         file_id = photo[0]['file_id']
