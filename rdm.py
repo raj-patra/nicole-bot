@@ -1,4 +1,5 @@
-import requests
+from config import POEMS_URL
+import requests, random
 from flask import Flask
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -9,11 +10,11 @@ from PIL import Image
 # # im.show()
 
 # #Make the new image half the width and half the height of the original image
-# resized_im = im2.resize((round(im.size[0]*0.25), round(im.size[1]*0.25)))
+# resized_im = im2.resize((round(im.size[0]*0.22), round(im.size[1]*0.22)))
 
 
-# im.paste(resized_im, (95,280))
-# #Display the resized imaged
+# im.paste(resized_im, (210,225))
+# # Display the resized imaged
 # im.show()
 # rdm = requests.get('https://www.boredbutton.com/random')
 # soup = BeautifulSoup(rdm.text, features="html.parser")
@@ -21,7 +22,3 @@ from PIL import Image
 
 # im = Image.open(requests.get('https://thiscatdoesnotexist.com', stream=True).raw)
 # im.save('pig.png', "PNG")
-
-
-# print(requests.get("https://evilinsult.com/generate_insult.php?lang={}&type=json".format('en')).json()['insult'])
-

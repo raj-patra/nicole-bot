@@ -1,4 +1,4 @@
-import logging, os, aiml, requests, pickle, random, string, re
+import logging, os, aiml, requests, random, string, re
 import telegram as tg
 
 from PIL import Image
@@ -21,12 +21,9 @@ class NicoleBot:
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
         self.logger = logging.getLogger(__name__)
 
-        self.iig = pickle.load(open("iig.pickle", "rb"))
-
         self.main_menu =[
-                            [tg.InlineKeyboardButton('Image based APIs 🌆', callback_data="image")],
-                            [tg.InlineKeyboardButton('Text based APIs 📝', callback_data="text")],
-                            [tg.InlineKeyboardButton('Utilities 🛠', callback_data="tools")],
+                            [tg.InlineKeyboardButton('Image APIs 🌆', callback_data="image"), tg.InlineKeyboardButton('Text APIs 📝', callback_data="text")],
+                            [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="tools")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='cancel')]
                         ]
         self.image_menu=[
@@ -37,30 +34,33 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('◀ Back', callback_data='back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='cancel')]
                         ]
         self.text_menu =[
-                            [tg.InlineKeyboardButton('Quote of the Day 💯', callback_data='quote')],
-                            [tg.InlineKeyboardButton('Irish Insults 🇮🇪', callback_data='iig'), tg.InlineKeyboardButton('Rare Insults 💥', callback_data='rare')],
-                            [tg.InlineKeyboardButton('Kanye REST 🧭', callback_data='kanye'), tg.InlineKeyboardButton('Donald Grump 🎺', callback_data='trump')], 
                             [tg.InlineKeyboardButton('Daily Activity 🎬', callback_data='daily')],
+                            [tg.InlineKeyboardButton('Quote of the Day 💯', callback_data='quote'), tg.InlineKeyboardButton('Fact of the Day 🤯', callback_data='facts')],
+                            [tg.InlineKeyboardButton('Kanye REST 🧭', callback_data='kanye'), tg.InlineKeyboardButton('Donald Grump 🎺', callback_data='trump')], 
+                            [tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='poems')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='cancel')]
                         ]
         self.tool_menu =[
-                            [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='rdm')],
+                            [tg.InlineKeyboardButton('Useful Websites </>', callback_data='web')],
+                            [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='rdm'), tg.InlineKeyboardButton('Age Predictor 🔞', callback_data='age')],
                             [tg.InlineKeyboardButton('10 Digit Password Generator', callback_data='pwd')],
-                            [tg.InlineKeyboardButton('Age Predictor 🔞', callback_data='age')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='cancel')]
                         ]
 
     def start(self, update, context):
-        self.kernel.setPredicate("name", "Chodi")
+        self.kernel.setPredicate("name", "Stranger")
         reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
-        intro = """Hi! I am *Nicole*, a conversational chatbot. \n\nUse the menu for tools or send a text to chat. \nGLHF"""
+        intro = """Hi! I am *Nicole*, a conversational chatbot. \n\nUse the /menu for tools or send a text to chat. \nGLHF"""
+        menu = "Choose your poison: "
+        if "/menu" in update.message.text:
+            update.message.reply_text(menu, reply_markup=reply_markup)
+        elif "/start"in update.message.text:
+            update.message.reply_text(intro, parse_mode="Markdown")
 
-        update.message.reply_text(intro, reply_markup=reply_markup, parse_mode="Markdown")
-
-    def update_chat(self, context, chat_id, message_id, menu):
+    def update_chat(self, context, chat_id, message_id, menu, text="Choose your Poison :"):
         context.bot.delete_message(chat_id=chat_id, message_id=message_id)
         reply_markup = tg.InlineKeyboardMarkup(menu)
-        context.bot.send_message(chat_id=chat_id, text='Choose your Poison :', reply_markup=reply_markup)
+        context.bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
 
     def menu_actions(self, update, context):
         query=update.callback_query
@@ -95,9 +95,9 @@ class NicoleBot:
 
         if query.data == 'kitty':
             kitty = requests.get(CAT_PIC_URL).json()['url']
-            caption = requests.get(CAT_CAP_URL).json()['text']
+            # caption = requests.get(CAT_CAP_URL).json()['text']
 
-            context.bot.send_photo(photo=kitty, caption="Cat Fact - "+caption, chat_id=query.message.chat.id)
+            context.bot.send_photo(photo=kitty, caption="Cat Fact - "+"Random Cat Fact expected here. Error occured", chat_id=query.message.chat.id)
             self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
 
         if query.data == 'human':
@@ -141,18 +141,6 @@ class NicoleBot:
             context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
             self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
 
-        if query.data == 'iig':
-            insult = (' ').join([random.choice(self.iig['subject']), random.choice(self.iig['adjective']), random.choice(self.iig['noun']), random.choice(self.iig['predicate'])])
-            msg = "An Irish man walked into the bar and said \n\n_{}_".format(insult)
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
-        
-        if query.data == 'rare':
-            insult = requests.get(INSULT_URL).json()['insult']
-            msg = "Sure you can handle it? Here you go... \n\n_{}_".format(insult)
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
-
         if query.data == 'kanye':
             response = requests.get(KANYE_URL).json()
             msg = "Kanye REST once said, \n\n_{}_".format(response['quote'])
@@ -167,7 +155,19 @@ class NicoleBot:
         
         if query.data == 'daily':
             response = requests.get(DAILY_URL).json()
-            msg = "Bored out your mind? \nI can suggest you something to try something out. \n\n*Activity* - {}\n*Type* - {}\n*Participants Suggested* - {}\n\n_Take it as a challenge ;)_".format(response["activity"], response["type"], response["participants"])
+            msg = "Bored out your mind? \nI can suggest you something to try something out. \n\nActivity - *{}*\nType - *{}*\nParticipants Suggested - *{}*\n\n_Take it as a challenge ;)_".format(response["activity"], response["type"], response["participants"])
+            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+
+        if query.data == 'facts':
+            response = requests.get(FACTS_URL).json()
+            msg = "Did you know, \n\n_{}_".format(response['text'])
+            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+        
+        if query.data == 'poems':
+            response = random.choice(requests.get(POEMS_URL).json())
+            msg = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
             context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
             self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
 
@@ -197,12 +197,18 @@ class NicoleBot:
             context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
             self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
         
+        if query.data == 'web':
+            msg = USEFUL_WEBSITE_URL
+            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
+
     def dev(self, update, context):
         info = "Made with Py3 and AIML. \nFor any queries contact [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
         update.message.reply_text(info, parse_mode="Markdown")
 
     def slap(self, update, context):
         chat_id = update.message.chat.id
+        mention = update.message.text[5:].strip()
         # user_id = int(str(update).split("'id': ")[-1].split(',')[0])
         user_id = int(re.findall(r'[0-9]+', str(update.message))[-1])
 
@@ -212,16 +218,34 @@ class NicoleBot:
 
         slap = Image.open("static/slap.jpg")
         profile = Image.open(requests.get(file_path, stream=True).raw)
-        resized_im = profile.resize((round(slap.size[0]*0.25), round(slap.size[1]*0.25)))
+        resized_im = profile.resize((round(slap.size[0]*0.22), round(slap.size[1]*0.22)))
 
-        slap.paste(resized_im, (95,280))
+        # slap.paste(resized_im, (95,280))
+        slap.paste(resized_im, (210, 225))
         slap.save('static/slapped.png', 'PNG')
 
-        context.bot.send_photo(photo=open('static/slapped.png', 'rb'), caption="You get what you f'in deserve", chat_id=chat_id, parse_mode="Markdown")
+        if mention == '':
+            msg = "You get what you f'in deserve."
+        else:
+            msg = "{}, You get what you f'in deserve.".format(mention)
+
+        context.bot.send_photo(photo=open('static/slapped.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown")
+
+    def roast(self, update, context):
+        mention = update.message.text[6:].strip()
+        insult = requests.get(INSULT_URL).json()['insult']
+        msg = ", ".join([mention, insult])
+        if mention == '':
+            context.bot.send_message(chat_id=update.message.chat.id, text=insult, parse_mode="Markdown")
+        else:
+            context.bot.send_message(chat_id=update.message.chat.id, text=msg, parse_mode="Markdown")
 
     def respond(self, update, context):
         update.message.reply_text(self.kernel.respond(update.message.text))
 
     def error(self, update, context):
         self.logger.warning('Update "%s" caused error "%s"', update, context.error)
+        print(update)
+        msg = "Hmmm. Something went wrong. This wasn't supposed to happen though. Please try something else while we look into it. ʘ‿ʘ"
+        self.update_chat(context, update.callback_query.message.chat.id, update.callback_query.message.message_id, self.main_menu, text=msg)
 
