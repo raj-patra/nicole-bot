@@ -15,12 +15,12 @@ def app():
 
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", nicole.start))
-    dp.add_handler(CommandHandler("menu", nicole.start))
+    dp.add_handler(CommandHandler("start", nicole.start, filters = (Filters.command | Filters.entity(Filters.regex(r'@^[\w._]+$')))))
+    dp.add_handler(CommandHandler("menu", nicole.start, filters = (Filters.command | Filters.entity(Filters.regex(r'@^[\w._]+$')))))
 
-    dp.add_handler(CommandHandler("dev", nicole.dev))
-    dp.add_handler(CommandHandler("slap", nicole.slap))
-    dp.add_handler(CommandHandler("roast", nicole.roast))
+    dp.add_handler(CommandHandler("dev", nicole.dev, filters = (Filters.command | Filters.entity(Filters.regex(r'@^[\w._]+$')))))
+    dp.add_handler(CommandHandler("slap", nicole.slap, filters = (Filters.command | Filters.entity(Filters.regex(r'@^[\w._]+$')))))
+    dp.add_handler(CommandHandler("roast", nicole.roast, filters = (Filters.command | Filters.entity(Filters.regex(r'@^[\w._]+$')))))
 
     dp.add_handler(CallbackQueryHandler(nicole.menu_actions))
     dp.add_handler(MessageHandler(Filters.text, nicole.respond))

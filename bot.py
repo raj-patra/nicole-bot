@@ -229,16 +229,16 @@ class NicoleBot:
         else:
             msg = "{}, You get what you f'in deserve.".format(mention)
 
-        context.bot.send_photo(photo=open('static/slapped.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown")
+        context.bot.send_photo(photo=open('static/slapped.png', 'rb'), caption=msg, chat_id=chat_id)
 
     def roast(self, update, context):
         mention = update.message.text[6:].strip()
         insult = requests.get(INSULT_URL).json()['insult']
         msg = ", ".join([mention, insult])
         if mention == '':
-            context.bot.send_message(chat_id=update.message.chat.id, text=insult, parse_mode="Markdown")
+            context.bot.send_message(chat_id=update.message.chat.id, text=insult)
         else:
-            context.bot.send_message(chat_id=update.message.chat.id, text=msg, parse_mode="Markdown")
+            context.bot.send_message(chat_id=update.message.chat.id, text=msg)
 
     def respond(self, update, context):
         update.message.reply_text(self.kernel.respond(update.message.text))
