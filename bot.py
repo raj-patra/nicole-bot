@@ -64,6 +64,8 @@ class NicoleBot:
 
     def menu_actions(self, update, context):
         query=update.callback_query
+        chat_id = query.message.chat.id
+        msg_id = query.message.message_id
 
         if query.data == 'image':
             reply_markup = tg.InlineKeyboardMarkup(self.image_menu)
@@ -82,23 +84,23 @@ class NicoleBot:
             query.message.edit_text(text='What can I help you with? :', reply_markup=reply_markup)
         
         elif query.data == 'cancel':
-            context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-            context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
+            context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+            context.bot.send_message(chat_id=chat_id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
         # Functionalities from Image Menu
         if query.data == 'doggo':
             doggo = requests.get(DOG_PIC_URL).json()['message']
             # caption = requests.get(DOG_CAP_URL).json()[0]['fact']
 
-            context.bot.send_photo(chat_id=query.message.chat.id, photo=doggo, caption="Dog Fact - "+"Random Dog Fact expected here. Error occured")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
+            context.bot.send_photo(chat_id=chat_id, photo=doggo, caption="Dog Fact - "+"Random Dog Fact expected here. Error occured")
+            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'kitty':
             kitty = requests.get(CAT_PIC_URL).json()['url']
             # caption = requests.get(CAT_CAP_URL).json()['text']
 
-            context.bot.send_photo(photo=kitty, caption="Cat Fact - "+"Random Cat Fact expected here. Error occured", chat_id=query.message.chat.id)
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
+            context.bot.send_photo(photo=kitty, caption="Cat Fact - "+"Random Cat Fact expected here. Error occured", chat_id=chat_id)
+            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'human':
             msg = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
@@ -106,8 +108,8 @@ class NicoleBot:
             im = Image.open(requests.get(RANDOM_HUMAN_URL, stream=True).raw)
             im.save('static/person.png', 'PNG')
 
-            context.bot.send_photo(photo=open('static/person.png', 'rb'), caption=msg, chat_id=query.message.chat.id, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
+            context.bot.send_photo(photo=open('static/person.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'meme':
             response = requests.get(MEME_URL).json()
@@ -122,54 +124,54 @@ class NicoleBot:
                 caption += "#spolier"
 
             if meme.split('.')[-1] == 'gif':
-                context.bot.sendDocument(chat_id=query.message.chat.id, document = meme, caption=caption, parse_mode="Markdown")
+                context.bot.sendDocument(chat_id=chat_id, document = meme, caption=caption, parse_mode="Markdown")
             else:
-                context.bot.send_photo(chat_id=query.message.chat.id, photo=meme, caption=caption, parse_mode="Markdown")
+                context.bot.send_photo(chat_id=chat_id, photo=meme, caption=caption, parse_mode="Markdown")
 
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
+            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'namo':
             response = requests.get(NAMO_URL).json()[0]
             meme = response["url"]
-            context.bot.send_photo(chat_id=query.message.chat.id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.image_menu)
+            context.bot.send_photo(chat_id=chat_id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         # Functionalities from Text Menu
         if query.data == 'quote':
             response = requests.get(QUOTE_URL).json()
             msg = "_{}_ \n\n- {}".format(response['content'], response['author'])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
 
         if query.data == 'kanye':
             response = requests.get(KANYE_URL).json()
             msg = "Kanye REST once said, \n\n_{}_".format(response['quote'])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
             
         if query.data == 'trump':
             response = requests.get(TRUMP_URL).json()
             msg = "Grumpy Donald once said, \n\n_{}_".format(response['message'])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
         
         if query.data == 'daily':
             response = requests.get(DAILY_URL).json()
             msg = "Bored out your mind? \nI can suggest you something to try something out. \n\nActivity - *{}*\nType - *{}*\nParticipants Suggested - *{}*\n\n_Take it as a challenge ;)_".format(response["activity"], response["type"], response["participants"])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
 
         if query.data == 'facts':
             response = requests.get(FACTS_URL).json()
             msg = "Did you know, \n\n_{}_".format(response['text'])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
         
         if query.data == 'poems':
             response = random.choice(requests.get(POEMS_URL).json())
             msg = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.text_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.text_menu)
 
         # Functionalities from Tools Menu
         if query.data == 'rdm':
@@ -178,29 +180,29 @@ class NicoleBot:
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
 
             msg = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
             
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
+            self.update_chat(context, chat_id, msg_id, self.tool_menu)
 
         if query.data == 'pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
 
-            context.bot.send_message(chat_id=query.message.chat.id, text="Here's your password")
-            context.bot.send_message(chat_id=query.message.chat.id, text=pwd)
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
+            context.bot.send_message(chat_id=chat_id, text="Here's your password")
+            context.bot.send_message(chat_id=chat_id, text=pwd)
+            self.update_chat(context, chat_id, msg_id, self.tool_menu)
 
         if query.data == 'age':
             name = query.message.chat.first_name
             age = str(requests.get(AGE_URL+"?name={}".format(name)).json()['age'])
             msg = "Based on my knowledge, I think a person with the name {} would be {} years old \nI might be wrong tho :') \n\nReference: [Agify.io](https://agify.io/) \n\n_Agify predicts the age of a person given their name based on analytics, ad segmenting, demographic statistics etc._".format(name, age)
 
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            self.update_chat(context, chat_id, msg_id, self.tool_menu)
         
         if query.data == 'web':
             msg = USEFUL_WEBSITE_URL
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
-            self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
+            self.update_chat(context, chat_id, msg_id, self.tool_menu)
 
     def dev(self, update, context):
         info = "Made with Py3 and AIML. \nFor any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"

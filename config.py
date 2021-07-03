@@ -46,6 +46,6 @@ Remove background from image - [Remove.bg](https://www.remove.bg/upload)
 Create and share memes - [Imgflip.com](https://imgflip.com/)
 Random websites - [Bored Button](https://www.boredbutton.com/random)
 Live wallpaper - [Arkadia](http://arkadia.xyz/)
-If the moon were only 1 pixel - [Solar Syatem Map](https://joshworth.com/dev/pixelspace/pixelspace_solarsystem.html)
+If the moon were only 1 pixel - [Solar System Map](https://joshworth.com/dev/pixelspace/pixelspace_solarsystem.html)
 Spotify Visualizer - [Wavesync](https://wavesync.herokuapp.com/visualizer)
 """
