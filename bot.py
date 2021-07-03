@@ -199,11 +199,11 @@ class NicoleBot:
         
         if query.data == 'web':
             msg = USEFUL_WEBSITE_URL
-            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown")
+            context.bot.send_message(chat_id=query.message.chat.id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
             self.update_chat(context, query.message.chat.id, query.message.message_id, self.tool_menu)
 
     def dev(self, update, context):
-        info = "Made with Py3 and AIML. \nFor any queries contact [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
+        info = "Made with Py3 and AIML. \nFor any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
         update.message.reply_text(info, parse_mode="Markdown")
 
     def slap(self, update, context):
