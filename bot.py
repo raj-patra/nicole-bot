@@ -1,4 +1,4 @@
-import logging, os, aiml, requests, random, string, re
+import logging, os, aiml, requests, random, string, re, time
 import telegram as tg
 
 from PIL import Image
@@ -60,6 +60,7 @@ class NicoleBot:
     def update_chat(self, context, chat_id, message_id, menu, text="Choose your Poison :"):
         context.bot.delete_message(chat_id=chat_id, message_id=message_id)
         reply_markup = tg.InlineKeyboardMarkup(menu)
+        time.sleep(2)
         context.bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
 
     def menu_actions(self, update, context):
