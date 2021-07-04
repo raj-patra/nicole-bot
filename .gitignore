@@ -1,4 +1,4 @@
 /__pycache__
 /archive
 chat.py
-ngrok.exe
+*.exe
