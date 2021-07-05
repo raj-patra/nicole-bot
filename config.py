@@ -72,15 +72,15 @@ Appearance :
 
 Work : {}
 
-Birth Name : {}
-Alter Egos : {}
-A.K.A : {}
+*Birth Name* : {}
+*Alter Egos* : {}
+*A.K.A* : {}
 
-From : *{}*
-First Appearance : *{}*
-Publisher : *{}*
+*From* : {}
+*First Appearance* : {}
+*Publisher* : {}
 
-#{}
+*#{}*
 """
 
 # ----------------------------------------------------------------------------------
