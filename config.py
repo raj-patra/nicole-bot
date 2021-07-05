@@ -1,3 +1,10 @@
+import os
+# ----------------------------------------------------------------------------------
+
+URL = 'https://nicole-bot.herokuapp.com/'
+PORT = int(os.environ.get('PORT', 3000))
+TOKEN = str(os.environ['BOT_TOKEN'])
+
 # ----------------------------------------------------------------------------------
 
 DOG_PIC_URL = "https://dog.ceo/api/breeds/image/random"

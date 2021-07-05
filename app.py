@@ -1,11 +1,8 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from bot import NicoleBot
+from config import *
 
-import os, re
-
-PORT = int(os.environ.get('PORT', 3000))
-URL = 'https://nicole-bot.herokuapp.com/'
-TOKEN = str(os.environ['BOT_TOKEN'])
+import re
 
 def app():
     """Start the bot."""
