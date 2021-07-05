@@ -54,31 +54,31 @@ Spotify Visualizer - [Wavesync](https://wavesync.herokuapp.com/visualizer)
 HERO_MSG = """
 *{}*
 
-Stats :
-    Intelligence : *{}*
-    Strength : *{}*
-    Speed : *{}*
-    Durability : *{}*
-    Power : *{}*
-    Combat : *{}*
+*Stats :*
+    Intelligence - *{}*
+    Strength - *{}*
+    Speed - *{}*
+    Durability - *{}*
+    Power - *{}*
+    Combat - *{}*
 
-Appearance :
-    Gender : *{}*
-    Species : *{}*
-    Height : *{}*
-    Weight : *{}*
-    Eye color : *{}*
-    Hair color : *{}*
+*Appearance :*
+    Gender - *{}*
+    Species - *{}*
+    Height - *{}*
+    Weight - *{}*
+    Eye color - *{}*
+    Hair color - *{}*
 
-Work : {}
+*Work* - {}
 
-*Birth Name* : {}
-*Alter Egos* : {}
-*A.K.A* : {}
+*Birth Name* - {}
+*Alter Egos* - {}
+*A.K.A* - {}
 
-*From* : {}
-*First Appearance* : {}
-*Publisher* : {}
+*From* - {}
+*First Appearance* - {}
+*Publisher* - {}
 
 *#{}*
 """
