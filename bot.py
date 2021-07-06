@@ -9,6 +9,7 @@ class NicoleBot:
     def __init__(self):
         # Initialise AIML Kernel
         self.kernel = aiml.Kernel()
+        self.kernel.verbose(0)
         self.kernel.setBotPredicate("name", "Nicole")
 
         # Load/Learn Brain file
@@ -47,6 +48,9 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ]
 
+    def __str__(self):
+        return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
+
     def start(self, update, context):
         self.kernel.setPredicate("name", "Stranger")
         reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
@@ -57,10 +61,8 @@ class NicoleBot:
         elif "/start"in update.message.text:
             update.message.reply_text(intro, parse_mode="Markdown")
 
-    def update_chat(self, context, chat_id, message_id, menu, text="Choose your Poison :"):
-        context.bot.delete_message(chat_id=chat_id, message_id=message_id)
+    def update_chat(self, context, chat_id, menu, text="Choose your Poison :"):
         reply_markup = tg.InlineKeyboardMarkup(menu)
-        time.sleep(2)
         context.bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
 
     def menu_actions(self, update, context):
@@ -93,6 +95,9 @@ class NicoleBot:
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
 
+        context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+
         if query.data == 'img_meme':
             response = requests.get(MEME_URL).json()
             meme = response["url"]
@@ -110,21 +115,21 @@ class NicoleBot:
             else:
                 context.bot.send_photo(chat_id=chat_id, photo=meme, caption=caption, parse_mode="Markdown")
 
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
-
         if query.data == 'img_doggo':
             doggo = requests.get(DOG_PIC_URL).json()['message']
-            # caption = requests.get(DOG_CAP_URL).json()[0]['fact']
-
-            context.bot.send_photo(chat_id=chat_id, photo=doggo, caption="Dog Fact - "+"Random Dog Fact expected here. Error occured")
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
+            try:
+                caption = "Dog Fact - "+requests.get(DOG_CAP_URL).json()[0]['fact']
+            except:
+                caption = "Dog Fact - "+"Random Dog Fact expected here. Error occured"
+            context.bot.send_photo(chat_id=chat_id, photo=doggo, caption=caption)
 
         if query.data == 'img_kitty':
             kitty = requests.get(CAT_PIC_URL).json()['url']
-            # caption = requests.get(CAT_CAP_URL).json()['text']
-
-            context.bot.send_photo(photo=kitty, caption="Cat Fact - "+"Random Cat Fact expected here. Error occured", chat_id=chat_id)
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
+            try:
+                caption = "Cat Fact - "+requests.get(CAT_CAP_URL).json()['text']
+            except:
+                caption = "Cat Fact - "+"Random Cat Fact expected here. Error occured"
+            context.bot.send_photo(photo=kitty, caption=caption, chat_id=chat_id)
 
         if query.data == 'img_human':
             msg = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
@@ -133,13 +138,11 @@ class NicoleBot:
             im.save('static/person.png', 'PNG')
 
             context.bot.send_photo(photo=open('static/person.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'img_namo':
             response = requests.get(NAMO_URL).json()[0]
             meme = response["url"]
             context.bot.send_photo(chat_id=chat_id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
 
         if query.data == 'img_hero':
             try:
@@ -149,53 +152,56 @@ class NicoleBot:
             
             caption = HERO_MSG.format(response['name'], *response['powerstats'].values(), *response['appearance'].values(), response['work']['occupation'], *response['biography'].values())
             context.bot.send_photo(chat_id=chat_id, photo=response['images']['lg'], caption=caption, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.image_menu)
+        
+        self.update_chat(context, chat_id, self.image_menu)
 
     def txt_actions(self, update, context):
         query = update.callback_query
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
 
+        context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+
         if query.data == 'txt_quote':
             response = requests.get(QUOTE_URL).json()
             msg = "_{}_ \n\n- {}".format(response['content'], response['author'])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
 
         if query.data == 'txt_kanye':
             response = requests.get(KANYE_URL).json()
             msg = "Kanye REST once said, \n\n_{}_".format(response['quote'])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
             
         if query.data == 'txt_trump':
             response = requests.get(TRUMP_URL).json()
             msg = "Grumpy Donald once said, \n\n_{}_".format(response['message'])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
         
         if query.data == 'txt_daily':
             response = requests.get(DAILY_URL).json()
             msg = "Bored out your mind? \nI can suggest you something to try something out. \n\nActivity - *{}*\nType - *{}*\nParticipants Suggested - *{}*\n\n_Take it as a challenge ;)_".format(response["activity"], response["type"], response["participants"])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
 
         if query.data == 'txt_facts':
             response = requests.get(FACTS_URL).json()
             msg = "Did you know, \n\n_{}_".format(response['text'])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
         
         if query.data == 'txt_poems':
             response = random.choice(requests.get(POEMS_URL).json())
             msg = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
-            self.update_chat(context, chat_id, msg_id, self.text_menu)
+        
+        self.update_chat(context, chat_id, self.text_menu)
 
     def exe_actions(self, update, context):
         query = update.callback_query
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
+
+        context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'exe_rdm':
             rdm = requests.get(RANDOM_WEBSITE_URL)
@@ -205,27 +211,24 @@ class NicoleBot:
             msg = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
             
-            self.update_chat(context, chat_id, msg_id, self.tool_menu)
-
         if query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
 
-            context.bot.send_message(chat_id=chat_id, text="Here's your password")
-            context.bot.send_message(chat_id=chat_id, text=pwd)
-            self.update_chat(context, chat_id, msg_id, self.tool_menu)
+            text = "Here's your password.\nClick on the password to copy.\n\n`{}`".format(pwd)
+            context.bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
 
         if query.data == 'exe_age':
             name = query.message.chat.first_name
             age = str(requests.get(AGE_URL+"?name={}".format(name)).json()['age'])
-            msg = "Based on my knowledge, I think a person with the name {} would be {} years old \nI might be wrong tho :') \n\nReference: [Agify.io](https://agify.io/) \n\n_Agify predicts the age of a person given their name based on analytics, ad segmenting, demographic statistics etc._".format(name, age)
 
+            msg = "Based on my knowledge, I think a person with the name {} would be {} years old \nI might be wrong tho :') \n\nReference: [Agify.io](https://agify.io/) \n\n_Agify predicts the age of a person given their name based on analytics, ad segmenting, demographic statistics etc._".format(name, age)
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
-            self.update_chat(context, chat_id, msg_id, self.tool_menu)
         
         if query.data == 'exe_web':
             msg = USEFUL_WEBSITE_URL
             context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
-            self.update_chat(context, chat_id, msg_id, self.tool_menu)
+        
+        self.update_chat(context, chat_id, self.tool_menu)
 
     def dev(self, update, context):
         info = "Made with Py3 and AIML. \nFor any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
@@ -270,7 +273,6 @@ class NicoleBot:
 
     def error(self, update, context):
         self.logger.warning('Update "%s" caused error "%s"', update, context.error)
-        print(update)
-        msg = "Hmmm. Something went wrong. This wasn't supposed to happen though. Please try something else while we look into it. ʘ‿ʘ"
-        self.update_chat(context, update.callback_query.message.chat.id, update.callback_query.message.message_id, self.main_menu, text=msg)
+        text = "Hmmm. Something went wrong. \n\nThis wasn't supposed to happen though. Please try something else while we look into it. ʘ‿ʘ"
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=text, show_alert=True)
 

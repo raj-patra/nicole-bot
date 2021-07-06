@@ -1,8 +1,8 @@
 import os
 # ----------------------------------------------------------------------------------
 
-URL = 'https://nicole-bot.herokuapp.com/'
 PORT = int(os.environ.get('PORT', 3000))
+URL = 'https://nicole-bot.herokuapp.com/'
 TOKEN = str(os.environ['BOT_TOKEN'])
 
 # ----------------------------------------------------------------------------------
