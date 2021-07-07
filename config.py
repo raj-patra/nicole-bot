@@ -36,24 +36,26 @@ AGE_URL = "https://api.agify.io/"
 # ----------------------------------------------------------------------------------
 
 USEFUL_WEBSITE_URL = """
+Here's a list of websites that might help you surf the web better. :)
+
 *Services*
-Assemble all your links - [LinkTree](https://linktr.ee/)
-Disposable temporary email - [Temp Mail](https://temp-mail.org/en/)
-Internet spped test - [Pure Speed](http://openspeedtest.com/?ref=OST-Results)
-Read an interesting article - [Read Something Great](https://www.readsomethinggreat.com/)
+[LinkTree](https://linktr.ee/) - Assemble all your links
+[Temp Mail](https://temp-mail.org/en/) - Disposable temporary email
+[Pure Speed](http://openspeedtest.com/?ref=OST-Results) - Internet spped test
+[Read Something Great](https://www.readsomethinggreat.com/) - Read an interesting article
 
 *Utilities*
-Free web apps - [123apps](https://123apps.com/)
-Extract mp3 from youtube videos - [Youtube to MP3](https://y2mate.guru/en4/youtube-to-mp3/)
-Convert any file online - [Cloud Convert](https://cloudconvert.com/)
-Remove background from image - [Remove.bg](https://www.remove.bg/upload)
+[123apps](https://123apps.com/) - Free web apps
+[Youtube to MP3](https://y2mate.guru/en4/youtube-to-mp3/) - Extract mp3 from youtube videos
+[Cloud Convert](https://cloudconvert.com/) - Convert any file online
+[Remove.bg](https://www.remove.bg/upload) - Remove background from image
 
 *Fun*
-Create and share memes - [Imgflip.com](https://imgflip.com/)
-Random websites - [Bored Button](https://www.boredbutton.com/random)
-Live wallpaper - [Arkadia](http://arkadia.xyz/)
-If the moon were only 1 pixel - [Solar System Map](https://joshworth.com/dev/pixelspace/pixelspace_solarsystem.html)
-Spotify Visualizer - [Wavesync](https://wavesync.herokuapp.com/visualizer)
+[Imgflip.com](https://imgflip.com/) - Create and share memes
+[Bored Button](https://www.boredbutton.com/random) - Random websites
+[Arkadia](http://arkadia.xyz/) - Live wallpaper
+[Solar System Map](https://joshworth.com/dev/pixelspace/pixelspace_solarsystem.html) - If the moon were only 1 pixel 
+[Wavesync](https://wavesync.herokuapp.com/visualizer) - Spotify Visualizer
 """
 
 # ----------------------------------------------------------------------------------
