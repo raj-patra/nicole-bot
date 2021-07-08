@@ -238,7 +238,8 @@ class NicoleBot:
         chat_id = update.message.chat.id
         mention = update.message.text[5:].strip()
         # user_id = int(str(update).split("'id': ")[-1].split(',')[0])
-        user_id = int(re.findall(r'[0-9]+', str(update.message))[-1])
+        # user_id = int(re.findall(r'[0-9]+', str(update.message))[-1])
+        user_id = update.message.from_user.id
 
         photo = random.choice(context.bot.getUserProfilePhotos(user_id=user_id)['photos'])
         file_id = photo[0]['file_id']
