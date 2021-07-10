@@ -18,10 +18,10 @@ def app():
     dp.add_handler(CommandHandler("slap", nicole.slap, filters = (Filters.command | Filters.regex(r'^/slap@[\w.]+$'))))
     dp.add_handler(CommandHandler("roast", nicole.roast, filters = (Filters.command | Filters.regex(r'^/roast@[\w.]+$'))))
 
-    dp.add_handler(CallbackQueryHandler(nicole.menu_actions, pattern=re.compile(r'^main')))
-    dp.add_handler(CallbackQueryHandler(nicole.img_actions, pattern=re.compile(r'^img')))
-    dp.add_handler(CallbackQueryHandler(nicole.txt_actions, pattern=re.compile(r'^txt')))
-    dp.add_handler(CallbackQueryHandler(nicole.exe_actions, pattern=re.compile(r'^exe')))
+    dp.add_handler(CallbackQueryHandler(nicole.menu_actions, pattern=re.compile(r'^main'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(nicole.img_actions, pattern=re.compile(r'^img'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(nicole.txt_actions, pattern=re.compile(r'^txt'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(nicole.exe_actions, pattern=re.compile(r'^exe'), run_async=True))
 
     dp.add_handler(MessageHandler(Filters.text, nicole.respond))
 

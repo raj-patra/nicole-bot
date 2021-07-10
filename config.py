@@ -5,6 +5,8 @@ PORT = int(os.environ.get('PORT', 3000))
 URL = 'https://nicole-bot.herokuapp.com/'
 TOKEN = str(os.environ['BOT_TOKEN'])
 
+SPOTIFY_MOD = "BQACAgQAAxkBAAIJ3GDpbVS9Tv29xQIV22OFI8KIltHyAAKLDAACPKcIUdHpkSFp1EJoIAQ"
+
 # ----------------------------------------------------------------------------------
 
 DOG_PIC_URL = "https://dog.ceo/api/breeds/image/random"
@@ -26,12 +28,11 @@ FACTS_URL = "https://uselessfacts.jsph.pl//random.json?language=en"
 POEMS_URL = "https://www.poemist.com/api/v1/randompoems"
 KANYE_URL = "https://api.kanye.rest/"
 TRUMP_URL = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
-DAILY_URL = "https://www.boredapi.com/api/activity/"
+SHAKE_URL = "http://shakespeare-quotes-gen.herokuapp.com/api/v1/quotes/single"
 
 # ----------------------------------------------------------------------------------
 
 RANDOM_WEBSITE_URL = "https://www.boredbutton.com/random"
-AGE_URL = "https://api.agify.io/"
 
 # ----------------------------------------------------------------------------------
 
@@ -103,3 +104,18 @@ HERO_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20, 23, 24, 
 503, 504, 505, 506, 508, 509, 510, 514, 516, 517, 518, 520, 521, 522, 523, 524, 526, 527, 528, 529, 530, 531, 532, 533, 535, 536, 537, 538, 539, 540, 541, 542, 543, 545, 546, 547, 548, 549, 550, 551, 555, 556, 557, 558, 559, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 
 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 594, 595, 598, 599, 600, 601, 602, 604, 605, 607, 608, 609, 610, 611, 612, 613, 615, 618, 619, 620, 623, 625, 627, 628, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649, 650, 
 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 664, 665, 666, 667, 668, 670, 671, 672, 676, 677, 678, 679, 680, 681, 685, 686, 687, 688, 689, 690, 692, 693, 696, 697, 699, 701, 702, 703, 705, 706, 707, 708, 709, 711, 713, 714, 716, 717, 718, 719, 720, 722, 723, 724, 726, 727, 728, 729, 730, 731]
+
+# ----------------------------------------------------------------------------------
+
+SPOTIFY_CAP = """
+*Spotify Premium App*
+
+*Mod features*
+☉ Unlocked all 50M+ songs
+☉ Visual and Audio ads blocked
+☉ Spotify Connect
+☉ Unlimited Shuffle, Seek and Repeats
+☉ Extreme audio mode
+☉ Analytics disabled
+☉ Removed unnecessary permissions
+"""

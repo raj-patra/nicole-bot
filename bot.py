@@ -3,6 +3,7 @@ import telegram as tg
 
 from PIL import Image
 from bs4 import BeautifulSoup
+from telegram import replymarkup
 from config import *
 
 class NicoleBot:
@@ -22,38 +23,38 @@ class NicoleBot:
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
         self.logger = logging.getLogger(__name__)
 
-        self.main_menu =[
+        self.main_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Image APIs 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Text APIs 📝', callback_data="main_text")],
                             [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
-                        ]
-        self.image_menu=[
+                        ])
+        self.image_menu=tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'), tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
                             [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
                             [tg.InlineKeyboardButton('Cute Doggo 🐶', callback_data='img_doggo'), tg.InlineKeyboardButton('Little Kitty 🐱', callback_data='img_kitty')],
                             [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
-                        ]
-        self.text_menu =[
+                        ])
+        self.text_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Quote of the Day 💯', callback_data='txt_quote'), tg.InlineKeyboardButton('Fact of the Day 🤯', callback_data='txt_facts')],
                             [tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems')],
                             [tg.InlineKeyboardButton('Kanye REST 🧭', callback_data='txt_kanye'), tg.InlineKeyboardButton('Donald Grump 🎺', callback_data='txt_trump')], 
-                            [tg.InlineKeyboardButton('Daily Activity 🎬', callback_data='txt_daily')],
+                            [tg.InlineKeyboardButton('Blesseth Thee Shakespeare 🤡', callback_data='txt_shake')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
-                        ]
-        self.tool_menu =[
-                            [tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
-                            [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Age Predictor 🔞', callback_data='exe_age')],
+                        ])
+        self.tool_menu =tg.InlineKeyboardMarkup([
+                            [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
+                            [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
                             [tg.InlineKeyboardButton('10 Digit Password Generator', callback_data='exe_pwd')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
-                        ]
+                        ])
 
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
 
     def start(self, update, context):
         self.kernel.setPredicate("name", "Stranger")
-        reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
+        reply_markup = self.main_menu
         intro = """Hi! I am *Nicole*, a conversational chatbot. \n\nUse the /menu for tools or send a text to chat. \nGLHF"""
         menu = "Choose your poison: "
         if "/menu" in update.message.text:
@@ -61,30 +62,30 @@ class NicoleBot:
         elif "/start"in update.message.text:
             update.message.reply_text(intro, parse_mode="Markdown")
 
-    def update_chat(self, context, chat_id, menu, text="Choose your Poison :"):
-        reply_markup = tg.InlineKeyboardMarkup(menu)
-        context.bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
-
     def menu_actions(self, update, context):
         query = update.callback_query
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
 
         if query.data == 'main_image':
-            reply_markup = tg.InlineKeyboardMarkup(self.image_menu)
+            reply_markup = self.image_menu
             query.message.edit_text(text='Choose your Poison :', reply_markup=reply_markup)
 
         elif query.data == 'main_text':
-            reply_markup = tg.InlineKeyboardMarkup(self.text_menu)
+            reply_markup = self.text_menu
             query.message.edit_text(text='Choose your Poison :', reply_markup=reply_markup)
 
         elif query.data == 'main_tools':
-            reply_markup = tg.InlineKeyboardMarkup(self.tool_menu)
+            reply_markup = self.tool_menu
             query.message.edit_text(text='What can I help you with? :', reply_markup=reply_markup)
 
         elif query.data == 'main_back':
-            reply_markup = tg.InlineKeyboardMarkup(self.main_menu)
-            query.message.edit_text(text='What can I help you with? :', reply_markup=reply_markup)
+            reply_markup = self.main_menu
+            try:
+                query.message.edit_text(text='What can I help you with? :', reply_markup=reply_markup)
+            except:
+                context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+                context.bot.send_message(chat_id=chat_id, text="What can I help you with? :", reply_markup=reply_markup)
         
         elif query.data == 'main_cancel':
             context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
@@ -94,6 +95,7 @@ class NicoleBot:
         query = update.callback_query
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
+        reply_markup = self.image_menu
 
         context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
@@ -111,9 +113,9 @@ class NicoleBot:
                 caption += "#spolier"
 
             if meme.split('.')[-1] == 'gif':
-                context.bot.sendDocument(chat_id=chat_id, document = meme, caption=caption, parse_mode="Markdown")
+                context.bot.sendDocument(chat_id=chat_id, document = meme, caption=caption, parse_mode="Markdown", reply_markup=reply_markup)
             else:
-                context.bot.send_photo(chat_id=chat_id, photo=meme, caption=caption, parse_mode="Markdown")
+                context.bot.send_photo(chat_id=chat_id, photo=meme, caption=caption, parse_mode="Markdown", reply_markup=reply_markup)
 
         if query.data == 'img_doggo':
             doggo = requests.get(DOG_PIC_URL).json()['message']
@@ -121,7 +123,7 @@ class NicoleBot:
                 caption = "Dog Fact - "+requests.get(DOG_CAP_URL).json()[0]['fact']
             except:
                 caption = "Dog Fact - "+"Random Dog Fact expected here. Error occured"
-            context.bot.send_photo(chat_id=chat_id, photo=doggo, caption=caption)
+            context.bot.send_photo(chat_id=chat_id, photo=doggo, caption=caption, reply_markup=reply_markup)
 
         if query.data == 'img_kitty':
             kitty = requests.get(CAT_PIC_URL).json()['url']
@@ -129,7 +131,7 @@ class NicoleBot:
                 caption = "Cat Fact - "+requests.get(CAT_CAP_URL).json()['text']
             except:
                 caption = "Cat Fact - "+"Random Cat Fact expected here. Error occured"
-            context.bot.send_photo(photo=kitty, caption=caption, chat_id=chat_id)
+            context.bot.send_photo(photo=kitty, caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
         if query.data == 'img_human':
             msg = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
@@ -137,12 +139,12 @@ class NicoleBot:
             im = Image.open(requests.get(RANDOM_HUMAN_URL, stream=True).raw)
             im.save('static/person.png', 'PNG')
 
-            context.bot.send_photo(photo=open('static/person.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown")
+            context.bot.send_photo(photo=open('static/person.png', 'rb'), caption=msg, chat_id=chat_id, parse_mode="Markdown", reply_markup=reply_markup)
 
         if query.data == 'img_namo':
             response = requests.get(NAMO_URL).json()[0]
             meme = response["url"]
-            context.bot.send_photo(chat_id=chat_id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown")
+            context.bot.send_photo(chat_id=chat_id, photo=meme, caption="NaMo 🙏🏻", parse_mode="Markdown", reply_markup=reply_markup)
 
         if query.data == 'img_hero':
             try:
@@ -151,84 +153,69 @@ class NicoleBot:
                 response = requests.get(HERO_BASE_URL+'{}.json'.format(random.choice(HERO_IDS))).json()
             
             caption = HERO_MSG.format(response['name'], *response['powerstats'].values(), *response['appearance'].values(), response['work']['occupation'], *response['biography'].values())
-            context.bot.send_photo(chat_id=chat_id, photo=response['images']['lg'], caption=caption, parse_mode="Markdown")
+            context.bot.send_photo(chat_id=chat_id, photo=response['images']['lg'], caption=caption, parse_mode="Markdown", reply_markup=reply_markup)
         
-        self.update_chat(context, chat_id, self.image_menu)
-
     def txt_actions(self, update, context):
         query = update.callback_query
-        chat_id = query.message.chat.id
-        msg_id = query.message.message_id
-
-        context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        reply_markup = self.text_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'txt_quote':
             response = requests.get(QUOTE_URL).json()
-            msg = "_{}_ \n\n- {}".format(response['content'], response['author'])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "*{}* \n\n- {}".format(response['content'], response['author'])
 
         if query.data == 'txt_kanye':
             response = requests.get(KANYE_URL).json()
-            msg = "Kanye REST once said, \n\n_{}_".format(response['quote'])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "Kanye REST once said, \n\n*{}*".format(response['quote'])
             
         if query.data == 'txt_trump':
             response = requests.get(TRUMP_URL).json()
-            msg = "Grumpy Donald once said, \n\n_{}_".format(response['message'])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
         
-        if query.data == 'txt_daily':
-            response = requests.get(DAILY_URL).json()
-            msg = "Bored out your mind? \nI can suggest you something to try something out. \n\nActivity - *{}*\nType - *{}*\nParticipants Suggested - *{}*\n\n_Take it as a challenge ;)_".format(response["activity"], response["type"], response["participants"])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+        if query.data == 'txt_shake':
+            response = requests.get(SHAKE_URL).json()
+            text = "*{}* \n\n{}\n#{}".format(response['quote']['quote'], response["quote"]["play"], response["quote"]["theme"])
 
         if query.data == 'txt_facts':
             response = requests.get(FACTS_URL).json()
-            msg = "Did you know, \n\n_{}_".format(response['text'])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "Did you know, \n\n*{}*".format(response['text'])
         
         if query.data == 'txt_poems':
             response = random.choice(requests.get(POEMS_URL).json())
-            msg = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
         
-        self.update_chat(context, chat_id, self.text_menu)
-
+        query.message.edit_text(text=text, reply_markup=reply_markup, parse_mode="Markdown")
+        
     def exe_actions(self, update, context):
         query = update.callback_query
         chat_id = query.message.chat.id
         msg_id = query.message.message_id
 
-        context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        reply_markup = self.tool_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'exe_rdm':
             rdm = requests.get(RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
-
-            msg = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown")
+            text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
             
         if query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
-
             text = "Here's your password.\nClick on the password to copy.\n\n`{}`".format(pwd)
-            context.bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
 
-        if query.data == 'exe_age':
-            name = query.message.chat.first_name
-            age = str(requests.get(AGE_URL+"?name={}".format(name)).json()['age'])
-
-            msg = "Based on my knowledge, I think a person with the name {} would be {} years old \nI might be wrong tho :') \n\nReference: [Agify.io](https://agify.io/) \n\n_Agify predicts the age of a person given their name based on analytics, ad segmenting, demographic statistics etc._".format(name, age)
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
+        if query.data == 'exe_mod':
+            context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+            context.bot.sendDocument(chat_id=chat_id, document=SPOTIFY_MOD, caption=SPOTIFY_CAP, parse_mode="Markdown", reply_markup=reply_markup)
         
         if query.data == 'exe_web':
-            msg = USEFUL_WEBSITE_URL
-            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode="Markdown", disable_web_page_preview=True)
+            text = USEFUL_WEBSITE_URL
         
-        self.update_chat(context, chat_id, self.tool_menu)
+        try:
+            query.message.edit_text(text=text, reply_markup=reply_markup, parse_mode="Markdown", disable_web_page_preview=True)
+        except:
+            context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+            context.bot.send_message(chat_id=chat_id, text=text, parse_mode="Markdown", reply_markup=reply_markup, disable_web_page_preview=True)
 
     def dev(self, update, context):
         info = "Made with Py3 and AIML. \nFor any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
