@@ -118,4 +118,6 @@ SPOTIFY_CAP = """
 ☉ Extreme audio mode
 ☉ Analytics disabled
 ☉ Removed unnecessary permissions
+
+#android
 """
