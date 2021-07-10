@@ -51,7 +51,7 @@ Text menu
 +++++++++
 
 The image menu contains a collection of free services/APIs that mainly deal with the text format.
-It can genrate random quotes, suggest daily activities for you, or even extract poems for you from the net.
+It can genrate random quotes, speak shakespearen, or even extract poems for you from the net.
 
 A snapshot of the image menu at the time of writing this documentation is as follows.
 

@@ -22,7 +22,7 @@ copyright = '2021, a_ignorant_mortal'
 author = 'a_ignorant_mortal'
 
 # The full version, including alpha/beta/rc tags
-release = '0.4'
+release = '0.5'
 
 
 # -- General configuration ---------------------------------------------------
