@@ -89,4 +89,4 @@ class CMDHandler:
             os.remove('static/output.png')
 
         else:
-            update.message.reply_text('And whom should I slap? -_- \nReply a user in a group pls _/\_')
+            update.message.reply_text('Reply a group member\'s message with the command 🙏🏻')
