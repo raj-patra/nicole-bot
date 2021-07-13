@@ -1,42 +1,69 @@
-import os
-# ----------------------------------------------------------------------------------
+meme_handler = {
+                "slap": {
+                    "path" : "static/templates/slap.jpg",
+                    "user_resize": (100, 100),
+                    "target_resize": (100,100),
+                    "user_pos": (248, 134),
+                    "target_pos": (110, 200),
+                    "caption": "You get what you f'in deserve.",
+                    "help_pic": "https://telegra.ph/file/969c81afd325c00ff037a.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command to slap your annoying friends."
+                },
+                "shit": {
+                    "path" : "static/templates/shit.jpg",
+                    "user_resize": (51, 44),
+                    "target_resize": (92, 98),
+                    "user_pos": (109, 52),
+                    "target_pos": (65, 189),
+                    "caption": "You are a disgrace to the group.",
+                    "help_pic": "https://telegra.ph/file/099cff888a680af520a50.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they speak something shitty."
+                },
+                "haha": {
+                    "path" : "static/templates/haha.jpg",
+                    "user_resize": (170, 179),
+                    "target_resize": (103, 93),
+                    "user_pos": (104, 41),
+                    "target_pos": (401, 0),
+                    "caption": "Is this komedy?.",
+                    "help_pic": "https://telegra.ph/file/22bdb65b4b9fa090b378c.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command after you encounter a poor joke."
+                },
+                "doge": {
+                    "path" : "static/templates/strong.jpg",
+                    "user_resize": (46, 44),
+                    "target_resize": (48, 41),
+                    "user_pos": (110, 79),
+                    "target_pos": (295, 172),
+                    "caption": "I piro. U noob.",
+                    "help_pic": "https://telegra.ph/file/e9b09bdb73b9abb87eb43.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
+                },
+                "bruh": {
+                    "path" : "static/templates/bruh.jpg",
+                    "user_resize": (85, 85),
+                    "user_pos": (160, 16),
+                    "caption": "Bruh, Really?",
+                    "help_pic": "https://telegra.ph/file/f74c1decc6ab5d320879b.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when someone has ruined a moment."
+                },
+                "weak": {
+                    "path" : "static/templates/weak.jpg",
+                    "user_resize": (76, 66),
+                    "user_pos": (60, 33),
+                    "caption": "U win. I loose. F",
+                    "help_pic": "https://telegra.ph/file/ebd96b8dcf69a4ee500f8.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you accept defeat."
+                },
+            }
 
-PORT = int(os.environ.get('PORT', 3000))
-URL = 'https://nicole-bot.herokuapp.com/'
-TOKEN = str(os.environ['BOT_TOKEN'])
+# ----------------------------------------------------------------------------------
 
 SPOTIFY_MOD = "BQACAgQAAxkBAAIJ3GDpbVS9Tv29xQIV22OFI8KIltHyAAKLDAACPKcIUdHpkSFp1EJoIAQ"
 
 # ----------------------------------------------------------------------------------
 
-DOG_PIC_URL = "https://dog.ceo/api/breeds/image/random"
-DOG_CAP_URL = "https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1"
-CAT_PIC_URL = "https://thatcopy.pw/catapi/rest/"
-CAT_CAP_URL = "https://cat-fact.herokuapp.com/facts/random"
-
-RANDOM_HUMAN_URL = "https://thispersondoesnotexist.com/image"
-MEME_URL = "https://meme-api.herokuapp.com/gimme"
-NAMO_URL = "https://namo-memes.herokuapp.com/memes/1"
-HERO_BASE_URL = "https://akabab.github.io/superhero-api/api/id/"
-HERO_CDN_URL = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
-
-# ----------------------------------------------------------------------------------
-
-QUOTE_URL = "https://api.quotable.io/random"
-INSULT_URL = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
-FACTS_URL = "https://uselessfacts.jsph.pl//random.json?language=en"
-POEMS_URL = "https://www.poemist.com/api/v1/randompoems"
-KANYE_URL = "https://api.kanye.rest/"
-TRUMP_URL = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
-SHAKE_URL = "http://shakespeare-quotes-gen.herokuapp.com/api/v1/quotes/single"
-
-# ----------------------------------------------------------------------------------
-
-RANDOM_WEBSITE_URL = "https://www.boredbutton.com/random"
-
-# ----------------------------------------------------------------------------------
-
-USEFUL_WEBSITE_URL = """
+USEFUL_WEBSITE_MSG = """
 Here's a list of websites that might help you surf the web better. :)
 
 *Services*
