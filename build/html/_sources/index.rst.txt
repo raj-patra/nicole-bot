@@ -74,32 +74,61 @@ A snapshot of the image menu at the time of writing this documentation is as fol
 
 The Nicole bot has some handy commands which can be best utilised in a private group.
 
-* /start - Initiates the conversation with the bot.
-* /menu - Sends out the interaction menu
+**/start**
+----------
+Initiates the conversation with the bot.
 
+**/menu**
+---------
+Sends out the interaction menu
 
-* /slap - The infamous discord slap from Dank Memer. Replying group members with this will slap them for you.
+**/slap**
+---------
+The infamous discord slap from Dank Memer. Replying group members with this will slap them for you.
    .. figure:: _static/images/slap.jpg
       :align: center
-* /shit - Ew, I stepped on shit, but for group chats, when members posts something shitty.
+
+**/shit**
+---------      
+Ew, I stepped on shit, but for group chats, when members posts something shitty.
    .. figure:: _static/images/shit.jpg
       :align: center
-* /haha - For those unfunny moments, when you can't resist being sarcastic.
+
+**/haha**
+---------
+For those unfunny moments, when you can't resist being sarcastic.
    .. figure:: _static/images/haha.jpg
       :align: center
-* /doge - Won an argument? Show them who is boss. Daddy doge to the rescue.
+
+**/doge**
+---------
+Won an argument? Show them who is boss. Daddy doge to the rescue.
    .. figure:: _static/images/doge.jpg
       :align: center
-* /weak - Lost an argument? Maybe it's time to accept defeat with cheems.
+
+**/weak**
+---------
+Lost an argument? Maybe it's time to accept defeat with cheems.
    .. figure:: _static/images/weak.jpg
       :align: center
-* /bruh - We've all been in a "bruh" moment atleast once in our lives. This is for those situations
+
+**/bruh**
+---------
+We've all been in a "bruh" moment atleast once in our lives. This is for those situations
    .. figure:: _static/images/bruh.jpg
       :align: center
-* /roast - Yep, you've guessed it. It roasts your group members from your behalf, you just need to reply their message.
 
-* /help - This command helps you understand the right conditions to invoke the commands in.
-* /dev - Last but not least, the developer's contact. For any queries or suggestions or feedback.
+**/roast**
+----------
+Yep, you've guessed it. It roasts your group members from your behalf, you just need to reply their message.
+
+**/help**
+---------
+This command helps you understand the right conditions to invoke the commands in.
+
+**/dev**
+--------
+Last but not least, the developer's contact. For any queries or suggestions or feedback.
 
 NOTE - The said bot doesn't record or store any conversations, nor does it use the messages to train it's brain. The brain file is static and trained beforehand.
 
