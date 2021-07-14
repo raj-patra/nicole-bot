@@ -53,7 +53,7 @@ class CMDHandler:
                     update.message.reply_text(insult, quote=False)
                     
         except AttributeError:
-            update.message.reply_text('And whom should I roast? -_- \nReply a user in a group pls _/\_')
+            update.message.reply_text('Reply a group member\'s message with the command 🙏🏻')
 
     def get_dp(self, user_id, context):
         try:
