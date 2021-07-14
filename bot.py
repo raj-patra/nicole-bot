@@ -17,7 +17,7 @@ class NicoleBot:
         self.kernel.setBotPredicate("name", "Nicole")
 
         # Load/Learn Brain file
-        if os.path.isfile("bot_brain.brn"):
+        if os.path.isfile("static/bot_brain.brn"):
             self.kernel.bootstrap(brainFile="static/bot_brain.brn")
         else:
             self.kernel.bootstrap(learnFiles="startup.xml", commands="LOAD AIML B")
