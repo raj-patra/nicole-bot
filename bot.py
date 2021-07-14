@@ -18,10 +18,10 @@ class NicoleBot:
 
         # Load/Learn Brain file
         if os.path.isfile("bot_brain.brn"):
-            self.kernel.bootstrap(brainFile="bot_brain.brn")
+            self.kernel.bootstrap(brainFile="static/bot_brain.brn")
         else:
             self.kernel.bootstrap(learnFiles="startup.xml", commands="LOAD AIML B")
-            self.kernel.saveBrain("bot_brain.brn")
+            self.kernel.saveBrain("static/bot_brain.brn")
 
         self.kernel.setPredicate("name", "Stranger")
         self.logger = logging.getLogger(__name__)
@@ -120,6 +120,7 @@ class NicoleBot:
 
             media = open('static/person.png', 'rb')
             caption = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
+            os.remove('static/person.png')
 
         if query.data == 'img_namo':
             response = requests.get(NAMO_URL).json()[0]
