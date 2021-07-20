@@ -1,6 +1,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from bot import NicoleBot
-from handler import CMDHandler
+from handler import CHandler
+from helpers.constants import meme_handler
 
 import re, os
 
@@ -11,8 +12,9 @@ TOKEN = str(os.environ['BOT_TOKEN'])
 def app():
     """Start the bot."""
     nicole = NicoleBot()
-    cmd = CMDHandler()
+    cmd = CHandler()
     updater = Updater(TOKEN, use_context=True)
+    memes = list(meme_handler.keys())
 
     dp = updater.dispatcher
 
@@ -22,7 +24,7 @@ def app():
     dp.add_handler(CommandHandler("dev", cmd.dev, filters = (Filters.command)))
     
     dp.add_handler(CommandHandler("roast", cmd.roast, filters = (Filters.command)))
-    dp.add_handler(CommandHandler(["slap", "shit", "bruh", "haha", "doge", "weak"], cmd.meme, filters = (Filters.command)))
+    dp.add_handler(CommandHandler(memes, cmd.meme, filters = (Filters.command)))
 
     dp.add_handler(CallbackQueryHandler(nicole.menu_actions, pattern=re.compile(r'^main'), run_async=True))
     dp.add_handler(CallbackQueryHandler(nicole.img_actions, pattern=re.compile(r'^img'), run_async=True))

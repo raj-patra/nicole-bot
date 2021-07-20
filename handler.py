@@ -8,12 +8,13 @@ from helpers.constants import *
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 
-class CMDHandler:
+class CHandler:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.help_menu = tg.InlineKeyboardMarkup([
             [tg.InlineKeyboardButton('slap', callback_data='help_slap'),tg.InlineKeyboardButton('shit', callback_data='help_shit'),tg.InlineKeyboardButton('haha', callback_data='help_haha')],
-            [tg.InlineKeyboardButton('doge', callback_data='help_doge'),tg.InlineKeyboardButton('bruh', callback_data='help_bruh'),tg.InlineKeyboardButton('weak', callback_data='help_weak')]
+            [tg.InlineKeyboardButton('doge', callback_data='help_doge'),tg.InlineKeyboardButton('bruh', callback_data='help_bruh'),tg.InlineKeyboardButton('weak', callback_data='help_weak')],
+            [tg.InlineKeyboardButton('gaay', callback_data='help_gaay'),tg.InlineKeyboardButton('fire', callback_data='help_fire'),tg.InlineKeyboardButton('ooof', callback_data='help_ooof')],
         ])
     
     def __str__(self):
@@ -80,7 +81,7 @@ class CMDHandler:
             user_dp = self.get_dp(user_id, context).resize(meme_handler[cmd]["user_resize"])
             meme.paste(user_dp, meme_handler[cmd]["user_pos"])
 
-            if cmd not in ['bruh', 'weak']:
+            if cmd not in ['bruh', 'weak', 'gaay', 'ooof']:
                 target_dp = self.get_dp(target_id, context).resize(meme_handler[cmd]["target_resize"])
                 meme.paste(target_dp, meme_handler[cmd]["target_pos"])
             
