@@ -31,8 +31,10 @@ class CHandler:
         query.message.edit_media(tg.InputMediaPhoto(media=meme_handler[cmd]["help_pic"], caption=meme_handler[cmd]["help_text"]), reply_markup=self.help_menu)
 
     def dev(self, update, context):
-        info = "Made with Py3 and AIML. \nFor any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal) \n\nMore about the dev: [Linktree](https://linktr.ee/ign_mortal)"
-        update.message.reply_text(info, parse_mode="Markdown")
+        reply_markup = tg.InlineKeyboardMarkup([
+            [tg.InlineKeyboardButton("LinkTree", url=LINKTREE_URL), tg.InlineKeyboardButton("GitHub", url=GITHUB_REPO_URL)]
+        ])
+        update.message.reply_text(DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
 
     def roast(self, update, context):
         # insult = requests.get(INSULT_URL).json()['insult']

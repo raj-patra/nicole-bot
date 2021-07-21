@@ -85,7 +85,32 @@ meme_handler = {
 
 # ----------------------------------------------------------------------------------
 
+DEV_TXT = """
+Made with focus, commitment and sheer f'in will.
+Probably some py3 too ;)
+
+For any queries contact, [a_ignorant_mortal](https://t.me/a_ignorant_mortal)
+More about the dev:
+"""
+
+# ----------------------------------------------------------------------------------
+
+
 SPOTIFY_MOD = "BQACAgQAAxkBAAIJ3GDpbVS9Tv29xQIV22OFI8KIltHyAAKLDAACPKcIUdHpkSFp1EJoIAQ"
+SPOTIFY_CAP = """
+*Spotify Premium App*
+
+*Mod features*
+☉ Unlocked all 50M+ songs
+☉ Visual and Audio ads blocked
+☉ Spotify Connect
+☉ Unlimited Shuffle, Seek and Repeats
+☉ Extreme audio mode
+☉ Analytics disabled
+☉ Removed unnecessary permissions
+
+#android
+"""
 
 # ----------------------------------------------------------------------------------
 
@@ -159,18 +184,3 @@ HERO_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20, 23, 24, 
 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 664, 665, 666, 667, 668, 670, 671, 672, 676, 677, 678, 679, 680, 681, 685, 686, 687, 688, 689, 690, 692, 693, 696, 697, 699, 701, 702, 703, 705, 706, 707, 708, 709, 711, 713, 714, 716, 717, 718, 719, 720, 722, 723, 724, 726, 727, 728, 729, 730, 731]
 
 # ----------------------------------------------------------------------------------
-
-SPOTIFY_CAP = """
-*Spotify Premium App*
-
-*Mod features*
-☉ Unlocked all 50M+ songs
-☉ Visual and Audio ads blocked
-☉ Spotify Connect
-☉ Unlimited Shuffle, Seek and Repeats
-☉ Extreme audio mode
-☉ Analytics disabled
-☉ Removed unnecessary permissions
-
-#android
-"""
