@@ -18,7 +18,7 @@ class CHandler:
         ])
     
     def __str__(self):
-        return "CMDHandler helps handle all commands of Nicole."
+        return "CHandler helps handle all commands of Nicole."
 
     def help(self, update, context):
         caption = "Here's a list of commands available for Nicole right now. \n\nClick on any of the buttons below to see how to properly invoke these commands."
@@ -73,6 +73,7 @@ class CHandler:
         if update.message.reply_to_message:
             try:
                 target_id = update.message.reply_to_message.from_user.id
+                target_msg = update.message.reply_to_message.message_id
                 target_name = '@'+update.message.reply_to_message.from_user.username
             except TypeError:
                 target_name = update.message.reply_to_message.from_user.first_name  
@@ -86,7 +87,7 @@ class CHandler:
                 meme.paste(target_dp, meme_handler[cmd]["target_pos"])
             
             meme.save('static/output.png', 'PNG')
-            update.message.reply_photo(open('static/output.png', 'rb'), caption=target_name+' '+meme_handler[cmd]["caption"], reply_to_message_id=update.message.reply_to_message.message_id)
+            update.message.reply_photo(open('static/output.png', 'rb'), caption=target_name+' '+meme_handler[cmd]["caption"], reply_to_message_id=target_msg)
             os.remove('static/output.png')
 
         else:
