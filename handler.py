@@ -37,7 +37,7 @@ class CHandler:
         update.message.reply_text(DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
 
     def roast(self, update, context):
-        # insult = requests.get(INSULT_URL).json()['insult']
+        # insult = requests.get(INSULT_API).json()['insult']
         try:
             if update.message.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
                 update.message.reply_text("Classic... You thought you could fool me into roasting myself? :) \n\nNot gonna happen.")

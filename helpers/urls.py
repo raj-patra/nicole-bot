@@ -11,21 +11,21 @@ ANIMALS_API = {
     "dog_url": "https://random.dog/woof.json"
 }
 
-RANDOM_HUMAN_URL = "https://thispersondoesnotexist.com/image"
-MEME_URL = "https://meme-api.herokuapp.com/gimme"
-NAMO_URL = "https://namo-memes.herokuapp.com/memes/1"
-HERO_BASE_URL = "https://akabab.github.io/superhero-api/api/id/"
-HERO_CDN_URL = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
+RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image"
+MEME_API = "https://meme-api.herokuapp.com/gimme"
+NAMO_API = "https://namo-memes.herokuapp.com/memes/1"
+HERO_BASE_API = "https://akabab.github.io/superhero-api/api/id/"
+HERO_CDN_API = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
 
 # ----------------------------------------------------------------------------------
 
-QUOTE_URL = "https://api.quotable.io/random"
-INSULT_URL = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
-FACTS_URL = "https://uselessfacts.jsph.pl//random.json?language=en"
-POEMS_URL = "https://www.poemist.com/api/v1/randompoems"
-KANYE_URL = "https://api.kanye.rest/"
-TRUMP_URL = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
-SHAKE_URL = "http://shakespeare-quotes-gen.herokuapp.com/api/v1/quotes/single"
+QUOTE_API = "https://api.quotable.io/random"
+INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
+FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
+POEMS_API = "https://www.poemist.com/api/v1/randompoems"
+KANYE_API = "https://api.kanye.rest/"
+TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
+SHAKE_API = "http://shakespeare-quotes-gen.herokuapp.com/api/v1/quotes/single"
 
 # ----------------------------------------------------------------------------------
 

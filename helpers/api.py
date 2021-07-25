@@ -6,7 +6,7 @@ import requests, random, os
 
 def get_meme():
     try:
-        response = requests.get(MEME_URL).json()
+        response = requests.get(MEME_API).json()
         media = response["url"]
         caption = """*{}* \n\nPosted in [r/{}](www.reddit.com/r/{}) by [u/{}](www.reddit.com/user/{}) \nLink - {}
         
@@ -92,7 +92,7 @@ def get_asciify(user_dp):
 
 def get_human():
     try:
-        im = Image.open(requests.get(RANDOM_HUMAN_URL, stream=True).raw)
+        im = Image.open(requests.get(RANDOM_HUMAN_API, stream=True).raw)
         im.save('static/output.png', 'PNG')
         im.close()
 
@@ -106,7 +106,7 @@ def get_human():
 
 def get_namo():
     try:
-        response = requests.get(NAMO_URL)
+        response = requests.get(NAMO_API)
         if response.status_code == 200:
             media = response.json()[0]["url"]
             caption = "NaMo 🙏🏻"
@@ -122,9 +122,9 @@ def get_hero():
     try:
         while True:
             try:
-                response = requests.get(HERO_CDN_URL+'{}.json'.format(random.randint(1, 732)))
+                response = requests.get(HERO_CDN_API+'{}.json'.format(random.randint(1, 732)))
             except:
-                response = requests.get(HERO_BASE_URL+'{}.json'.format(random.randint(1, 732)))
+                response = requests.get(HERO_BASE_API+'{}.json'.format(random.randint(1, 732)))
 
             if response.status_code == 200:
                 break
@@ -145,27 +145,27 @@ def get_hero():
 def get_caption(query_data):
     try:
         if query_data == 'txt_quote':
-            response = requests.get(QUOTE_URL).json()
+            response = requests.get(QUOTE_API).json()
             caption = "*{}* \n\n- {}".format(response['content'], response['author'])
 
         if query_data == 'txt_facts':
-            response = requests.get(FACTS_URL).json()
+            response = requests.get(FACTS_API).json()
             caption = "Did you know, \n\n*{}*".format(response['text'])
 
         if query_data == 'txt_poems':
-            response = random.choice(requests.get(POEMS_URL).json())
+            response = random.choice(requests.get(POEMS_API).json())
             caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
         if query_data == 'txt_kanye':
-            response = requests.get(KANYE_URL).json()
+            response = requests.get(KANYE_API).json()
             caption = "Kanye REST once said, \n\n*{}*".format(response['quote'])
 
         if query_data == 'txt_trump':
-            response = requests.get(TRUMP_URL).json()
+            response = requests.get(TRUMP_API).json()
             caption = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
 
         if query_data == 'txt_shake':
-            response = requests.get(SHAKE_URL).json()
+            response = requests.get(SHAKE_API).json()
             caption = "*{}* \n\n{}\n#{}".format(response['quote']['quote'], response["quote"]["play"], response["quote"]["theme"])
 
         error = False
