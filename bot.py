@@ -3,15 +3,17 @@ import telegram as tg
 
 from PIL import Image
 from bs4 import BeautifulSoup
+
 from helpers.constants import *
 from helpers.urls import *
+from helpers.api import *
+from handler import CHandler
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 
 class NicoleBot:
     def __init__(self):
-        # Initialise AIML Kernel
         self.kernel = aiml.Kernel()
         self.kernel.verbose(0)
         self.kernel.setBotPredicate("name", "Nicole")
@@ -34,7 +36,7 @@ class NicoleBot:
         self.image_menu=tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'), tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
                             [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
-                            [tg.InlineKeyboardButton('Cute Doggo 🐶', callback_data='img_doggo'), tg.InlineKeyboardButton('Little Kitty 🐱', callback_data='img_kitty')],
+                            [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='img_animal'), tg.InlineKeyboardButton('Asciify 🧑', callback_data='img_asciify')],
                             [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
@@ -57,7 +59,7 @@ class NicoleBot:
 
     def start(self, update, context):
         reply_markup = self.main_menu
-        intro = """Hi! I am *Nicole*, a conversational chatbot. \n\nUse the /menu for tools or send a text to chat. \nGLHF"""
+        intro = INTRO_TXT.format("-".join([random.choice(ADJECTIVES), random.choice(NOUNS)]))
         menu = "Choose your poison: "
         if "/menu" in update.message.text:
             update.message.reply_photo(photo=NICOLE_DP_URL, caption=menu, reply_markup=reply_markup)
@@ -89,85 +91,45 @@ class NicoleBot:
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'img_meme':
-            response = requests.get(MEME_URL).json()
-            media = response["url"]
-            caption = """*{}* \n\nPosted in [r/{}](www.reddit.com/r/{}) by [u/{}](www.reddit.com/user/{}) \nLink - {}
-            
-            """.format(response['title'], response['subreddit'], response['subreddit'], response['author'], response['author'], response['postLink'])
+            media, caption, error = get_meme()
 
-            if response['nsfw'] == True:
-                caption += "#nsfw"
-            if response['spoiler'] == True:
-                caption += "#spolier"
+        if query.data == 'img_animal':
+            media, caption, error = get_animal()
 
-        if query.data == 'img_doggo':
-            media = requests.get(DOG_PIC_URL).json()['message']
-            try:
-                caption = "Dog Fact - "+requests.get(DOG_CAP_URL).json()[0]['fact']
-            except:
-                caption = "Dog Fact - "+"Random Dog Fact expected here. Error occured"
-
-        if query.data == 'img_kitty':
-            media = requests.get(CAT_PIC_URL).json()['url']
-            try:
-                caption = "Cat Fact - "+requests.get(CAT_CAP_URL).json()['text']
-            except:
-                caption = "Cat Fact - "+"Random Cat Fact expected here. Error occured"
+        if query.data == 'img_asciify':
+            user_dp = CHandler().get_dp(query.from_user.id, context)
+            media, caption, error = get_asciify(user_dp)    
+            user_dp.close()
 
         if query.data == 'img_human':
-            im = Image.open(requests.get(RANDOM_HUMAN_URL, stream=True).raw)
-            im.save('static/person.png', 'PNG')
-
-            media = open('static/person.png', 'rb')
-            caption = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
-            os.remove('static/person.png')
+            media, caption, error = get_human()
 
         if query.data == 'img_namo':
-            response = requests.get(NAMO_URL).json()[0]
-            media = response["url"]
-            caption = "NaMo 🙏🏻"
+            media, caption, error = get_namo()
 
         if query.data == 'img_hero':
-            try:
-                response = requests.get(HERO_CDN_URL+'{}.json'.format(random.choice(HERO_IDS))).json()
-            except:
-                response = requests.get(HERO_BASE_URL+'{}.json'.format(random.choice(HERO_IDS))).json()
-
-            media = response['images']['lg']
-            caption = HERO_MSG.format(response['name'], *response['powerstats'].values(), *response['appearance'].values(), response['work']['occupation'], *response['biography'].values())
-
-        query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            media, caption, error = get_hero()
+            
+        if error:
+            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+        else:
+            query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+        
+        if os.path.exists('static/output.png'):
+            media.close()
+            os.remove('static/output.png')
         
     def txt_actions(self, update, context):
         query = update.callback_query
         reply_markup = self.text_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'txt_quote':
-            response = requests.get(QUOTE_URL).json()
-            text = "*{}* \n\n- {}".format(response['content'], response['author'])
-
-        if query.data == 'txt_kanye':
-            response = requests.get(KANYE_URL).json()
-            text = "Kanye REST once said, \n\n*{}*".format(response['quote'])
-            
-        if query.data == 'txt_trump':
-            response = requests.get(TRUMP_URL).json()
-            text = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
+        caption, error = get_caption(query.data)
         
-        if query.data == 'txt_shake':
-            response = requests.get(SHAKE_URL).json()
-            text = "*{}* \n\n{}\n#{}".format(response['quote']['quote'], response["quote"]["play"], response["quote"]["theme"])
-
-        if query.data == 'txt_facts':
-            response = requests.get(FACTS_URL).json()
-            text = "Did you know, \n\n*{}*".format(response['text'])
-        
-        if query.data == 'txt_poems':
-            response = random.choice(requests.get(POEMS_URL).json())
-            text = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
-        
-        query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=text, parse_mode="Markdown"), reply_markup=reply_markup)
+        if error:
+            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+        else:
+            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
     def exe_actions(self, update, context):
         query = update.callback_query
@@ -205,5 +167,4 @@ class NicoleBot:
 
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
-        text = "Hmmm. Something went wrong. \n\nThis wasn't supposed to happen though. Please try something else while we look into it. ʘ‿ʘ"
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=text, show_alert=True)
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=ERROR_TXT, show_alert=True)

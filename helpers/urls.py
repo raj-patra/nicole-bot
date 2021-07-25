@@ -1,9 +1,15 @@
 # ----------------------------------------------------------------------------------
 
-DOG_PIC_URL = "https://dog.ceo/api/breeds/image/random"
-DOG_CAP_URL = "https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1"
-CAT_PIC_URL = "https://thatcopy.pw/catapi/rest/"
-CAT_CAP_URL = "https://cat-fact.herokuapp.com/facts/random"
+ANIMALS_API = {
+    "cat_url": "https://thatcopy.pw/catapi/rest/",
+    "cat_file": "https://aws.random.cat/meow",
+    "cat_shibe": "http://shibe.online/api/cats",
+    "bird_shibe": "http://shibe.online/api/birds",
+    "fox_image": "https://randomfox.ca/floof/",
+    "dog_message": "https://dog.ceo/api/breeds/image/random",
+    "dog_shibe": "http://shibe.online/api/shibes",
+    "dog_url": "https://random.dog/woof.json"
+}
 
 RANDOM_HUMAN_URL = "https://thispersondoesnotexist.com/image"
 MEME_URL = "https://meme-api.herokuapp.com/gimme"

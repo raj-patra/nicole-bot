@@ -90,6 +90,8 @@ class CHandler:
             
             meme.save('static/output.png', 'PNG')
             update.message.reply_photo(open('static/output.png', 'rb'), caption=target_name+' '+meme_handler[cmd]["caption"], reply_to_message_id=target_msg)
+
+            user_dp.close()
             os.remove('static/output.png')
 
         else:
