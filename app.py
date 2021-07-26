@@ -7,7 +7,7 @@ import re, os
 
 PORT = os.environ.get('PORT', 3000)
 AUTH = os.environ.get('BOT_TOKEN')
-URL = 'https://nicole-bot.herokuapp.com/'
+HOOK = os.environ.get('WEBHOOK')
 
 def app():
     bot = NicoleBot()
@@ -34,7 +34,7 @@ def app():
     dp.add_handler(MessageHandler(Filters.text, bot.respond))
     dp.add_error_handler(bot.error)
 
-    updater.start_webhook(listen='0.0.0.0', port=PORT, webhook_url=URL)
+    updater.start_webhook(listen='0.0.0.0', port=PORT, webhook_url=HOOK)
     updater.idle()
 
 if __name__ == '__main__':
