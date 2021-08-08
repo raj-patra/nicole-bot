@@ -31,6 +31,7 @@ SHAKE_API = "http://shakespeare-quotes-gen.herokuapp.com/api/v1/quotes/single"
 
 RANDOM_WEBSITE_URL = "https://www.boredbutton.com/random"
 NICOLE_DP_URL = "https://telegra.ph/file/7bb2425b8c76f45442f7e.jpg"
+DEV_QR_URL = "https://telegra.ph/file/8cf54a60bf37d55730e52.png"
 LINKTREE_URL = "https://linktr.ee/ign_mortal"
 GITHUB_REPO_URL = "https://github.com/raj-patra/nicole-bot"
 

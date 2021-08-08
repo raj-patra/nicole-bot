@@ -34,7 +34,7 @@ class CHandler:
         reply_markup = tg.InlineKeyboardMarkup([
             [tg.InlineKeyboardButton("LinkTree", url=LINKTREE_URL), tg.InlineKeyboardButton("GitHub", url=GITHUB_REPO_URL)]
         ])
-        update.message.reply_text(DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
+        update.message.reply_photo(photo=DEV_QR_URL, caption=DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
 
     def roast(self, update, context):
         # insult = requests.get(INSULT_API).json()['insult']
