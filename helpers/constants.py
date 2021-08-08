@@ -142,6 +142,7 @@ Here's a list of websites that might help you surf the web better. :)
 [Youtube to MP3](https://y2mate.guru/en4/youtube-to-mp3/) - Extract mp3 from youtube videos
 [Cloud Convert](https://cloudconvert.com/) - Convert any file online
 [Remove.bg](https://www.remove.bg/upload) - Remove background from image
+[Photopea](https://www.photopea.com/) - Online photo editor
 
 *Fun*
 [Imgflip.com](https://imgflip.com/) - Create and share memes
@@ -149,6 +150,7 @@ Here's a list of websites that might help you surf the web better. :)
 [Arkadia](http://arkadia.xyz/) - Live wallpaper
 [Solar System Map](https://joshworth.com/dev/pixelspace/pixelspace_solarsystem.html) - If the moon were only 1 pixel 
 [Wavesync](https://wavesync.herokuapp.com/visualizer) - Spotify Visualizer
+[Pong.ai](https://codeincomplete.com/games/pong/) - Play pong with an AI
 """
 
 # ----------------------------------------------------------------------------------
