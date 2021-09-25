@@ -2,8 +2,8 @@ import logging, os, requests, random
 import telegram as tg
 
 from PIL import Image
-from helpers.urls import *
-from helpers.constants import *
+from helpers import urls
+from helpers import constants
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -22,22 +22,21 @@ class CHandler:
 
     def help(self, update, context):
         caption = "Here's a list of commands available for Nicole right now. \n\nClick on any of the buttons below to see how to properly invoke these commands."
-        update.message.reply_photo(photo=NICOLE_DP_URL, caption=caption, reply_markup=self.help_menu)
+        update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption=caption, reply_markup=self.help_menu)
     
     def help_actions(self, update, context):
         query = update.callback_query
         cmd = query.data.split('_')[1]
 
-        query.message.edit_media(tg.InputMediaPhoto(media=meme_handler[cmd]["help_pic"], caption=meme_handler[cmd]["help_text"]), reply_markup=self.help_menu)
+        query.message.edit_media(tg.InputMediaPhoto(media=constants.meme_handler[cmd]["help_pic"], caption=constants.meme_handler[cmd]["help_text"]), reply_markup=self.help_menu)
 
     def dev(self, update, context):
         reply_markup = tg.InlineKeyboardMarkup([
-            [tg.InlineKeyboardButton("LinkTree", url=LINKTREE_URL), tg.InlineKeyboardButton("GitHub", url=GITHUB_REPO_URL)]
+            [tg.InlineKeyboardButton("LinkTree", url=urls.LINKTREE_URL), tg.InlineKeyboardButton("GitHub", url=urls.GITHUB_REPO_URL)]
         ])
-        update.message.reply_photo(photo=DEV_QR_URL, caption=DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
+        update.message.reply_photo(photo=urls.DEV_QR_URL, caption=constants.DEV_TXT, parse_mode="Markdown", reply_markup=reply_markup)
 
     def roast(self, update, context):
-        # insult = requests.get(INSULT_API).json()['insult']
         try:
             if update.message.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
                 update.message.reply_text("Classic... You thought you could fool me into roasting myself? :) \n\nNot gonna happen.")
@@ -70,7 +69,7 @@ class CHandler:
 
     def meme(self, update, context):
         cmd = update.message.text[1:5]
-        meme = Image.open(meme_handler[cmd]["path"])
+        meme = Image.open(constants.meme_handler[cmd]["path"])
 
         if update.message.reply_to_message:
             try:
@@ -81,15 +80,15 @@ class CHandler:
                 target_name = update.message.reply_to_message.from_user.first_name  
 
             user_id = update.message.from_user.id
-            user_dp = self.get_dp(user_id, context).resize(meme_handler[cmd]["user_resize"])
-            meme.paste(user_dp, meme_handler[cmd]["user_pos"])
+            user_dp = self.get_dp(user_id, context).resize(constants.meme_handler[cmd]["user_resize"])
+            meme.paste(user_dp, constants.meme_handler[cmd]["user_pos"])
 
             if cmd not in ['bruh', 'weak', 'gaay', 'ooof']:
-                target_dp = self.get_dp(target_id, context).resize(meme_handler[cmd]["target_resize"])
-                meme.paste(target_dp, meme_handler[cmd]["target_pos"])
+                target_dp = self.get_dp(target_id, context).resize(constants.meme_handler[cmd]["target_resize"])
+                meme.paste(target_dp, constants.meme_handler[cmd]["target_pos"])
             
             meme.save('static/output.png', 'PNG')
-            update.message.reply_photo(open('static/output.png', 'rb'), caption=target_name+' '+meme_handler[cmd]["caption"], reply_to_message_id=target_msg)
+            update.message.reply_photo(open('static/output.png', 'rb'), caption=target_name+' '+constants.meme_handler[cmd]["caption"], reply_to_message_id=target_msg)
 
             user_dp.close()
             os.remove('static/output.png')

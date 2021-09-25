@@ -4,9 +4,8 @@ import telegram as tg
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from helpers.constants import *
-from helpers.urls import *
-from helpers.api import *
+from helpers.api import ( get_animal, get_asciify, get_caption, get_hero, get_human, get_meme, get_namo ) 
+from helpers import constants, urls
 from handler import CHandler
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -59,10 +58,10 @@ class NicoleBot:
 
     def start(self, update, context):
         reply_markup = self.main_menu
-        intro = INTRO_TXT.format("-".join([random.choice(ADJECTIVES), random.choice(NOUNS)]))
+        intro = constants.INTRO_TXT.format("-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)]))
         menu = "Choose your poison: "
         if "/menu" in update.message.text:
-            update.message.reply_photo(photo=NICOLE_DP_URL, caption=menu, reply_markup=reply_markup)
+            update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption=menu, reply_markup=reply_markup)
         elif "/start"in update.message.text:
             update.message.reply_text(intro, parse_mode="Markdown")
 
@@ -111,7 +110,7 @@ class NicoleBot:
             media, caption, error = get_hero()
             
         if error:
-            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
             query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
@@ -127,9 +126,9 @@ class NicoleBot:
         caption, error = get_caption(query.data)
         
         if error:
-            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            query.message.edit_media(tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
     def exe_actions(self, update, context):
         query = update.callback_query
@@ -137,23 +136,23 @@ class NicoleBot:
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'exe_rdm':
-            rdm = requests.get(RANDOM_WEBSITE_URL)
+            rdm = requests.get(urls.RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
-            media = tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=text, parse_mode="Markdown")
+            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
             
         if query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "Here's your password.\nClick on the password to copy.\n\n`{}`".format(pwd)
-            media = tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=text, parse_mode="Markdown")
+            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         if query.data == 'exe_mod':
-            media = tg.InputMediaDocument(media=SPOTIFY_MOD, caption=SPOTIFY_CAP, parse_mode="Markdown")
+            media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
         
         if query.data == 'exe_web':
-            text = USEFUL_WEBSITE_MSG
-            media = tg.InputMediaPhoto(media=NICOLE_DP_URL, caption=text, parse_mode="Markdown")
+            text = constants.USEFUL_WEBSITE_MSG
+            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         query.message.edit_media(media=media, reply_markup=reply_markup)
 
@@ -164,7 +163,9 @@ class NicoleBot:
         elif update.message.reply_to_message:
             if update.message.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
                 update.message.reply_text(self.kernel.respond(update.message.text))
+            else:
+                pass #In groups, Nicole will reply if someone replies to its message
 
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=ERROR_TXT, show_alert=True)
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=constants.ERROR_TXT, show_alert=True)

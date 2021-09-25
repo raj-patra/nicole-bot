@@ -9,6 +9,7 @@ PORT = os.environ.get('PORT', 3000)
 AUTH = os.environ.get('NICOLE_BOT_TOKEN')
 HOOK = os.environ.get('WEBHOOK')
 
+
 def app():
     bot = NicoleBot()
     cmd = CHandler()
