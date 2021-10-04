@@ -164,10 +164,6 @@ def get_caption(query_data):
             response = requests.get(urls.TRUMP_API).json()
             caption = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
 
-        # if query_data == 'txt_shake':
-        #     response = requests.get(urls.SHAKE_API).json()
-        #     caption = "*{}* \n\n{}\n#{}".format(response['quote']['quote'], response["quote"]["play"], response["quote"]["theme"])
-
         error = False
     except Exception:
         caption, error = None, True
