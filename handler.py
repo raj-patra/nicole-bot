@@ -14,7 +14,7 @@ class CHandler:
         self.help_menu = tg.InlineKeyboardMarkup([
             [tg.InlineKeyboardButton('slap', callback_data='help_slap'),tg.InlineKeyboardButton('shit', callback_data='help_shit'),tg.InlineKeyboardButton('haha', callback_data='help_haha')],
             [tg.InlineKeyboardButton('doge', callback_data='help_doge'),tg.InlineKeyboardButton('bruh', callback_data='help_bruh'),tg.InlineKeyboardButton('weak', callback_data='help_weak')],
-            [tg.InlineKeyboardButton('gay', callback_data='help_gaay'),tg.InlineKeyboardButton('lit', callback_data='help_fire'),tg.InlineKeyboardButton('oof', callback_data='help_ooof')],
+            [tg.InlineKeyboardButton('gay', callback_data='help_gay'),tg.InlineKeyboardButton('lit', callback_data='help_lit'),tg.InlineKeyboardButton('oof', callback_data='help_oof')],
         ])
     
     def __str__(self):
