@@ -83,7 +83,7 @@ class CHandler:
             user_dp = self.get_dp(user_id, context).resize(constants.meme_handler[cmd]["user_resize"])
             meme.paste(user_dp, constants.meme_handler[cmd]["user_pos"])
 
-            if cmd not in ['bruh', 'weak', 'gaay', 'ooof']:
+            if cmd not in ['bruh', 'weak', 'gay', 'oof']:
                 target_dp = self.get_dp(target_id, context).resize(constants.meme_handler[cmd]["target_resize"])
                 meme.paste(target_dp, constants.meme_handler[cmd]["target_pos"])
             

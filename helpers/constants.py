@@ -39,8 +39,8 @@ meme_handler = {
                     "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
                 },
-                "fire": {
-                    "path" : "static/templates/fire.jpg",
+                "lit": {
+                    "path" : "static/templates/lit.jpg",
                     "user_resize": (50, 50),
                     "target_resize": (150, 150),
                     "user_pos": (270, 42),
@@ -65,7 +65,7 @@ meme_handler = {
                     "help_pic": "https://telegra.ph/file/e60fb21bdcff79b73ac0a.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you accept defeat."
                 },
-                "gaay": {
+                "gay": {
                     "path" : "static/templates/gay.png",
                     "user_resize": (100, 100),
                     "user_pos": (270, 15),
@@ -73,8 +73,8 @@ meme_handler = {
                     "help_pic": "https://telegra.ph/file/8ac0a91688c114bd50a7c.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they do something condemnable."
                 },
-                "ooof": {
-                    "path" : "static/templates/ooof.jpg",
+                "oof": {
+                    "path" : "static/templates/oof.jpg",
                     "user_resize": (350, 350),
                     "user_pos": (0, 0),
                     "caption": "Bigg Ooof Energy 🔥",
