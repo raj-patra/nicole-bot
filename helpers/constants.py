@@ -75,8 +75,8 @@ meme_handler = {
                 },
                 "oof": {
                     "path" : "static/templates/oof.jpg",
-                    "user_resize": (350, 350),
-                    "user_pos": (0, 0),
+                    "user_resize": (235, 195),
+                    "user_pos": (360, 150),
                     "caption": "Bigg Ooof Energy 🔥",
                     "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
