@@ -81,6 +81,16 @@ meme_handler = {
                     "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
                 },
+                "f":{
+                    "path" : "static/templates/f.jpg",
+                    "user_resize": (50, 50),
+                    "target_resize": (110, 110),
+                    "user_pos": (138, 27),
+                    "target_pos": (290, 62),
+                    "caption": "Everyone press F for our fallen comrade. 🏳",
+                    "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
+                }
             }
 
 # ----------------------------------------------------------------------------------
