@@ -40,7 +40,7 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
         self.text_menu =tg.InlineKeyboardMarkup([
-                            [tg.InlineKeyboardButton('Quote of the Day 💯', callback_data='txt_quote'), tg.InlineKeyboardButton('Fact of the Day 🤯', callback_data='txt_facts')],
+                            [tg.InlineKeyboardButton('Quotes to Live By 💯', callback_data='txt_quote'), tg.InlineKeyboardButton('Fact of the Day 🤯', callback_data='txt_facts')],
                             [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='txt_trivia')],
                             [tg.InlineKeyboardButton('Kanye REST 🧭', callback_data='txt_kanye'), tg.InlineKeyboardButton('Donald Grump 🎺', callback_data='txt_trump')], 
                             [tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems')],
