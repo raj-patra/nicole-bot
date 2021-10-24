@@ -68,7 +68,7 @@ class CHandler:
         return dp
 
     def meme(self, update, context):
-        cmd = update.message.text[1:5]
+        cmd = update.message.text.split('@')[0].split('/')[-1]
         meme = Image.open(constants.meme_handler[cmd]["path"])
 
         if update.message.reply_to_message:
