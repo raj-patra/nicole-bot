@@ -164,6 +164,10 @@ def get_caption(query_data):
             response = requests.get(urls.TRUMP_API).json()
             caption = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
 
+        if query_data == 'txt_trivia':
+            response = requests.get(random.choice(urls.TRIVIA_API)).text
+            caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
+
         error = False
     except Exception:
         caption, error = None, True
