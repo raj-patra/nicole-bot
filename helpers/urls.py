@@ -25,6 +25,12 @@ FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
 POEMS_API = "https://www.poemist.com/api/v1/randompoems"
 KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
+TRIVIA_API = [
+    "http://numbersapi.com/random/trivia",
+    "http://numbersapi.com/random/math",
+    "http://numbersapi.com/random/date",
+    "http://numbersapi.com/random/year"
+]
 
 # ----------------------------------------------------------------------------------
 
