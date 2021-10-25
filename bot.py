@@ -42,15 +42,15 @@ class NicoleBot:
         self.text_menu =tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Quotify 💯', callback_data='txt_quote'), \
-                                tg.InlineKeyboardButton('Stoic Lifestyle 🦾', callback_data='txt_stoic')
+                                tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic')
                             ],
                             [
-                                tg.InlineKeyboardButton('Fact of the Day 🤯', callback_data='txt_facts'), \
+                                tg.InlineKeyboardButton('Daily Facts 🤯', callback_data='txt_facts'), \
                                 tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='txt_trivia')
                             ],
                             [
-                                tg.InlineKeyboardButton('Kanye REST 🧭', callback_data='txt_kanye'), \
-                                tg.InlineKeyboardButton('Donald Grump 🎺', callback_data='txt_trump')
+                                tg.InlineKeyboardButton('Kanye 🧭', callback_data='txt_kanye'), \
+                                tg.InlineKeyboardButton('Donald 🎺', callback_data='txt_trump')
                             ], 
                             [
                                 tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems')
