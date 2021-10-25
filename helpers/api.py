@@ -162,11 +162,11 @@ def get_caption(query_data):
 
         elif query_data == 'txt_kanye':
             response = requests.get(urls.KANYE_API).json()
-            caption = "Kanye REST once said, \n\n*{}*".format(response['quote'])
+            caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
 
         elif query_data == 'txt_trump':
             response = requests.get(urls.TRUMP_API).json()
-            caption = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
+            caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
 
         elif query_data == 'txt_poems':
             response = random.choice(requests.get(urls.POEMS_API).json())
