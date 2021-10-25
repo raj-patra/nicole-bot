@@ -152,9 +152,9 @@ def get_caption(query_data):
             response = requests.get(urls.FACTS_API).json()
             caption = "Did you know, \n\n*{}*".format(response['text'])
 
-        elif query_data == 'txt_poems':
-            response = random.choice(requests.get(urls.POEMS_API).json())
-            caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
+        elif query_data == 'txt_trivia':
+            response = requests.get(random.choice(urls.TRIVIA_API)).text
+            caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
 
         elif query_data == 'txt_kanye':
             response = requests.get(urls.KANYE_API).json()
@@ -164,9 +164,9 @@ def get_caption(query_data):
             response = requests.get(urls.TRUMP_API).json()
             caption = "Grumpy Donald once said, \n\n*{}*".format(response['message'])
 
-        elif query_data == 'txt_trivia':
-            response = requests.get(random.choice(urls.TRIVIA_API)).text
-            caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
+        elif query_data == 'txt_poems':
+            response = random.choice(requests.get(urls.POEMS_API).json())
+            caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
         error = False
     except Exception:
