@@ -20,6 +20,7 @@ HERO_CDN_API = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
 # ----------------------------------------------------------------------------------
 
 QUOTE_API = "https://api.quotable.io/random"
+STOIC_API = "https://api.themotivate365.com/stoic-quote"
 INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
 POEMS_API = "https://www.poemist.com/api/v1/randompoems"
