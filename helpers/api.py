@@ -150,7 +150,7 @@ def get_caption(query_data):
 
         elif query_data == 'txt_anime':
             response = requests.get(urls.ANIME_API).json()
-            caption = "*{}* \n\nBy - {}\nIn - {}".format(response['quote'], response['character'], response['anime'])
+            caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
 
         elif query_data == 'txt_stoic':
             response = requests.get(urls.STOIC_API).json()
