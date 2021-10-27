@@ -42,8 +42,8 @@ class NicoleBot:
         self.text_menu =tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Quotify 💯', callback_data='txt_quote'), \
-                                tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic'), \
-                                tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')
+                                tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime'), \
+                                tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic')
                             ],
                             [
                                 tg.InlineKeyboardButton('Daily Facts 🤯', callback_data='txt_facts'), \
