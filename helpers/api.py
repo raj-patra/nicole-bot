@@ -152,6 +152,10 @@ def get_caption(query_data):
             response = requests.get(urls.STOIC_API).json()
             caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
 
+        elif query_data == 'txt_anime':
+            response = requests.get(urls.ANIME_API).json()
+            caption = "*{}* \n\nBy - {}\nIn - {}".format(response['quote'], response['character'], response['anime'])
+
         elif query_data == 'txt_facts':
             response = requests.get(urls.FACTS_API).json()
             caption = "Did you know, \n\n*{}*".format(response['text'])
