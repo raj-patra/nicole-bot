@@ -47,7 +47,7 @@ class NicoleBot:
                             ],
                             [
                                 tg.InlineKeyboardButton('Daily Facts 🤯', callback_data='txt_facts'), \
-                                tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems'), \
+                                tg.InlineKeyboardButton('Good Reads 🎶', callback_data='txt_poems'), \
                                 tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='txt_trivia')
                             ],
                             [
