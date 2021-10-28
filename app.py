@@ -8,7 +8,6 @@ import re, os
 PORT = os.environ.get('PORT', 3000)
 AUTH = os.environ.get('NICOLE_BOT_TOKEN')
 HOOK = os.environ.get('WEBHOOK')
-HOOK = "https://bd8d-103-199-182-57.ngrok.io"
 
 def app():
     bot = NicoleBot()
