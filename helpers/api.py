@@ -167,7 +167,7 @@ def get_caption(query_data):
         elif query_data == 'txt_poems':
             response = random.choice(requests.get(urls.POEMS_API).json())
             if len(response['content']) > 1000:
-                caption = "Hmm, Looks like telegram couldn't handle a long poem.\n\nOh well. Can't blame them :)"
+                caption = "Hmm, Looks like telegram couldn't handle a long poem.\n\nOh well. Can't blame them.\nTry again. Will ya? :)"
             else:
                 caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
