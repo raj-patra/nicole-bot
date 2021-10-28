@@ -47,15 +47,13 @@ class NicoleBot:
                             ],
                             [
                                 tg.InlineKeyboardButton('Daily Facts 🤯', callback_data='txt_facts'), \
+                                tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems'), \
                                 tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='txt_trivia')
                             ],
                             [
                                 tg.InlineKeyboardButton('Kanye 🧭', callback_data='txt_kanye'), \
                                 tg.InlineKeyboardButton('Donald 🎺', callback_data='txt_trump')
                             ], 
-                            [
-                                tg.InlineKeyboardButton('A Literati\'s Wet Dream 🎶', callback_data='txt_poems')
-                            ],
                             [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
