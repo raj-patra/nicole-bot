@@ -166,7 +166,10 @@ def get_caption(query_data):
         
         elif query_data == 'txt_poems':
             response = random.choice(requests.get(urls.POEMS_API).json())
-            caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
+            if len(response['content']) > 1000:
+                caption = "Hmm, Looks like telegram couldn't handle a long poem.\n\nOh well. Can't blame them :)"
+            else:
+                caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
         elif query_data == 'txt_kanye':
             response = requests.get(urls.KANYE_API).json()
