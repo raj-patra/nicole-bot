@@ -51,8 +51,9 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='txt_trivia')
                             ],
                             [
-                                tg.InlineKeyboardButton('Kanye 🧭', callback_data='txt_kanye'), \
-                                tg.InlineKeyboardButton('Donald 🎺', callback_data='txt_trump')
+                                tg.InlineKeyboardButton('Kanye West 🧭', callback_data='txt_kanye'), \
+                                tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'), \
+                                tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='txt_trump')
                             ], 
                             [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
