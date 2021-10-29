@@ -179,6 +179,10 @@ def get_caption(query_data):
             response = requests.get(urls.KANYE_API).json()
             caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
 
+        elif query_data == 'txt_heros':
+            response = requests.get(urls.HEROS_API).json()
+            caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+
         elif query_data == 'txt_trump':
             response = requests.get(urls.TRUMP_API).json()
             caption = "Donald Trump once said, \n\n*{}*".format(response['message'])

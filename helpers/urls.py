@@ -35,7 +35,7 @@ TRIVIA_API = [
 INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
 KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
-HERO_API = "https://superhero-quotes.heroku.com/random"
+HEROS_API = "https://superhero-quotes.herokuapp.com/random"
 
 # ----------------------------------------------------------------------------------
 

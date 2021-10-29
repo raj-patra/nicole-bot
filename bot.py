@@ -182,5 +182,5 @@ class NicoleBot:
 
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
-        if update.callback_query.id:
+        if update.callback_query.get("id"):
             context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=constants.ERROR_TXT, show_alert=True)
