@@ -98,11 +98,14 @@ class NicoleBot:
         if query.data == 'main_image':
             query.message.edit_reply_markup(self.image_menu)
 
+        elif query.data == 'main_tools':
+            query.message.edit_reply_markup(self.tool_menu)
+
         elif query.data == 'main_text':
             query.message.edit_reply_markup(self.text_menu)
 
-        elif query.data == 'main_tools':
-            query.message.edit_reply_markup(self.tool_menu)
+        elif query.data == 'main_fun':
+            query.message.edit_reply_markup(self.fun_menu)
 
         elif query.data == 'main_back':
             query.message.edit_reply_markup(self.main_menu)
