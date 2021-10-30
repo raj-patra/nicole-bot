@@ -193,7 +193,7 @@ def get_caption(query_data):
     
     return caption, error
 
-def get_caption(query_data):
+def get_fun_caption(query_data):
     try:
         if query_data == 'fun_kanye':
             response = requests.get(urls.KANYE_API).json()
