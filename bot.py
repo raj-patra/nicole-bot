@@ -162,7 +162,7 @@ class NicoleBot:
         
     def fun_actions(self, update, context):
         query = update.callback_query
-        reply_markup = self.text_menu
+        reply_markup = self.fun_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = get_fun_caption(query.data)
