@@ -60,6 +60,17 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ])
+        self.text_menu =tg.InlineKeyboardMarkup([
+                            [
+                                tg.InlineKeyboardButton('Kanye West 🧭', callback_data='txt_kanye'), \
+                                tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'), \
+                                tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='txt_trump')
+                            ], 
+                            [
+                                tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
+                                tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
+                            ]
+                        ])
         self.tool_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
                             [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
