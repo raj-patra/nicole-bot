@@ -4,7 +4,7 @@ import telegram as tg
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from helpers.api import ( get_animal, get_asciify, get_caption, get_hero, get_human, get_meme, get_namo ) 
+from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_hero, get_human, get_meme, get_namo ) 
 from helpers import constants, urls
 from handler import CHandler
 
@@ -151,6 +151,18 @@ class NicoleBot:
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = get_caption(query.data)
+        
+        if error:
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+        else:
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+        
+    def fun_actions(self, update, context):
+        query = update.callback_query
+        reply_markup = self.text_menu
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+
+        caption, error = get_fun_caption(query.data)
         
         if error:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)

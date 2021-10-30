@@ -193,3 +193,23 @@ def get_caption(query_data):
     
     return caption, error
 
+def get_caption(query_data):
+    try:
+        if query_data == 'fun_kanye':
+            response = requests.get(urls.KANYE_API).json()
+            caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
+
+        elif query_data == 'fun_trump':
+            response = requests.get(urls.TRUMP_API).json()
+            caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
+
+        elif query_data == 'fun_heros':
+            response = requests.get(urls.HEROS_API).json()
+            caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+
+        error = False
+    except Exception:
+        caption, error = None, True
+    
+    return caption, error
+
