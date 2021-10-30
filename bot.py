@@ -28,8 +28,8 @@ class NicoleBot:
         self.logger = logging.getLogger(__name__)
 
         self.main_menu =tg.InlineKeyboardMarkup([
-                            [tg.InlineKeyboardButton('Image APIs 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
-                            [tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text"), tg.InlineKeyboardButton('Fun Resources 🥳', callback_data="main_fun")],
+                            [tg.InlineKeyboardButton('Image Services 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Utilities 🛠', callback_data="main_tools")],
+                            [tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text"), tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
         self.image_menu=tg.InlineKeyboardMarkup([
@@ -41,7 +41,7 @@ class NicoleBot:
                         ])
         self.text_menu =tg.InlineKeyboardMarkup([
                             [
-                                tg.InlineKeyboardButton('Quotify 💯', callback_data='txt_quote'), \
+                                tg.InlineKeyboardButton('Random 💯', callback_data='txt_quote'), \
                                 tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime'), \
                                 tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic')
                             ],
