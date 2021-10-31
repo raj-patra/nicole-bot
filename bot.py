@@ -29,6 +29,7 @@ class NicoleBot:
 
         self.main_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text")],
+                            [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random")],
                             [tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun"), tg.InlineKeyboardButton('Utilities 🛠', callback_data="main_tools")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
@@ -68,7 +69,7 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ])
-        self.rdm_menu =tg.InlineKeyboardMarkup([
+        self.random_menu =tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Random Facts 🤯', callback_data='rdm_facts'), \
                                 tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')
@@ -114,6 +115,9 @@ class NicoleBot:
 
         elif query.data == 'main_fun':
             query.message.edit_reply_markup(self.fun_menu)
+
+        elif query.data == 'main_random':
+            query.message.edit_reply_markup(self.random_menu)
 
         elif query.data == 'main_back':
             query.message.edit_reply_markup(self.main_menu)
