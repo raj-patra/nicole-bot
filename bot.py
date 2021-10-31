@@ -4,7 +4,7 @@ import telegram as tg
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_fun_caption, get_hero, get_human, get_meme, get_namo ) 
+from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_rdm_caption, get_hero, get_human, get_meme, get_namo ) 
 from helpers import constants, urls
 from handler import CHandler
 
@@ -186,7 +186,7 @@ class NicoleBot:
         
     def rdm_actions(self, update, context):
         query = update.callback_query
-        reply_markup = self.fun_menu
+        reply_markup = self.random_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = get_rdm_caption(query.data)
