@@ -29,7 +29,7 @@ class NicoleBot:
 
         self.main_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text"), tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random")],
-                            [tg.InlineKeyboardButton('Utilities 🛠', callback_data="main_tools")],
+                            [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
                             [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
