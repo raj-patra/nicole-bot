@@ -68,6 +68,19 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ])
+        self.rdm_menu =tg.InlineKeyboardMarkup([
+                            [
+                                tg.InlineKeyboardButton('Random Facts 🤯', callback_data='rdm_facts'), \
+                                tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')
+                            ],
+                            [
+                                tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_trivia')
+                            ],
+                            [
+                                tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
+                                tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
+                            ]
+                        ]) 
         self.tool_menu =tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
                             [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
