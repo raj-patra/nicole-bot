@@ -8,6 +8,7 @@ import re, os
 PORT = os.environ.get('PORT', 3000)
 AUTH = os.environ.get('NICOLE_BOT_TOKEN')
 HOOK = os.environ.get('WEBHOOK')
+HOOK = "https://fdf3-103-199-182-164.ngrok.io"
 
 def app():
     bot = NicoleBot()
@@ -29,6 +30,7 @@ def app():
     dp.add_handler(CallbackQueryHandler(bot.img_actions, pattern=re.compile(r'^img'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.txt_actions, pattern=re.compile(r'^txt'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.fun_actions, pattern=re.compile(r'^fun'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(bot.rdm_actions, pattern=re.compile(r'^rdm'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.exe_actions, pattern=re.compile(r'^exe'), run_async=True))
     dp.add_handler(CallbackQueryHandler(cmd.help_actions, pattern=re.compile(r'^help'), run_async=True))
 
