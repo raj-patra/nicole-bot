@@ -27,20 +27,20 @@ class NicoleBot:
         self.kernel.setPredicate("name", "Stranger")
         self.logger = logging.getLogger(__name__)
 
-        self.main_menu =tg.InlineKeyboardMarkup([
+        self.main_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text"), tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random")],
                             [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
                             [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
-        self.image_menu=tg.InlineKeyboardMarkup([
+        self.image_menu= tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'), tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
                             [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
                             [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='img_animal'), tg.InlineKeyboardButton('Asciify 🧑', callback_data='img_asciify')],
                             [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
-        self.text_menu =tg.InlineKeyboardMarkup([
+        self.text_menu = tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Random 💯', callback_data='txt_quote'), \
                                 tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic')
@@ -53,7 +53,7 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ])
-        self.fun_menu =tg.InlineKeyboardMarkup([
+        self.fun_menu = tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Kanye West 🧭', callback_data='fun_kanye'), \
                                 tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='fun_trump')
@@ -66,7 +66,7 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ])
-        self.random_menu =tg.InlineKeyboardMarkup([
+        self.random_menu = tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Random Facts 🤯', callback_data='rdm_facts'), \
                                 tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')
@@ -79,7 +79,7 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
                         ]) 
-        self.tool_menu =tg.InlineKeyboardMarkup([
+        self.tool_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
                             [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
                             [tg.InlineKeyboardButton('10 Digit Password Generator', callback_data='exe_pwd')],
