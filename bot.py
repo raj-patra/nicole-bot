@@ -184,6 +184,18 @@ class NicoleBot:
         else:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
+    def rdm_actions(self, update, context):
+        query = update.callback_query
+        reply_markup = self.fun_menu
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+
+        caption, error = get_rdm_caption(query.data)
+        
+        if error:
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+        else:
+            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+        
     def exe_actions(self, update, context):
         query = update.callback_query
         reply_markup = self.tool_menu
