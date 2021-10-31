@@ -4,7 +4,7 @@ import telegram as tg
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_hero, get_human, get_meme, get_namo ) 
+from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_fun_caption, get_hero, get_human, get_meme, get_namo ) 
 from helpers import constants, urls
 from handler import CHandler
 
