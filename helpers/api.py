@@ -156,25 +156,6 @@ def get_caption(query_data):
             response = requests.get(urls.STOIC_API).json()
             caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
 
-        # -----------------------------------------------------------------------------------------
-
-        elif query_data == 'txt_facts':
-            response = requests.get(urls.FACTS_API).json()
-            caption = "Did you know, \n\n*{}*".format(response['text'])
-        
-        elif query_data == 'txt_poems':
-            response = random.choice(requests.get(urls.POEMS_API).json())
-            if len(response['content']) > 1000:
-                caption = "Hmm, Looks like telegram couldn't handle a long poem.\n\nOh well. Can't blame them.\nTry again. Will ya? :)"
-            else:
-                caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
-
-        elif query_data == 'txt_trivia':
-            response = requests.get(random.choice(urls.TRIVIA_API)).text
-            caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
-        
-        # -----------------------------------------------------------------------------------------
-
         error = False
     except Exception:
         caption, error = None, True
