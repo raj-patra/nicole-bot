@@ -195,6 +195,9 @@ def get_rdm_caption(query_data):
             else:
                 caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
+        elif query_data in ['rdm_trivia', 'rdm_date', 'rdm_year', 'rdm_math']:
+            url = query_data.split('_')[1]
+
         elif query_data == 'rdm_trivia':
             response = requests.get(urls.TRIVIA_API).text
             caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
