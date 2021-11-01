@@ -68,7 +68,7 @@ class NicoleBot:
                         ])
         self.random_menu = tg.InlineKeyboardMarkup([
                             [
-                                tg.InlineKeyboardButton('Random Facts 🤯', callback_data='rdm_facts'), \
+                                tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='rdm_facts'), \
                                 tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')
                             ],
                             [
