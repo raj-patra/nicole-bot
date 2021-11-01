@@ -196,23 +196,10 @@ def get_rdm_caption(query_data):
                 caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
         elif query_data in ['rdm_trivia', 'rdm_date', 'rdm_year', 'rdm_math']:
-            url = query_data.split('_')[1]
-
-        elif query_data == 'rdm_trivia':
-            response = requests.get(urls.TRIVIA_API).text
-            caption = "Here's a number trivia that you will probably never need.  \n\n*{}*".format(response)
-
-        elif query_data == 'rdm_date':
-            response = requests.get(urls.DATE_API).text
-            caption = "Here's a date trivia that you will probably never need.  \n\n*{}*".format(response)
-
-        elif query_data == 'rdm_year':
-            response = requests.get(urls.YEAR_API).text
-            caption = "Here's a year trivia that you will probably never need.  \n\n*{}*".format(response)
-
-        elif query_data == 'rdm_math':
-            response = requests.get(urls.MATH_API).text
-            caption = "Here's a math trivia that you will probably never need.  \n\n*{}*".format(response)
+            query_type = query_data.split('_')[1]
+            url = urls.TRIVIA_API[query_type]
+            response = requests.get(url).text
+            caption = "Here's a {type} trivia that you will probably never need.  \n\n*{response}*".format(type=query_type, response=response)
 
         error = False
     except Exception:
