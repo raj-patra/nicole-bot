@@ -75,6 +75,13 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_trivia')
                             ],
                             [
+                                tg.InlineKeyboardButton('Date Trivia 📆', callback_data='rdm_date'), \
+                                tg.InlineKeyboardButton('Year Trivia 📅', callback_data='rdm_year'), \
+                            ],
+                            [
+                                tg.InlineKeyboardButton('Math Trivia ➕', callback_data='rdm_math')
+                            ],
+                            [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
