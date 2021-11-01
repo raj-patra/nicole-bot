@@ -30,7 +30,8 @@ TRIVIA_API = [
     "http://numbersapi.com/random/date",
     "http://numbersapi.com/random/year"
 ]
-MATH_API =     "http://numbersapi.com/random/math"
+MATH_API = "http://numbersapi.com/random/math"
+DATE_API = "http://numbersapi.com/random/date"
 
 INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
 KANYE_API = "https://api.kanye.rest/"
