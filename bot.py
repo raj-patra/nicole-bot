@@ -72,7 +72,7 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')
                             ],
                             [
-                                tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_trivia')
+                                tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_number')
                             ],
                             [
                                 tg.InlineKeyboardButton('Date Trivia 📆', callback_data='rdm_date'), \

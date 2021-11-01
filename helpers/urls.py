@@ -26,7 +26,7 @@ ANIME_API = "https://animechan.vercel.app/api/random"
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
 POEMS_API = "https://www.poemist.com/api/v1/randompoems"
 TRIVIA_API = {
-    "trivia": "http://numbersapi.com/random/trivia",
+    "number": "http://numbersapi.com/random/trivia",
     "date": "http://numbersapi.com/random/date",
     "year": "http://numbersapi.com/random/year",
     "math": "http://numbersapi.com/random/math",
