@@ -62,9 +62,6 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='fun_trump')
                             ],
                             [
-                                tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='fun_heros')
-                            ],
-                            [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
