@@ -49,6 +49,9 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')
                             ],
                             [
+                                tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros')
+                            ],
+                            [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
