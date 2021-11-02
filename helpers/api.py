@@ -176,6 +176,9 @@ def get_fun_caption(query_data):
             response = requests.get(urls.TRUMP_API).json()
             caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
 
+        elif query_data == 'fun_roast':
+            response = requests.get(urls.ROAST_API).text
+            caption = "In case nobody ever told you, \n\n*{}*".format(response)
 
         error = False
     except Exception:
