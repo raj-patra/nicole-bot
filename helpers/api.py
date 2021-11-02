@@ -176,9 +176,6 @@ def get_fun_caption(query_data):
             response = requests.get(urls.TRUMP_API).json()
             caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
 
-        elif query_data == 'fun_heros':
-            response = requests.get(urls.HEROS_API).json()
-            caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
 
         error = False
     except Exception:
