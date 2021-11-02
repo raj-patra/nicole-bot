@@ -33,9 +33,9 @@ TRIVIA_API = {
     "math": "http://numbersapi.com/random/math",
 }
 
-INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
 KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
+INSULT_API = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
 
 # ----------------------------------------------------------------------------------
 
