@@ -159,6 +159,10 @@ def get_caption(query_data):
         elif query_data == 'txt_heros':
             response = requests.get(urls.HEROS_API).json()
             caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+        
+        elif query_data == 'txt_advice':
+            response = requests.get(urls.ADVICE_API).json()
+            caption = "Here's my two cents, \n\n*{}*".format(response['slip']['advice'])
 
         error = False
     except Exception:
