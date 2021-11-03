@@ -23,6 +23,7 @@ QUOTE_API = "https://api.quotable.io/random"
 STOIC_API = "https://api.themotivate365.com/stoic-quote"
 ANIME_API = "https://animechan.vercel.app/api/random"
 HEROS_API = "https://superhero-quotes.herokuapp.com/random"
+ADVICE_API = "https://api.adviceslip.com/advice"
 
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
 POEMS_API = "https://www.poemist.com/api/v1/randompoems"
