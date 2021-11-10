@@ -43,14 +43,14 @@ class NicoleBot:
         self.text_menu = tg.InlineKeyboardMarkup([
                             [
                                 tg.InlineKeyboardButton('Random 💯', callback_data='txt_quote'), \
-                                tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic')
                             ],
                             [
-                                tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')
+                                tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic'), \
+                                tg.InlineKeyboardButton('Free Advice 🆓', callback_data='txt_advice')
                             ],
                             [
                                 tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'), \
-                                tg.InlineKeyboardButton('Free Advice 🆓', callback_data='txt_advice')
+                                tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')
                             ],
                             [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
