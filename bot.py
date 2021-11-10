@@ -49,6 +49,9 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Free Advice 🆓', callback_data='txt_advice')
                             ],
                             [
+                                tg.InlineKeyboardButton('Build Morale 😇', callback_data='txt_affirmation')
+                            ],
+                            [
                                 tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'), \
                                 tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')
                             ],
