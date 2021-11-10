@@ -166,7 +166,7 @@ def get_caption(query_data):
         
         elif query_data == 'txt_affirmation':
             response = requests.get(urls.AFFIRMATION_API).json()
-            caption = "Hey there,\nPut your chin up,\n\n*{}*".format(response['affirmation'])
+            caption = "Hey there... Put your chin up,\n\n*{}*".format(response['affirmation'])
 
         error = False
     except Exception:
