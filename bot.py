@@ -42,7 +42,7 @@ class NicoleBot:
                         ])
         self.text_menu = tg.InlineKeyboardMarkup([
                             [
-                                tg.InlineKeyboardButton('Random 💯', callback_data='txt_quote'), \
+                                tg.InlineKeyboardButton('Random Quotes 💯', callback_data='txt_quote'), \
                             ],
                             [
                                 tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic'), \
