@@ -148,10 +148,6 @@ def get_caption(query_data):
             response = requests.get(urls.QUOTE_API).json()
             caption = "*{}* \n\n- {}".format(response['content'], response['author'])
 
-        elif query_data == 'txt_anime':
-            response = requests.get(urls.ANIME_API).json()
-            caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
-
         elif query_data == 'txt_stoic':
             response = requests.get(urls.STOIC_API).json()
             caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
@@ -167,6 +163,10 @@ def get_caption(query_data):
         elif query_data == 'txt_heros':
             response = requests.get(urls.HEROS_API).json()
             caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+
+        elif query_data == 'txt_anime':
+            response = requests.get(urls.ANIME_API).json()
+            caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
 
         error = False
     except Exception:
