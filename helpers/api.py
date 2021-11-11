@@ -167,6 +167,10 @@ def get_caption(query_data):
         elif query_data == 'txt_anime':
             response = requests.get(urls.ANIME_API).json()
             caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
+        
+        elif query_data == 'txt_inspire':
+            response = random.choice(requests.get(urls.INSPIRE_API).json())
+            caption = "*{}* \n\n- {}".format(response['text'], response['author'])
 
         error = False
     except Exception:
