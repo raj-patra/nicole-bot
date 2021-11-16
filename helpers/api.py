@@ -192,6 +192,10 @@ def get_fun_caption(query_data):
             response = requests.get(urls.ROAST_API).text
             caption = "In case nobody ever told you, \n\n*{}*".format(response)
 
+        elif query_data == 'fun_dad':
+            response = requests.get(urls.DAD_API, headers={"Accept": "application/json"}).json()
+            caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
+
         error = False
     except Exception:
         caption, error = None, True
