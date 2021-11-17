@@ -72,7 +72,8 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Roast Me 🔥', callback_data='fun_roast')
                             ],
                             [
-                                tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='fun_dad')
+                                tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='fun_dad'), \
+                                tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='fun_mom'), \
                             ],
                             [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
