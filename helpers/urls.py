@@ -40,6 +40,7 @@ KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
 ROAST_API = "https://insult.mattbas.org/api/insult"
 DAD_API = "https://icanhazdadjoke.com/"
+MAMA_API = "https://api.yomomma.info/"
 
 # ----------------------------------------------------------------------------------
 
