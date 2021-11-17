@@ -197,7 +197,7 @@ def get_fun_caption(query_data):
             caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
 
         elif query_data == 'fun_mom':
-            response = requests.get(urls.MAMA_API).json()
+            response = requests.get(urls.MOM_API).json()
             caption = "You know what, \n\n*{}*".format(response['joke'])
 
         error = False
