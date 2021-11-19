@@ -41,6 +41,7 @@ TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
 ROAST_API = "https://insult.mattbas.org/api/insult"
 DAD_API = "https://icanhazdadjoke.com/"
 MOM_API = "https://yomomma-api.herokuapp.com/jokes"
+CHUCK_API = "https://api.chucknorris.io/jokes/random"
 
 # ----------------------------------------------------------------------------------
 
