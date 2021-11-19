@@ -200,6 +200,10 @@ def get_fun_caption(query_data):
             response = requests.get(urls.MOM_API).json()
             caption = "You know what, \n\n*{}*".format(response['joke'])
 
+        elif query_data == 'fun_chuck':
+            response = requests.get(urls.CHUCK_API).json()
+            caption = "The legend has it that, \n\n*{}*".format(response['joke'])
+
         error = False
     except Exception:
         caption, error = None, True
