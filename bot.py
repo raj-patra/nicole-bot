@@ -76,6 +76,9 @@ class NicoleBot:
                                 tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='fun_mom')
                             ],
                             [
+                                tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='fun_chuck')
+                            ],
+                            [
                                 tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), \
                                 tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')
                             ]
