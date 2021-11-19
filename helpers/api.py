@@ -202,7 +202,7 @@ def get_fun_caption(query_data):
 
         elif query_data == 'fun_chuck':
             response = requests.get(urls.CHUCK_API).json()
-            caption = "The legend has it that, \n\n*{}*".format(response['joke'])
+            caption = "The legend has it that, \n\n*{}*".format(response['value'])
 
         error = False
     except Exception:
