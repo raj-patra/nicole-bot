@@ -106,7 +106,7 @@ class NicoleBot:
         self.tool_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
                             [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
-                            [tg.InlineKeyboardButton('10 Digit Password Generator', callback_data='exe_pwd')],
+                            [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
 
