@@ -236,7 +236,7 @@ class NicoleBot:
             
         if query.data == 'exe_alias':
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
-            text = "Here's your alias.\nClick on it to copy.\n\n`{}`".format(alias)
+            text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         if query.data == 'exe_mod':
