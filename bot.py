@@ -231,7 +231,7 @@ class NicoleBot:
             
         if query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
-            text = "Here's your password.\nClick on the password to copy.\n\n`{}`".format(pwd)
+            text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
             
         if query.data == 'exe_alias':
