@@ -106,7 +106,7 @@ class NicoleBot:
         self.tool_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'), tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
                             [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
-                            [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd'), tg.InlineKeyboardButton('Alias Generator', callback_data='exe_mod')],
+                            [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd'), tg.InlineKeyboardButton('Alias Generator', callback_data='exe_alias')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
 
@@ -232,6 +232,11 @@ class NicoleBot:
         if query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "Here's your password.\nClick on the password to copy.\n\n`{}`".format(pwd)
+            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
+            
+        if query.data == 'exe_alias':
+            alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
+            text = "Here's your alias.\nClick on it to copy.\n\n`{}`".format(alias)
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         if query.data == 'exe_mod':
