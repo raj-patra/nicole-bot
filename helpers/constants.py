@@ -87,7 +87,7 @@ meme_handler = {
                     "user_pos": (627, 161),
                     "caption": "Wait a minute. What? 👀",
                     "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
+                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when something doesn't add up."
                 },
                 "f":{
                     "path" : "static/templates/f.jpg",
