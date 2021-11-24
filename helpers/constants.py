@@ -85,7 +85,7 @@ meme_handler = {
                     "path" : "static/templates/holup.png",
                     "user_resize": (350, 340),
                     "user_pos": (627, 161),
-                    "caption": "Bigg Ooof Energy 🔥",
+                    "caption": "Wait a minute. What? 👀",
                     "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
                     "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
                 },
