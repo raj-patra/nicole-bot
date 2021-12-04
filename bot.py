@@ -1,12 +1,19 @@
-import logging, os, aiml, requests, random, string
+import logging
+import os
+import random
+import string
+
+import aiml
+import requests
 import telegram as tg
-
-from PIL import Image
 from bs4 import BeautifulSoup
+from PIL import Image
 
-from helpers.api import ( get_animal, get_asciify, get_caption, get_fun_caption, get_rdm_caption, get_hero, get_human, get_meme, get_namo ) 
-from helpers import constants, urls
 from handler import CHandler
+from helpers import constants, urls
+from helpers.api import (get_animal, get_asciify, get_caption, get_fun_caption,
+                         get_hero, get_human, get_meme, get_namo,
+                         get_rdm_caption)
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -230,6 +237,7 @@ class NicoleBot:
         
     def quiz_actions(self, update, context):
         query = update.callback_query
+        chat_id = query.message.chat.id
         reply_markup = self.quiz_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
@@ -238,13 +246,25 @@ class NicoleBot:
         category, question = response['category'], response['question']
         correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
         
+
         answers = incorrect_answers + [correct_answer]
         random.shuffle(answers)
         correct_answer_index = answers.index(correct_answer)
         
-        print(response)
-        print(answers)
         print(correct_answer_index)
+        
+        context.bot.send_poll(
+            chat_id=chat_id,
+            question=question,
+            options=answers,
+            type=tg.Poll.QUIZ,
+            correct_option_id=correct_answer_index,
+            open_period=urls.QUIZ_API[query.data]["timer"],
+            is_anonymous=True,
+            explanation="Category : "+category,
+            explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
+            reply_markup=reply_markup
+        )
         
         
         
