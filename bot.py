@@ -111,10 +111,9 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
         self.quiz_menu = tg.InlineKeyboardMarkup([
-                            [tg.InlineKeyboardButton('Random', callback_data='quiz_random')],
-                            [tg.InlineKeyboardButton('Easy', callback_data='quiz_easy')],
-                            [tg.InlineKeyboardButton('Medium', callback_data='quiz_medium')],
-                            [tg.InlineKeyboardButton('Hard', callback_data='quiz_hard')],
+                            [tg.InlineKeyboardButton('Random 🔀', callback_data='quiz_random')],
+                            [tg.InlineKeyboardButton('Easy 🟢', callback_data='quiz_easy'), tg.InlineKeyboardButton('Medium 🟡', callback_data='quiz_medium')],
+                            [tg.InlineKeyboardButton('Hard 🔴', callback_data='quiz_hard')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
 
@@ -148,6 +147,9 @@ class NicoleBot:
 
         elif query.data == 'main_random':
             query.message.edit_reply_markup(self.random_menu)
+
+        elif query.data == 'main_quiz':
+            query.message.edit_reply_markup(self.quiz_menu)
 
         elif query.data == 'main_back':
             query.message.edit_reply_markup(self.main_menu)
@@ -225,6 +227,26 @@ class NicoleBot:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+        
+    def quiz_actions(self, update, context):
+        query = update.callback_query
+        reply_markup = self.quiz_menu
+        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+
+        response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
+        
+        category, question = response['category'], response['question']
+        correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
+        
+        answers = incorrect_answers + [correct_answer]
+        random.shuffle(answers)
+        correct_answer_index = answers.index(correct_answer)
+        
+        print(response)
+        print(answers)
+        print(correct_answer_index)
+        
+        
         
     def exe_actions(self, update, context):
         query = update.callback_query

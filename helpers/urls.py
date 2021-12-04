@@ -14,19 +14,19 @@ ANIMALS_API = {
 # ----------------------------------------------------------------------------------
 
 QUIZ_API = {
-    "easy": {
+    "quiz_easy": {
         "url": "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple",
         "timer": 20
     },
-    "medium": {
+    "quiz_medium": {
         "url": "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple",
         "timer": 15
     },
-    "hard": {
+    "quiz_hard": {
         "url": "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple", 
         "timer": 10
     },
-    "random": {
+    "quiz_random": {
         "url": "https://opentdb.com/api.php?amount=1&type=multiple",
         "timer": 10
     }
