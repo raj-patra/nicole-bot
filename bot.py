@@ -28,6 +28,7 @@ class NicoleBot:
         self.logger = logging.getLogger(__name__)
 
         self.main_menu = tg.InlineKeyboardMarkup([
+                            [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
                             [tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text"), tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random")],
                             [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
                             [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
@@ -109,7 +110,15 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd'), tg.InlineKeyboardButton('Alias Generator', callback_data='exe_alias')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
+        self.quiz_menu = tg.InlineKeyboardMarkup([
+                            [tg.InlineKeyboardButton('Random', callback_data='quiz_random')],
+                            [tg.InlineKeyboardButton('Easy', callback_data='quiz_easy')],
+                            [tg.InlineKeyboardButton('Medium', callback_data='quiz_medium')],
+                            [tg.InlineKeyboardButton('Hard', callback_data='quiz_hard')],
+                            [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
+                        ])
 
+            
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
 
