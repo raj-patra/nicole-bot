@@ -11,6 +11,29 @@ ANIMALS_API = {
     "dog_url": "https://random.dog/woof.json"
 }
 
+# ----------------------------------------------------------------------------------
+
+QUIZ_API = {
+    "easy": {
+        "url": "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple",
+        "timer": 20
+    },
+    "medium": {
+        "url": "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple",
+        "timer": 15
+    },
+    "hard": {
+        "url": "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple", 
+        "timer": 10
+    },
+    "random": {
+        "url": "https://opentdb.com/api.php?amount=1&type=multiple",
+        "timer": 10
+    }
+}
+
+# ----------------------------------------------------------------------------------
+
 RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image"
 MEME_API = "https://meme-api.herokuapp.com/gimme"
 NAMO_API = "https://namo-memes.herokuapp.com/memes/1"
