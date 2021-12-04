@@ -246,12 +246,19 @@ class NicoleBot:
         category, question = response['category'], response['question']
         correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
         
-
+        def escape(text):
+            """HTML-escape the text in `t`."""
+            return (text
+                .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+                .replace("&#39;", "'").replace("&quot;", '"')
+                )
+        
+        question = escape(question)
         answers = incorrect_answers + [correct_answer]
         random.shuffle(answers)
         correct_answer_index = answers.index(correct_answer)
         
-        print(correct_answer_index)
+        # print(correct_answer)
         
         context.bot.send_poll(
             chat_id=chat_id,
@@ -265,8 +272,6 @@ class NicoleBot:
             explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
             reply_markup=reply_markup
         )
-        
-        
         
     def exe_actions(self, update, context):
         query = update.callback_query
