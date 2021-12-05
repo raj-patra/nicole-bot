@@ -119,8 +119,8 @@ class NicoleBot:
                         ])
         self.quiz_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Let Fate Decide 🔀', callback_data='quiz_random')],
-                            [tg.InlineKeyboardButton('Easy 🟢', callback_data='quiz_easy'), tg.InlineKeyboardButton('Medium 🟡', callback_data='quiz_medium')],
-                            [tg.InlineKeyboardButton('Hard 🔴', callback_data='quiz_hard')],
+                            [tg.InlineKeyboardButton('Beginner 🟢', callback_data='quiz_easy'), tg.InlineKeyboardButton('Skilled 🟡', callback_data='quiz_medium')],
+                            [tg.InlineKeyboardButton('Expert 🔴', callback_data='quiz_hard')],
                             [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'), tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
 
