@@ -121,7 +121,7 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('Let Fate Decide 🔀', callback_data='quiz_random')],
                             [tg.InlineKeyboardButton('Beginner 🟢', callback_data='quiz_easy'), tg.InlineKeyboardButton('No Mercy 🟡', callback_data='quiz_medium')],
                             [tg.InlineKeyboardButton('Soul Crunching 🔴', callback_data='quiz_hard')],
-                            [tg.InlineKeyboardButton('Give Up 🙉', callback_data='main_cancel')]
+                            [tg.InlineKeyboardButton('Main Menu', callback_data='quiz_menu'), tg.InlineKeyboardButton('Give Up 🙉', callback_data='main_cancel')]
                         ])
 
             
@@ -238,40 +238,48 @@ class NicoleBot:
     def quiz_actions(self, update, context):
         query = update.callback_query
         chat_id = query.message.chat.id
-        reply_markup = self.quiz_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
-
-        response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
         
-        category, question = response['category'], response['question']
-        correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
         
-        def escape(text):
-            """HTML-escape the text in `t`."""
-            return (text
-                .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
-                .replace("&#39;", "'").replace("&quot;", '"')
-                )
-        
-        question = escape(question)
-        answers = incorrect_answers + [correct_answer]
-        random.shuffle(answers)
-        correct_answer_index = answers.index(correct_answer)
-        
-        # print(correct_answer)
-        
-        context.bot.send_poll(
-            chat_id=chat_id,
-            question=question,
-            options=answers,
-            type=tg.Poll.QUIZ,
-            correct_option_id=correct_answer_index,
-            open_period=urls.QUIZ_API[query.data]["timer"],
-            is_anonymous=True,
-            explanation="Category : "+category,
-            explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
-            reply_markup=reply_markup
-        )
+        if query.data == 'quiz_menu':
+            context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+            # update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
+            context.bot.send_photo(chat_id=query.message.chat.id, photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
+            
+        else:
+            reply_markup = self.quiz_menu
+            context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+            
+            response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
+            
+            category, question = response['category'], response['question']
+            correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
+            
+            def escape(text):
+                """HTML-escape the text in `t`."""
+                return (text
+                    .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+                    .replace("&#39;", "'").replace("&quot;", '"')
+                    )
+            
+            question = escape(question)
+            answers = incorrect_answers + [correct_answer]
+            random.shuffle(answers)
+            correct_answer_index = answers.index(correct_answer)
+            
+            # print(correct_answer)
+            
+            context.bot.send_poll(
+                chat_id=chat_id,
+                question=question,
+                options=answers,
+                type=tg.Poll.QUIZ,
+                correct_option_id=correct_answer_index,
+                open_period=urls.QUIZ_API[query.data]["timer"],
+                is_anonymous=True,
+                explanation="Category : "+category,
+                explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
+                reply_markup=reply_markup
+            )
         
     def exe_actions(self, update, context):
         query = update.callback_query
