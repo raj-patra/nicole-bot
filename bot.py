@@ -265,10 +265,9 @@ class NicoleBot:
             
             question = escape(question)
             answers = incorrect_answers + [correct_answer]
+            answers = [escape(item) for item in answers]
             random.shuffle(answers)
             correct_answer_index = answers.index(correct_answer)
-            
-            # print(correct_answer)
             
             context.bot.send_poll(
                 chat_id=chat_id,
@@ -278,7 +277,7 @@ class NicoleBot:
                 correct_option_id=correct_answer_index,
                 open_period=urls.QUIZ_API[query.data]["timer"],
                 is_anonymous=True,
-                explanation="Category : "+category,
+                explanation="Category : *{}*".format(category),
                 explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
                 reply_markup=reply_markup
             )
