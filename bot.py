@@ -241,9 +241,11 @@ class NicoleBot:
         
         
         if query.data == 'quiz_menu':
-            context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-            # update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
-            context.bot.send_photo(chat_id=query.message.chat.id, photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
+            if query.message.poll == None:
+                query.message.edit_reply_markup(self.main_menu)
+            else:
+                context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+                context.bot.send_photo(chat_id=query.message.chat.id, photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
             
         else:
             reply_markup = self.quiz_menu
