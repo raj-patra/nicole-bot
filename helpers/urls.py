@@ -39,6 +39,7 @@ MEME_API = "https://meme-api.herokuapp.com/gimme"
 NAMO_API = "https://namo-memes.herokuapp.com/memes/1"
 HERO_BASE_API = "https://akabab.github.io/superhero-api/api/id/"
 HERO_CDN_API = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
+INSPIRE_BOT_API = "https://inspirobot.me/api?generate=true"
 
 # ----------------------------------------------------------------------------------
 
