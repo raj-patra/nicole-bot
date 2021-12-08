@@ -12,7 +12,7 @@ from PIL import Image
 from handler import CHandler
 from helpers import constants, urls
 from helpers.api import (get_animal, get_asciify, get_caption, get_fun_caption,
-                         get_hero, get_human, get_meme, get_namo,
+                         get_hero, get_human, get_inspire, get_meme, get_namo,
                          get_rdm_caption)
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -190,6 +190,9 @@ class NicoleBot:
 
         if query.data == 'img_hero':
             media, caption, error = get_hero()
+
+        if query.data == 'img_inspire':
+            media, caption, error = get_inspire()
             
         if error:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
