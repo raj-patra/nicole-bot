@@ -1,8 +1,11 @@
-from . import constants
-from . import urls
+import os
+import random
+
+import requests
 from PIL import Image, ImageDraw
 
-import requests, random, os
+from . import constants, urls
+
 
 def get_meme():
     try:
@@ -146,7 +149,6 @@ def get_inspire():
         media = requests.get(urls.INSPIRE_BOT_API).text
         caption = "🙏"
         error = None
-        
     except Exception:
         media, caption, error = None, None, True
     

@@ -1,9 +1,12 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+import os
+import re
+
+from telegram.ext import (CallbackQueryHandler, CommandHandler, Filters,
+                          MessageHandler, Updater)
+
 from bot import NicoleBot
 from handler import CHandler
 from helpers.constants import meme_handler
-
-import re, os
 
 PORT = os.environ.get('PORT', 3000)
 AUTH = os.environ.get('NICOLE_BOT_TOKEN')
