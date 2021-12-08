@@ -141,6 +141,16 @@ def get_hero():
     
     return media, caption, error
 
+def get_inspire():
+    try:
+        media = requests.get(urls.INSPIRE_BOT_API).text
+        caption = "🙏"
+        error = None
+        
+    except Exception:
+        media, caption, error = None, None, True
+    
+    return media, caption, error
 
 def get_caption(query_data):
     try:
