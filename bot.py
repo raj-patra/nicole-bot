@@ -319,29 +319,32 @@ class NicoleBot:
         query.message.edit_media(media=media, reply_markup=reply_markup)
 
     def respond(self, update, context):
+        
         if update.message:
-            first_name, last_name, user_name, user_id = update.message.from_user.first_name, \
-                update.message.from_user.last_name, update.message.from_user.username, \
-                    update.message.from_user.id
-                    
-            text, is_bot, chat_id, chat_type = update.message.text, \
-                update.message.from_user.is_bot, update.message.chat.id, \
-                    update.message.chat.type
-            
-            if update.message.chat.type == 'private':
-                title = update.message.chat.username
-                update.message.reply_text(self.kernel.respond(text))
-            else:
-                title = update.message.chat.title
-            
-            QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, user_name, first_name, last_name, user_id, is_bot)
+            query = update.message
+        elif update.edited_message:
+            query = update.edited_message
+        
+        first_name, last_name, user_name, user_id = query.from_user.first_name, \
+            query.from_user.last_name, query.from_user.username, \
+                query.from_user.id
                 
-        if update.edited_message and update.edited_message.chat.type == 'private':
-            update.message.reply_text(self.kernel.respond(update.message.text))
+        text, is_bot, chat_id, chat_type = query.text, \
+            query.from_user.is_bot, query.chat.id, \
+                query.chat.type
+        
+        if query.chat.type == 'private':
+            title = query.chat.username
+            query.reply_text(self.kernel.respond(text))
+        else:
+            title = query.chat.title
 
-        elif update.message.reply_to_message:
-            if update.message.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
-                update.message.reply_text(self.kernel.respond(update.message.text))
+        QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, \
+                user_name, first_name, last_name, user_id, is_bot)
+
+        if query.reply_to_message:
+            if query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
+                query.reply_text(self.kernel.respond(query.text))
             else:
                 pass #In groups, Nicole will reply if someone replies to its message
         

@@ -239,19 +239,3 @@ Name: {} {}
 ID: {}
 Is Bot: {}
 """
-
-EDITED_QUERY_GRP = """
-Group Name - *{}* (Group)
-Group ID - {}
-
-Original Message - {}
-
-Edited Message - {}
-
-Sent By:
-
-Username - @{}
-Name - {} {}
-ID - {}
-Is Bot - {}
-"""
