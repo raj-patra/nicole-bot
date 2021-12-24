@@ -318,7 +318,10 @@ class NicoleBot:
         query.message.edit_media(media=media, reply_markup=reply_markup)
 
     def respond(self, update, context):
-        if update.message.chat.type == 'private':
+        if update.message and update.message.chat.type == 'private':
+            update.message.reply_text(self.kernel.respond(update.message.text))
+                
+        if update.edited_message and update.edited_message.chat.type == 'private':
             update.message.reply_text(self.kernel.respond(update.message.text))
 
         elif update.message.reply_to_message:
