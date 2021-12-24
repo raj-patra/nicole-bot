@@ -318,6 +318,7 @@ class NicoleBot:
         query.message.edit_media(media=media, reply_markup=reply_markup)
 
     def respond(self, update, context):
+        print(update)
         if update.message and update.message.chat.type == 'private':
             update.message.reply_text(self.kernel.respond(update.message.text))
                 
@@ -329,7 +330,9 @@ class NicoleBot:
                 update.message.reply_text(self.kernel.respond(update.message.text))
             else:
                 pass #In groups, Nicole will reply if someone replies to its message
-
+        
+        context.bot.send_message(chat_id=-539323916, text="update")
+        
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
         if update.callback_query.id != None:

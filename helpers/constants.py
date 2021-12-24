@@ -226,3 +226,63 @@ ADJECTIVES = ['adorable', 'adventurous', 'aggressive', 'agreeable', 'alert', 'al
 'uptight', 'useful']
 
 # ----------------------------------------------------------------------------------
+
+MESSAGE_QUERY_GRP = """
+Group Name - *{}* (Group)
+Group ID - {}
+
+Message - {}
+
+Sent By:
+
+Username - @{}
+Name - {} {}
+ID - {}
+Is Bot - {}
+"""
+
+MESSAGE_QUERY_DM = """
+User Name - *{}* (Private)
+User ID - {}
+
+Message - {}
+
+Sent By:
+
+Username - @{}
+Name - {} {}
+ID - {}
+Is Bot - {}
+"""
+
+EDITED_QUERY_GRP = """
+Group Name - *{}* (Group)
+Group ID - {}
+
+Original Message - {}
+
+Edited Message - {}
+
+Sent By:
+
+Username - @{}
+Name - {} {}
+ID - {}
+Is Bot - {}
+"""
+
+EDITED_QUERY_DM = """
+User Name - *{}* (Private)
+User ID - {}
+
+Original Message - {}
+
+Edited Message - {}
+
+Sent By:
+
+Username - @{}
+Name - {} {}
+ID - {}
+Is Bot - {}
+"""
