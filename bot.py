@@ -323,17 +323,18 @@ class NicoleBot:
             first_name, last_name, user_name, user_id = update.message.from_user.first_name, \
                 update.message.from_user.last_name, update.message.from_user.username, \
                     update.message.from_user.id
-            text, is_bot = update.message.text, update.message.from_user.is_bot
+                    
+            text, is_bot, chat_id, chat_type = update.message.text, \
+                update.message.from_user.is_bot, update.message.chat.id, \
+                    update.message.chat.type
             
             if update.message.chat.type == 'private':
                 title = update.message.chat.username
                 update.message.reply_text(self.kernel.respond(text))
-                
-                QUERY = constants.MESSAGE_QUERY_DM.format(title, text, user_name, first_name, last_name, user_id, is_bot)
             else:
                 title = update.message.chat.title
-                group_id = update.message.chat.id
-                QUERY = constants.MESSAGE_QUERY_GRP.format(title, group_id, text, user_name, first_name, last_name, user_id, is_bot)
+            
+            QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, user_name, first_name, last_name, user_id, is_bot)
                 
         if update.edited_message and update.edited_message.chat.type == 'private':
             update.message.reply_text(self.kernel.respond(update.message.text))
@@ -344,7 +345,7 @@ class NicoleBot:
             else:
                 pass #In groups, Nicole will reply if someone replies to its message
         
-        context.bot.send_message(chat_id=-539323916, text=QUERY, parse_mode="Markdown")
+        context.bot.send_message(chat_id=-539323916, text=QUERY)
         
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
