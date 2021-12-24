@@ -348,9 +348,9 @@ class NicoleBot:
             else:
                 pass #In groups, Nicole will reply if someone replies to its message
         
-        context.bot.send_message(chat_id=-539323916, text=QUERY)
+        context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY)
         
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
-        if update.callback_query.id != None:
+        if update.callback_query.id:
             context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=constants.ERROR_TXT, show_alert=True)
