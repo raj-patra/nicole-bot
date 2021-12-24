@@ -121,7 +121,7 @@ class NicoleBot:
         self.quiz_menu = tg.InlineKeyboardMarkup([
                             [tg.InlineKeyboardButton('Let Fate Decide 🔀', callback_data='quiz_random')],
                             [tg.InlineKeyboardButton('Beginner 🟢', callback_data='quiz_easy'), tg.InlineKeyboardButton('No Mercy 🟡', callback_data='quiz_medium')],
-                            [tg.InlineKeyboardButton('Soul Crunching 🔴', callback_data='quiz_hard')],
+                            [tg.InlineKeyboardButton('Soul Crushing 🔴', callback_data='quiz_hard')],
                             [tg.InlineKeyboardButton('Main Menu', callback_data='quiz_menu'), tg.InlineKeyboardButton('Give Up 🙉', callback_data='main_cancel')]
                         ])
 
