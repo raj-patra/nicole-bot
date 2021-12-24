@@ -243,7 +243,6 @@ Is Bot - {}
 
 MESSAGE_QUERY_DM = """
 User Name - *{}* (Private)
-User ID - {}
 
 Message - {}
 
