@@ -348,7 +348,8 @@ class NicoleBot:
             else:
                 pass #In groups, Nicole will reply if someone replies to its message
         
-        context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY)
+        if chat_id != constants.EXCEMPT_GROUP:
+            context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY)
         
     def error(self, update, context):
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
