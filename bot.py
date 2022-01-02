@@ -303,25 +303,23 @@ class NicoleBot:
             soup = BeautifulSoup(rdm.text, features="html.parser")
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
-            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
             
-        if query.data == 'exe_pwd':
+        elif query.data == 'exe_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
-            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
             
-        if query.data == 'exe_alias':
+        elif query.data == 'exe_alias':
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
             text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
-            media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
+
+        elif query.data == 'exe_web':
+            text = constants.USEFUL_WEBSITE_MSG
 
         if query.data == 'exe_mod':
             media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
-        
-        if query.data == 'exe_web':
-            text = constants.USEFUL_WEBSITE_MSG
+        else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
-
+        
         query.message.edit_media(media=media, reply_markup=reply_markup)
 
     def respond(self, update, context):
