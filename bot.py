@@ -211,11 +211,11 @@ class NicoleBot:
 
         caption, error = get_caption(query.data)
             
-        reaction = requests.get(urls.YES_NO).json()['image']
-
         if error:
-            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            reaction = requests.get(urls.NO_RXN).json()['image']
+            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
+            reaction = requests.get(urls.YES_RXN).json()['image']
             query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
     def fun_actions(self, update, context):
