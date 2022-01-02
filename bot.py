@@ -240,9 +240,11 @@ class NicoleBot:
         caption, error = get_rdm_caption(query.data)
         
         if error:
-            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            reaction = requests.get(urls.NO_RXN).json()['image']
+            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            reaction = requests.get(urls.YES_RXN).json()['image']
+            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
         
     def quiz_actions(self, update, context):
         query = update.callback_query
