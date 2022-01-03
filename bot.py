@@ -43,8 +43,8 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
         self.image_menu= tg.InlineKeyboardMarkup([
-                            [tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='img_inspire')],
-                            [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'), tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
+                            [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
+                            [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'), tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='img_inspire')],
                             [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
                             [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='img_animal'), tg.InlineKeyboardButton('Asciify 🧑', callback_data='img_asciify')],
                             [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
