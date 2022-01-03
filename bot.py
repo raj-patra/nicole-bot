@@ -39,7 +39,7 @@ class NicoleBot:
                             [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
                             [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"), tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text")],
                             [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
-                            [tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun"), tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random")],
+                            [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random"), tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
                             [tg.InlineKeyboardButton('Cancel Op ❌', callback_data='main_cancel')]
                         ])
         self.image_menu= tg.InlineKeyboardMarkup([
