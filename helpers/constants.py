@@ -1,105 +1,105 @@
 meme_handler = {
-                "slap": {
-                    "path" : "static/templates/slap.jpg",
-                    "user_resize": (100, 100),
-                    "target_resize": (100,100),
-                    "user_pos": (248, 134),
-                    "target_pos": (110, 200),
-                    "caption": "You get what you f'in deserve. 😡",
-                    "help_pic": "https://telegra.ph/file/5fed13748e856d0573818.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command to slap your annoying friends."
-                },
-                "shit": {
-                    "path" : "static/templates/shit.jpg",
-                    "user_resize": (51, 44),
-                    "target_resize": (92, 98),
-                    "user_pos": (109, 52),
-                    "target_pos": (65, 189),
-                    "caption": "You are a disgrace to the group. 💩",
-                    "help_pic": "https://telegra.ph/file/66c7db77021bc9abc9534.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they speak something shitty."
-                },
-                "haha": {
-                    "path" : "static/templates/haha.jpg",
-                    "user_resize": (170, 179),
-                    "target_resize": (103, 93),
-                    "user_pos": (104, 41),
-                    "target_pos": (401, 0),
-                    "caption": "Is this komedy? 🙂",
-                    "help_pic": "https://telegra.ph/file/933e5aaeee4f525e7012a.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command after you encounter a poor joke."
-                },
-                "doge": {
-                    "path" : "static/templates/strong.jpg",
-                    "user_resize": (46, 44),
-                    "target_resize": (48, 41),
-                    "user_pos": (110, 79),
-                    "target_pos": (295, 172),
-                    "caption": "I piro. U noob. 😎",
-                    "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
-                },
-                "lit": {
-                    "path" : "static/templates/lit.jpg",
-                    "user_resize": (50, 50),
-                    "target_resize": (150, 150),
-                    "user_pos": (270, 42),
-                    "target_pos": (300, 190),
-                    "caption": "Wow, That's definitely gonna leave a mark. 💣💥",
-                    "help_pic": "https://telegra.ph/file/a809276fea0c8f3cd766f.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when the group is literally on fire."
-                },
-                "bruh": {
-                    "path" : "static/templates/bruh.jpg",
-                    "user_resize": (85, 85),
-                    "user_pos": (160, 16),
-                    "caption": "Bruh, Really? 😐",
-                    "help_pic": "https://telegra.ph/file/4e71e8b87babc7f283067.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when someone has ruined a moment."
-                },
-                "weak": {
-                    "path" : "static/templates/weak.jpg",
-                    "user_resize": (76, 66),
-                    "user_pos": (60, 33),
-                    "caption": "U win. I loose. F 😷",
-                    "help_pic": "https://telegra.ph/file/e60fb21bdcff79b73ac0a.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you accept defeat."
-                },
-                "gay": {
-                    "path" : "static/templates/gay.png",
-                    "user_resize": (100, 100),
-                    "user_pos": (270, 15),
-                    "caption": "They kept a whole month for you and you still chose to say this? 🏳‍🌈🌈",
-                    "help_pic": "https://telegra.ph/file/8ac0a91688c114bd50a7c.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they do something condemnable."
-                },
-                "oof": {
-                    "path" : "static/templates/oof.jpg",
-                    "user_resize": (235, 195),
-                    "user_pos": (360, 150),
-                    "caption": "Bigg Ooof Energy 🔥",
-                    "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
-                },
-                "holup": {
-                    "path" : "static/templates/holup.png",
-                    "user_resize": (350, 340),
-                    "user_pos": (627, 161),
-                    "caption": "Wait a minute. What? 👀",
-                    "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when something doesn't add up."
-                },
-                "f":{
-                    "path" : "static/templates/f.jpg",
-                    "user_resize": (50, 50),
-                    "target_resize": (110, 110),
-                    "user_pos": (138, 27),
-                    "target_pos": (290, 62),
-                    "caption": "Everyone press F for our fallen comrade. 🏳",
-                    "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
-                    "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
-                }
-            }
+    "slap": {
+        "path" : "static/templates/slap.jpg",
+        "user_resize": (100, 100),
+        "target_resize": (100,100),
+        "user_pos": (248, 134),
+        "target_pos": (110, 200),
+        "caption": "You get what you f'in deserve. 😡",
+        "help_pic": "https://telegra.ph/file/5fed13748e856d0573818.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command to slap your annoying friends."
+    },
+    "shit": {
+        "path" : "static/templates/shit.jpg",
+        "user_resize": (51, 44),
+        "target_resize": (92, 98),
+        "user_pos": (109, 52),
+        "target_pos": (65, 189),
+        "caption": "You are a disgrace to the group. 💩",
+        "help_pic": "https://telegra.ph/file/66c7db77021bc9abc9534.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they speak something shitty."
+    },
+    "haha": {
+        "path" : "static/templates/haha.jpg",
+        "user_resize": (170, 179),
+        "target_resize": (103, 93),
+        "user_pos": (104, 41),
+        "target_pos": (401, 0),
+        "caption": "Is this komedy? 🙂",
+        "help_pic": "https://telegra.ph/file/933e5aaeee4f525e7012a.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command after you encounter a poor joke."
+    },
+    "doge": {
+        "path" : "static/templates/strong.jpg",
+        "user_resize": (46, 44),
+        "target_resize": (48, 41),
+        "user_pos": (110, 79),
+        "target_pos": (295, 172),
+        "caption": "I piro. U noob. 😎",
+        "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
+    },
+    "lit": {
+        "path" : "static/templates/lit.jpg",
+        "user_resize": (50, 50),
+        "target_resize": (150, 150),
+        "user_pos": (270, 42),
+        "target_pos": (300, 190),
+        "caption": "Wow, That's definitely gonna leave a mark. 💣💥",
+        "help_pic": "https://telegra.ph/file/a809276fea0c8f3cd766f.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when the group is literally on fire."
+    },
+    "bruh": {
+        "path" : "static/templates/bruh.jpg",
+        "user_resize": (85, 85),
+        "user_pos": (160, 16),
+        "caption": "Bruh, Really? 😐",
+        "help_pic": "https://telegra.ph/file/4e71e8b87babc7f283067.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when someone has ruined a moment."
+    },
+    "weak": {
+        "path" : "static/templates/weak.jpg",
+        "user_resize": (76, 66),
+        "user_pos": (60, 33),
+        "caption": "U win. I loose. F 😷",
+        "help_pic": "https://telegra.ph/file/e60fb21bdcff79b73ac0a.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you accept defeat."
+    },
+    "gay": {
+        "path" : "static/templates/gay.png",
+        "user_resize": (100, 100),
+        "user_pos": (270, 15),
+        "caption": "They kept a whole month for you and you still chose to say this? 🏳‍🌈🌈",
+        "help_pic": "https://telegra.ph/file/8ac0a91688c114bd50a7c.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they do something condemnable."
+    },
+    "oof": {
+        "path" : "static/templates/oof.jpg",
+        "user_resize": (235, 195),
+        "user_pos": (360, 150),
+        "caption": "Bigg Ooof Energy 🔥",
+        "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when they say something oof worthy."
+    },
+    "holup": {
+        "path" : "static/templates/holup.png",
+        "user_resize": (350, 340),
+        "user_pos": (627, 161),
+        "caption": "Wait a minute. What? 👀",
+        "help_pic": "https://telegra.ph/file/2c5ca397c2f5bbc03ada7.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when something doesn't add up."
+    },
+    "f":{
+        "path" : "static/templates/f.jpg",
+        "user_resize": (50, 50),
+        "target_resize": (110, 110),
+        "user_pos": (138, 27),
+        "target_pos": (290, 62),
+        "caption": "Everyone press F for our fallen comrade. 🏳",
+        "help_pic": "https://telegra.ph/file/50ef566b14578470383e2.jpg",
+        "help_text": "This command works best when used as a reply to another user. \n\nReply a user in a group with the command when you've won an argument."
+    }
+}
 
 # ----------------------------------------------------------------------------------
 
@@ -203,6 +203,18 @@ HERO_MSG = """
 *Publisher* - {}
 
 *#{}*
+"""
+IMG_PERSON_CAPTION = """
+This person does not exist.
+It was imagined by a GAN (Generative Adversarial Network)
+
+Reference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)
+"""
+POEM_LIMIT_CAPTION = """
+Hmm, Looks like telegram couldn't handle a long poem.
+
+Oh well. Can't blame them.
+Try again maybe? :)
 """
 
 # ----------------------------------------------------------------------------------

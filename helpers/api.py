@@ -100,7 +100,7 @@ def get_human():
         im.close()
 
         media = open('static/output.png', 'rb')
-        caption = "This person does not exist. \nIt was imagined by a GAN (Generative Adversarial Network) \n\nReference - [ThisPersonDoesNotExist.com](https://thispersondoesnotexist.com)"
+        caption = constants.IMG_PERSON_CAPTION
         error = False
     except Exception:
         media, caption, error = None, None, True
@@ -231,7 +231,7 @@ def get_rdm_caption(query_data):
         elif query_data == 'rdm_poems':
             response = random.choice(requests.get(urls.POEMS_API).json())
             if len(response['content']) > 1000:
-                caption = "Hmm, Looks like telegram couldn't handle a long poem.\n\nOh well. Can't blame them.\nTry again. Will ya? :)"
+                caption = constants.POEM_LIMIT_CAPTION
             else:
                 caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
@@ -239,7 +239,7 @@ def get_rdm_caption(query_data):
             query_type = query_data.split('_')[1]
             url = urls.TRIVIA_API[query_type]
             response = requests.get(url).text
-            caption = "Here's a {type} trivia that you will probably never need.  \n\n*{response}*".format(type=query_type, response=response)
+            caption = "Here's a {type} trivia that you will probably never need. \n\n*{response}*".format(type=query_type, response=response)
 
         error = False
     except Exception:
