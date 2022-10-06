@@ -325,7 +325,7 @@ class NicoleBot:
             title = query.chat.title
 
         QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, \
-                user_name, first_name, last_name, user_id, is_bot)
+                first_name, last_name, user_name, user_id)
 
         if query.reply_to_message:
             if query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
@@ -334,7 +334,7 @@ class NicoleBot:
                 pass #In groups, Nicole will reply if someone replies to its message
 
         if chat_id != constants.EXCEMPT_GROUP:
-            context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY)
+            context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
     def error(self, update, context):
 

@@ -228,16 +228,14 @@ ADJECTIVES = ['adorable', 'adventurous', 'aggressive', 'agreeable', 'alert', 'al
 # ----------------------------------------------------------------------------------
 
 MESSAGE_QUERY = """
-Title: {} ({})
+*{}* ({})
 ID: {}
 
 Message: {}
 
-Sent By:
-Username: @{}
-Name: {} {}
+By:
+*{} {} (@{})*
 ID: {}
-Is Bot: {}
 """
 
 DATABASE_GROUP = -539323916
