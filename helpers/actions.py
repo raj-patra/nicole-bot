@@ -225,35 +225,34 @@ class TextActions:
 
         return caption, error
 
+    def get_joke(self, query_data):
+        try:
+            if query_data == 'joke_kanye':
+                response = requests.get(urls.KANYE_API).json()
+                caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
 
-def get_fun_caption(query_data):
-    try:
-        if query_data == 'fun_kanye':
-            response = requests.get(urls.KANYE_API).json()
-            caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
+            elif query_data == 'joke_trump':
+                response = requests.get(urls.TRUMP_API).json()
+                caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
 
-        elif query_data == 'fun_trump':
-            response = requests.get(urls.TRUMP_API).json()
-            caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
+            elif query_data == 'joke_roast':
+                response = requests.get(urls.ROAST_API).text
+                caption = "In case nobody ever told you, \n\n*{}*".format(response)
 
-        elif query_data == 'fun_roast':
-            response = requests.get(urls.ROAST_API).text
-            caption = "In case nobody ever told you, \n\n*{}*".format(response)
+            elif query_data == 'joke_dad':
+                response = requests.get(urls.DAD_API, headers={"Accept": "application/json"}).json()
+                caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
 
-        elif query_data == 'fun_dad':
-            response = requests.get(urls.DAD_API, headers={"Accept": "application/json"}).json()
-            caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
+            elif query_data == 'joke_mom':
+                response = requests.get(urls.MOM_API).json()
+                caption = "You know what, \n\n*{}*".format(response['joke'])
 
-        elif query_data == 'fun_mom':
-            response = requests.get(urls.MOM_API).json()
-            caption = "You know what, \n\n*{}*".format(response['joke'])
+            elif query_data == 'joke_chuck':
+                response = requests.get(urls.CHUCK_API).json()
+                caption = "The legend has it that, \n\n*{}*".format(response['value'])
 
-        elif query_data == 'fun_chuck':
-            response = requests.get(urls.CHUCK_API).json()
-            caption = "The legend has it that, \n\n*{}*".format(response['value'])
+            error = False
+        except Exception:
+            caption, error = None, True
 
-        error = False
-    except Exception:
-        caption, error = None, True
-
-    return caption, error
+        return caption, error

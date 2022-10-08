@@ -10,7 +10,6 @@ from bs4 import BeautifulSoup
 
 from handler import CHandler
 from helpers import constants, urls
-from helpers.actions import (get_fun_caption)
 from helpers.actions import ImageActions, TextActions
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -41,7 +40,7 @@ class NicoleBot:
                 [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
                 [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
                 [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
-                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
+                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_joke")],
                 [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -65,12 +64,12 @@ class NicoleBot:
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.fun_menu = tg.InlineKeyboardMarkup(
+        self.joke_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='fun_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='fun_trump')],
-                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='fun_roast')],
-                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='fun_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='fun_mom')],
-                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='fun_chuck')],
+                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='joke_mom')],
+                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='joke_roast')],
+                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump')],
+                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -128,8 +127,8 @@ class NicoleBot:
         elif query.data == 'main_quote':
             query.message.edit_reply_markup(self.quote_menu)
 
-        elif query.data == 'main_fun':
-            query.message.edit_reply_markup(self.fun_menu)
+        elif query.data == 'main_joke':
+            query.message.edit_reply_markup(self.joke_menu)
 
         elif query.data == 'main_trivia':
             query.message.edit_reply_markup(self.trivia_menu)
@@ -197,13 +196,13 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def fun_actions(self, update, context):
+    def joke_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.fun_menu
+        reply_markup = self.joke_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_fun_caption(query.data)
+        caption, error = self.text_reqs.get_joke(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
