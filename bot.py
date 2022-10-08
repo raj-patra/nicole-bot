@@ -10,9 +10,8 @@ from bs4 import BeautifulSoup
 
 from handler import CHandler
 from helpers import constants, urls
-from helpers.api import (get_animal, get_asciify, get_caption, get_fun_caption,
-                         get_hero, get_human, get_inspire, get_meme, get_namo,
-                         get_rdm_caption)
+from helpers.actions import (get_caption, get_fun_caption, get_rdm_caption)
+from helpers.actions import ImageActions
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -33,6 +32,8 @@ class NicoleBot:
 
         self.kernel.setPredicate("name", "Stranger")
         self.logger = logging.getLogger(__name__)
+
+        self.image_reqs = ImageActions()
 
         self.main_menu = tg.InlineKeyboardMarkup(
             [
@@ -149,27 +150,27 @@ class NicoleBot:
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'img_meme':
-            media, caption, error = get_meme()
+            media, caption, error = self.image_reqs.get_meme()
 
         if query.data == 'img_animal':
-            media, caption, error = get_animal()
+            media, caption, error = self.image_reqs.get_animal()
 
         if query.data == 'img_asciify':
             user_dp = CHandler().get_dp(query.from_user.id, context)
-            media, caption, error = get_asciify(user_dp)
+            media, caption, error = self.image_reqs.get_asciify(user_dp)
             user_dp.close()
 
         if query.data == 'img_human':
-            media, caption, error = get_human()
+            media, caption, error = self.image_reqs.get_human()
 
         if query.data == 'img_namo':
-            media, caption, error = get_namo()
+            media, caption, error = self.image_reqs.get_namo()
 
         if query.data == 'img_hero':
-            media, caption, error = get_hero()
+            media, caption, error = self.image_reqs.get_hero()
 
         if query.data == 'img_inspire':
-            media, caption, error = get_inspire()
+            media, caption, error = self.image_reqs.get_inspire()
 
         if error:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
