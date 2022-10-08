@@ -31,7 +31,7 @@ def app():
 
     dp.add_handler(CallbackQueryHandler(bot.menu_actions, pattern=re.compile(r'^main'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.quiz_actions, pattern=re.compile(r'^quiz'), run_async=True))
-    dp.add_handler(CallbackQueryHandler(bot.img_actions, pattern=re.compile(r'^img'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(bot.image_actions, pattern=re.compile(r'^image'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.txt_actions, pattern=re.compile(r'^txt'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.fun_actions, pattern=re.compile(r'^fun'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.rdm_actions, pattern=re.compile(r'^rdm'), run_async=True))

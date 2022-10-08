@@ -46,11 +46,11 @@ class NicoleBot:
         )
         self.image_menu= tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
-                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='img_inspire')],
-                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
-                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='img_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='img_asciify')],
-                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
+                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='image_namo')],
+                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='image_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='image_inspire')],
+                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='image_hero')],
+                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='image_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='image_asciify')],
+                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='image_human')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -143,33 +143,33 @@ class NicoleBot:
             context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
             context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
-    def img_actions(self, update, context):
+    def image_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.image_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'img_meme':
+        if query.data == 'image_meme':
             media, caption, error = self.image_reqs.get_meme()
 
-        if query.data == 'img_animal':
+        if query.data == 'image_animal':
             media, caption, error = self.image_reqs.get_animal()
 
-        if query.data == 'img_asciify':
+        if query.data == 'image_asciify':
             user_dp = CHandler().get_dp(query.from_user.id, context)
             media, caption, error = self.image_reqs.get_asciify(user_dp)
             user_dp.close()
 
-        if query.data == 'img_human':
+        if query.data == 'image_human':
             media, caption, error = self.image_reqs.get_human()
 
-        if query.data == 'img_namo':
+        if query.data == 'image_namo':
             media, caption, error = self.image_reqs.get_namo()
 
-        if query.data == 'img_hero':
+        if query.data == 'image_hero':
             media, caption, error = self.image_reqs.get_hero()
 
-        if query.data == 'img_inspire':
+        if query.data == 'image_inspire':
             media, caption, error = self.image_reqs.get_inspire()
 
         if error:
