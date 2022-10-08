@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 from handler import CHandler
 from helpers import constants, urls
-from helpers.actions import (get_caption, get_fun_caption, get_rdm_caption)
-from helpers.actions import ImageActions
+from helpers.actions import (get_fun_caption)
+from helpers.actions import ImageActions, TextActions
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -34,13 +34,14 @@ class NicoleBot:
         self.logger = logging.getLogger(__name__)
 
         self.image_reqs = ImageActions()
+        self.text_reqs = TextActions()
 
         self.main_menu = tg.InlineKeyboardMarkup(
             [
                 [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
-                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text")],
+                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
                 [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
-                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
+                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
                 [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -54,13 +55,13 @@ class NicoleBot:
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.text_menu = tg.InlineKeyboardMarkup(
+        self.quote_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='txt_quote'),],
-                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='txt_advice')],
-                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='txt_affirmation')],
-                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')],
-                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='txt_inspire')],
+                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='quote_popular'),],
+                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='quote_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='quote_advice')],
+                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='quote_affirmation')],
+                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='quote_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='quote_anime')],
+                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='quote_inspire')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -73,12 +74,12 @@ class NicoleBot:
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.random_menu = tg.InlineKeyboardMarkup(
+        self.trivia_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='rdm_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')],
-                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_number')],
-                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='rdm_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='rdm_year'),],
-                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='rdm_math')],
+                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='trivia_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='trivia_poems')],
+                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='trivia_number')],
+                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='trivia_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='trivia_year'),],
+                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='trivia_math')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -124,14 +125,14 @@ class NicoleBot:
         elif query.data == 'main_tools':
             query.message.edit_reply_markup(self.tool_menu)
 
-        elif query.data == 'main_text':
-            query.message.edit_reply_markup(self.text_menu)
+        elif query.data == 'main_quote':
+            query.message.edit_reply_markup(self.quote_menu)
 
         elif query.data == 'main_fun':
             query.message.edit_reply_markup(self.fun_menu)
 
-        elif query.data == 'main_random':
-            query.message.edit_reply_markup(self.random_menu)
+        elif query.data == 'main_trivia':
+            query.message.edit_reply_markup(self.trivia_menu)
 
         elif query.data == 'main_quiz':
             query.message.edit_reply_markup(self.quiz_menu)
@@ -181,13 +182,13 @@ class NicoleBot:
             media.close()
             os.remove('static/output.png')
 
-    def txt_actions(self, update, context):
+    def quote_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.text_menu
+        reply_markup = self.quote_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_caption(query.data)
+        caption, error = self.text_reqs.get_quote(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
@@ -211,13 +212,13 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def rdm_actions(self, update, context):
+    def trivia_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.random_menu
+        reply_markup = self.trivia_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_rdm_caption(query.data)
+        caption, error = self.text_reqs.get_trivia(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']

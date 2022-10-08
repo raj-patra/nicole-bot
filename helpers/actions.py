@@ -17,7 +17,7 @@ class ImageActions:
             response = requests.get(urls.MEME_API).json()
             media = response["url"]
             caption = """*{}* \n\nPosted in [r/{}](www.reddit.com/r/{}) by [u/{}](www.reddit.com/user/{}) \nLink - {}
-            
+
             """.format(response['title'], response['subreddit'], response['subreddit'], response['author'], response['author'], response['postLink'])
 
             if response['nsfw'] == True:
@@ -28,7 +28,7 @@ class ImageActions:
             error = None
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
     def get_animal(self, ):
@@ -50,7 +50,7 @@ class ImageActions:
             error = None
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
     def get_asciify(self, user_dp):
@@ -109,7 +109,7 @@ class ImageActions:
             error = False
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
     def get_namo(self, ):
@@ -123,7 +123,7 @@ class ImageActions:
                 media, caption, error = None, None, True
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
     def get_hero(self, ):
@@ -146,7 +146,7 @@ class ImageActions:
             error = False
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
     def get_inspire(self, ):
@@ -156,45 +156,75 @@ class ImageActions:
             error = None
         except Exception:
             media, caption, error = None, None, True
-        
+
         return media, caption, error
 
 
-def get_caption(query_data):
-    try:
-        if query_data == 'txt_quote':
-            response = requests.get(urls.QUOTE_API).json()
-            caption = "*{}* \n\n- {}".format(response['content'], response['author'])
+class TextActions:
+    def __init__(self) -> None:
+        pass # Constructore not required for the class
 
-        elif query_data == 'txt_stoic':
-            response = requests.get(urls.STOIC_API).json()
-            caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
-        
-        elif query_data == 'txt_advice':
-            response = requests.get(urls.ADVICE_API).json()
-            caption = "Here's my two cents, \n\n*{}*".format(response['slip']['advice'])
-        
-        elif query_data == 'txt_affirmation':
-            response = requests.get(urls.AFFIRMATION_API).json()
-            caption = "Hey there... Put your chin up,\n\n*{}*".format(response['affirmation'])
+    def get_quote(self, query_data):
+        try:
+            if query_data == 'quote_popular':
+                response = requests.get(urls.QUOTE_API).json()
+                caption = "*{}* \n\n- {}".format(response['content'], response['author'])
 
-        elif query_data == 'txt_heros':
-            response = requests.get(urls.HEROS_API).json()
-            caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+            elif query_data == 'quote_stoic':
+                response = requests.get(urls.STOIC_API).json()
+                caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
 
-        elif query_data == 'txt_anime':
-            response = requests.get(urls.ANIME_API).json()
-            caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
-        
-        elif query_data == 'txt_inspire':
-            response = random.choice(requests.get(urls.INSPIRE_API).json())
-            caption = "*{}* \n\n- {}".format(response['text'], response['author'])
+            elif query_data == 'quote_advice':
+                response = requests.get(urls.ADVICE_API).json()
+                caption = "Here's my two cents, \n\n*{}*".format(response['slip']['advice'])
 
-        error = False
-    except Exception:
-        caption, error = None, True
-    
-    return caption, error
+            elif query_data == 'quote_affirmation':
+                response = requests.get(urls.AFFIRMATION_API).json()
+                caption = "Hey there... Put your chin up,\n\n*{}*".format(response['affirmation'])
+
+            elif query_data == 'quote_heros':
+                response = requests.get(urls.HEROS_API).json()
+                caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+
+            elif query_data == 'quote_anime':
+                response = requests.get(urls.ANIME_API).json()
+                caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
+
+            elif query_data == 'quote_inspire':
+                response = random.choice(requests.get(urls.INSPIRE_API).json())
+                caption = "*{}* \n\n- {}".format(response['text'], response['author'])
+
+            error = False
+        except Exception:
+            caption, error = None, True
+
+        return caption, error
+
+    def get_trivia(self, query_data):
+        try:
+            if query_data == 'trivia_facts':
+                response = requests.get(urls.FACTS_API).json()
+                caption = "Did you know, \n\n*{}*".format(response['text'])
+
+            elif query_data == 'trivia_poems':
+                response = random.choice(requests.get(urls.POEMS_API).json())
+                if len(response['content']) > 1000:
+                    caption = constants.POEM_LIMIT_CAPTION
+                else:
+                    caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
+
+            elif query_data in ['trivia_number', 'trivia_date', 'trivia_year', 'trivia_math']:
+                query_type = query_data.split('_')[1]
+                url = urls.TRIVIA_API[query_type]
+                response = requests.get(url).text
+                caption = "Here's a {type} trivia that you will probably never need. \n\n*{response}*".format(type=query_type, response=response)
+
+            error = False
+        except Exception:
+            caption, error = None, True
+
+        return caption, error
+
 
 def get_fun_caption(query_data):
     try:
@@ -225,31 +255,5 @@ def get_fun_caption(query_data):
         error = False
     except Exception:
         caption, error = None, True
-    
+
     return caption, error
-
-def get_rdm_caption(query_data):
-    try:
-        if query_data == 'rdm_facts':
-            response = requests.get(urls.FACTS_API).json()
-            caption = "Did you know, \n\n*{}*".format(response['text'])
-        
-        elif query_data == 'rdm_poems':
-            response = random.choice(requests.get(urls.POEMS_API).json())
-            if len(response['content']) > 1000:
-                caption = constants.POEM_LIMIT_CAPTION
-            else:
-                caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
-
-        elif query_data in ['rdm_number', 'rdm_date', 'rdm_year', 'rdm_math']:
-            query_type = query_data.split('_')[1]
-            url = urls.TRIVIA_API[query_type]
-            response = requests.get(url).text
-            caption = "Here's a {type} trivia that you will probably never need. \n\n*{response}*".format(type=query_type, response=response)
-
-        error = False
-    except Exception:
-        caption, error = None, True
-    
-    return caption, error
-
