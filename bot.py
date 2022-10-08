@@ -10,9 +10,7 @@ from bs4 import BeautifulSoup
 
 from handler import CHandler
 from helpers import constants, urls
-from helpers.api import (get_animal, get_asciify, get_caption, get_fun_caption,
-                         get_hero, get_human, get_inspire, get_meme, get_namo,
-                         get_rdm_caption)
+from helpers.actions import ImageActions, TextActions
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -34,58 +32,61 @@ class NicoleBot:
         self.kernel.setPredicate("name", "Stranger")
         self.logger = logging.getLogger(__name__)
 
+        self.image_reqs = ImageActions()
+        self.text_reqs = TextActions()
+
         self.main_menu = tg.InlineKeyboardMarkup(
             [
                 [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
-                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_text")],
-                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
-                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_random"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_fun")],
+                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
+                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_service")],
+                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_joke")],
                 [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
         self.image_menu= tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='img_namo')],
-                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='img_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='img_inspire')],
-                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='img_hero')],
-                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='img_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='img_asciify')],
-                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='img_human')],
+                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='image_namo')],
+                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='image_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='image_inspire')],
+                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='image_hero')],
+                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='image_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='image_asciify')],
+                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='image_human')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.text_menu = tg.InlineKeyboardMarkup(
+        self.quote_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='txt_quote'),],
-                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='txt_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='txt_advice')],
-                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='txt_affirmation')],
-                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='txt_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='txt_anime')],
-                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='txt_inspire')],
+                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='quote_popular'),],
+                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='quote_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='quote_advice')],
+                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='quote_affirmation')],
+                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='quote_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='quote_anime')],
+                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='quote_inspire')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.fun_menu = tg.InlineKeyboardMarkup(
+        self.joke_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='fun_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='fun_trump')],
-                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='fun_roast')],
-                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='fun_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='fun_mom')],
-                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='fun_chuck')],
+                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='joke_mom')],
+                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='joke_roast')],
+                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump')],
+                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.random_menu = tg.InlineKeyboardMarkup(
+        self.trivia_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='rdm_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='rdm_poems')],
-                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='rdm_number')],
-                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='rdm_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='rdm_year'),],
-                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='rdm_math')],
+                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='trivia_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='trivia_poems')],
+                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='trivia_number')],
+                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='trivia_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='trivia_year'),],
+                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='trivia_math')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.tool_menu = tg.InlineKeyboardMarkup(
+        self.service_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
-                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
-                [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='exe_alias')],
+                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='service_bored'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='service_web')],
+                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='service_mod')],
+                [tg.InlineKeyboardButton('Password Generator', callback_data='service_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='service_alias')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -120,17 +121,17 @@ class NicoleBot:
         if query.data == 'main_image':
             query.message.edit_reply_markup(self.image_menu)
 
-        elif query.data == 'main_tools':
-            query.message.edit_reply_markup(self.tool_menu)
+        elif query.data == 'main_service':
+            query.message.edit_reply_markup(self.service_menu)
 
-        elif query.data == 'main_text':
-            query.message.edit_reply_markup(self.text_menu)
+        elif query.data == 'main_quote':
+            query.message.edit_reply_markup(self.quote_menu)
 
-        elif query.data == 'main_fun':
-            query.message.edit_reply_markup(self.fun_menu)
+        elif query.data == 'main_joke':
+            query.message.edit_reply_markup(self.joke_menu)
 
-        elif query.data == 'main_random':
-            query.message.edit_reply_markup(self.random_menu)
+        elif query.data == 'main_trivia':
+            query.message.edit_reply_markup(self.trivia_menu)
 
         elif query.data == 'main_quiz':
             query.message.edit_reply_markup(self.quiz_menu)
@@ -142,34 +143,34 @@ class NicoleBot:
             context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
             context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
-    def img_actions(self, update, context):
+    def image_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.image_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'img_meme':
-            media, caption, error = get_meme()
+        if query.data == 'image_meme':
+            media, caption, error = self.image_reqs.get_meme()
 
-        if query.data == 'img_animal':
-            media, caption, error = get_animal()
+        if query.data == 'image_animal':
+            media, caption, error = self.image_reqs.get_animal()
 
-        if query.data == 'img_asciify':
+        if query.data == 'image_asciify':
             user_dp = CHandler().get_dp(query.from_user.id, context)
-            media, caption, error = get_asciify(user_dp)
+            media, caption, error = self.image_reqs.get_asciify(user_dp)
             user_dp.close()
 
-        if query.data == 'img_human':
-            media, caption, error = get_human()
+        if query.data == 'image_human':
+            media, caption, error = self.image_reqs.get_human()
 
-        if query.data == 'img_namo':
-            media, caption, error = get_namo()
+        if query.data == 'image_namo':
+            media, caption, error = self.image_reqs.get_namo()
 
-        if query.data == 'img_hero':
-            media, caption, error = get_hero()
+        if query.data == 'image_hero':
+            media, caption, error = self.image_reqs.get_hero()
 
-        if query.data == 'img_inspire':
-            media, caption, error = get_inspire()
+        if query.data == 'image_inspire':
+            media, caption, error = self.image_reqs.get_inspire()
 
         if error:
             query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
@@ -180,13 +181,13 @@ class NicoleBot:
             media.close()
             os.remove('static/output.png')
 
-    def txt_actions(self, update, context):
+    def quote_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.text_menu
+        reply_markup = self.quote_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_caption(query.data)
+        caption, error = self.text_reqs.get_quote(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
@@ -195,13 +196,13 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def fun_actions(self, update, context):
+    def joke_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.fun_menu
+        reply_markup = self.joke_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_fun_caption(query.data)
+        caption, error = self.text_reqs.get_joke(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
@@ -210,13 +211,13 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def rdm_actions(self, update, context):
+    def trivia_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.random_menu
+        reply_markup = self.trivia_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = get_rdm_caption(query.data)
+        caption, error = self.text_reqs.get_trivia(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
@@ -271,30 +272,30 @@ class NicoleBot:
                 reply_markup=reply_markup
             )
 
-    def exe_actions(self, update, context):
+    def service_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.tool_menu
+        reply_markup = self.service_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'exe_rdm':
+        if query.data == 'service_bored':
             rdm = requests.get(urls.RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
 
-        elif query.data == 'exe_pwd':
+        elif query.data == 'service_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
 
-        elif query.data == 'exe_alias':
+        elif query.data == 'service_alias':
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
             text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
 
-        elif query.data == 'exe_web':
+        elif query.data == 'service_web':
             text = constants.USEFUL_WEBSITE_MSG
 
-        if query.data == 'exe_mod':
+        if query.data == 'service_mod':
             media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
         else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
@@ -312,27 +313,20 @@ class NicoleBot:
             query.from_user.last_name, query.from_user.username, \
                 query.from_user.id
 
-        text, is_bot, chat_id, chat_type = query.text, \
+        stimulus, is_bot, chat_id, chat_type = query.text, \
             query.from_user.is_bot, query.chat.id, \
                 query.chat.type
 
-        if query.chat.type == 'private':
-            title = query.chat.username
-            query.reply_text(self.kernel.respond(text))
-        else:
-            title = query.chat.title
+        # Nicole replies if DMed privately or replied to in a group
+        if query.chat.type == 'private' or (query.reply_to_message and query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot'):
+            title = query.chat.title or query.chat.username or first_name+' '+last_name
+            response = self.kernel.respond(stimulus)
+            query.reply_text(response)
 
-        QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, \
-                first_name, last_name, user_name, user_id)
-
-        if query.reply_to_message:
-            if query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
-                query.reply_text(self.kernel.respond(query.text))
-            else:
-                pass #In groups, Nicole will reply if someone replies to its message
-
-        if chat_id != constants.EXCEMPT_GROUP:
-            context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
+            if chat_id != constants.EXCEMPT_GROUP:
+                QUERY = constants.MESSAGE_QUERY.format(stimulus, response,\
+                    first_name, last_name, user_name, user_id, title, chat_type, chat_id)
+                context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
     def error(self, update, context):
 
