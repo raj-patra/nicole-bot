@@ -82,11 +82,11 @@ class NicoleBot:
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
-        self.tool_menu = tg.InlineKeyboardMarkup(
+        self.service_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='exe_rdm'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='exe_web')],
-                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='exe_mod')],
-                [tg.InlineKeyboardButton('Password Generator', callback_data='exe_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='exe_alias')],
+                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='service_bored'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='service_web')],
+                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='service_mod')],
+                [tg.InlineKeyboardButton('Password Generator', callback_data='service_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='service_alias')],
                 [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
         )
@@ -122,7 +122,7 @@ class NicoleBot:
             query.message.edit_reply_markup(self.image_menu)
 
         elif query.data == 'main_tools':
-            query.message.edit_reply_markup(self.tool_menu)
+            query.message.edit_reply_markup(self.service_menu)
 
         elif query.data == 'main_quote':
             query.message.edit_reply_markup(self.quote_menu)
@@ -272,30 +272,30 @@ class NicoleBot:
                 reply_markup=reply_markup
             )
 
-    def exe_actions(self, update, context):
+    def service_actions(self, update, context):
 
         query = update.callback_query
-        reply_markup = self.tool_menu
+        reply_markup = self.service_menu
         context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'exe_rdm':
+        if query.data == 'service_bored':
             rdm = requests.get(urls.RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
             site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
 
-        elif query.data == 'exe_pwd':
+        elif query.data == 'service_pwd':
             pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
 
-        elif query.data == 'exe_alias':
+        elif query.data == 'service_alias':
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
             text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
 
-        elif query.data == 'exe_web':
+        elif query.data == 'service_web':
             text = constants.USEFUL_WEBSITE_MSG
 
-        if query.data == 'exe_mod':
+        if query.data == 'service_mod':
             media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
         else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")

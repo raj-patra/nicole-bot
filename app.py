@@ -35,7 +35,7 @@ def app():
     dp.add_handler(CallbackQueryHandler(bot.quote_actions, pattern=re.compile(r'^quote'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.joke_actions, pattern=re.compile(r'^joke'), run_async=True))
     dp.add_handler(CallbackQueryHandler(bot.trivia_actions, pattern=re.compile(r'^trivia'), run_async=True))
-    dp.add_handler(CallbackQueryHandler(bot.exe_actions, pattern=re.compile(r'^exe'), run_async=True))
+    dp.add_handler(CallbackQueryHandler(bot.service_actions, pattern=re.compile(r'^service'), run_async=True))
     dp.add_handler(CallbackQueryHandler(cmd.help_actions, pattern=re.compile(r'^help'), run_async=True))
 
     dp.add_handler(MessageHandler(Filters.text, bot.respond))
