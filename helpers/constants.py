@@ -240,13 +240,16 @@ ADJECTIVES = ['adorable', 'adventurous', 'aggressive', 'agreeable', 'alert', 'al
 # ----------------------------------------------------------------------------------
 
 MESSAGE_QUERY = """
-*{}* ({})
+*Stimulus:* {}
+
+*Response:* {}
+
+Triggered By:
+*{} {} (@{})*
 ID: {}
 
-Message: {}
-
-By:
-*{} {} (@{})*
+Recorded In:
+*{} ({})*
 ID: {}
 """
 

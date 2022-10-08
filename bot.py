@@ -39,7 +39,7 @@ class NicoleBot:
             [
                 [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
                 [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
-                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_tools")],
+                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_service")],
                 [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_joke")],
                 [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
             ]
@@ -121,7 +121,7 @@ class NicoleBot:
         if query.data == 'main_image':
             query.message.edit_reply_markup(self.image_menu)
 
-        elif query.data == 'main_tools':
+        elif query.data == 'main_service':
             query.message.edit_reply_markup(self.service_menu)
 
         elif query.data == 'main_quote':
@@ -313,27 +313,20 @@ class NicoleBot:
             query.from_user.last_name, query.from_user.username, \
                 query.from_user.id
 
-        text, is_bot, chat_id, chat_type = query.text, \
+        stimulus, is_bot, chat_id, chat_type = query.text, \
             query.from_user.is_bot, query.chat.id, \
                 query.chat.type
 
-        if query.chat.type == 'private':
-            title = query.chat.username
-            query.reply_text(self.kernel.respond(text))
-        else:
-            title = query.chat.title
+        # Nicole replies if DMed privately or replied to in a group
+        if query.chat.type == 'private' or (query.reply_to_message and query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot'):
+            title = query.chat.title or query.chat.username or first_name+' '+last_name
+            response = self.kernel.respond(stimulus)
+            query.reply_text(response)
 
-        QUERY = constants.MESSAGE_QUERY.format(title, chat_type, chat_id, text, \
-                first_name, last_name, user_name, user_id)
-
-        if query.reply_to_message:
-            if query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot':
-                query.reply_text(self.kernel.respond(query.text))
-            else:
-                pass #In groups, Nicole will reply if someone replies to its message
-
-        if chat_id != constants.EXCEMPT_GROUP:
-            context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
+            if chat_id != constants.EXCEMPT_GROUP:
+                QUERY = constants.MESSAGE_QUERY.format(stimulus, response,\
+                    first_name, last_name, user_name, user_id, title, chat_type, chat_id)
+                context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
     def error(self, update, context):
 
