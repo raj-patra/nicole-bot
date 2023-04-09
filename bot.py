@@ -7,6 +7,8 @@ import aiml
 import requests
 import telegram as tg
 from bs4 import BeautifulSoup
+from telegram import Update
+from telegram.ext import ContextTypes
 
 from handler import CHandler
 from helpers import constants, urls
@@ -99,11 +101,10 @@ class NicoleBot:
             ]
         )
 
-
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
 
-    async def start(self, update, context):
+    async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         reply_markup = self.main_menu
         intro = constants.INTRO_TXT.format("-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)]))
@@ -114,40 +115,40 @@ class NicoleBot:
         elif "/start"in update.message.text:
             await update.message.reply_text(intro, parse_mode="Markdown")
 
-    def menu_actions(self, update, context):
+    async def menu_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
 
         if query.data == 'main_image':
-            query.message.edit_reply_markup(self.image_menu)
+            await query.message.edit_reply_markup(self.image_menu)
 
         elif query.data == 'main_service':
-            query.message.edit_reply_markup(self.service_menu)
+            await  query.message.edit_reply_markup(self.service_menu)
 
         elif query.data == 'main_quote':
-            query.message.edit_reply_markup(self.quote_menu)
+            await  query.message.edit_reply_markup(self.quote_menu)
 
         elif query.data == 'main_joke':
-            query.message.edit_reply_markup(self.joke_menu)
+            await  query.message.edit_reply_markup(self.joke_menu)
 
         elif query.data == 'main_trivia':
-            query.message.edit_reply_markup(self.trivia_menu)
+            await  query.message.edit_reply_markup(self.trivia_menu)
 
         elif query.data == 'main_quiz':
-            query.message.edit_reply_markup(self.quiz_menu)
+            await  query.message.edit_reply_markup(self.quiz_menu)
 
         elif query.data == 'main_back':
-            query.message.edit_reply_markup(self.main_menu)
+            await  query.message.edit_reply_markup(self.main_menu)
 
         elif query.data == 'main_cancel':
-            context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-            context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
+            await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+            await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
-    def image_actions(self, update, context):
+    async def image_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.image_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        # await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'image_meme':
             media, caption, error = self.image_reqs.get_meme()
@@ -173,28 +174,28 @@ class NicoleBot:
             media, caption, error = self.image_reqs.get_inspire()
 
         if error:
-            query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-        if os.path.exists('static/output.png'):
-            media.close()
-            os.remove('static/output.png')
+        # if os.path.exists('static/output.png'):
+        #     media.close()
+        #     os.remove('static/output.png')
 
-    def quote_actions(self, update, context):
+    async def quote_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.quote_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = self.text_reqs.get_quote(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
             reaction = requests.get(urls.YES_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
     def joke_actions(self, update, context):
 
