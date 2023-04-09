@@ -57,10 +57,11 @@ class CHandler:
         except AttributeError:
             update.message.reply_text('Reply a group member\'s message with the command 🙏🏻')
 
-    def get_dp(self, user_id, context):
+    async def get_dp(self, user_id, context):
         try:
-            profile = random.choice(context.bot.getUserProfilePhotos(user_id=user_id)['photos'])
-            file_path = context.bot.getFile(profile[0]['file_id'])['file_path']
+            profile = random.choice(await context.bot.getUserProfilePhotos(user_id=user_id)['photos'])
+            print(profile)
+            file_path = await context.bot.getFile(profile[0]['file_id'])['file_path']
             dp = Image.open(requests.get(file_path, stream=True).raw)
         except IndexError:
             dp = Image.open("static/dp/default.jpg")

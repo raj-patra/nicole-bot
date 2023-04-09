@@ -148,7 +148,7 @@ class NicoleBot:
 
         query = update.callback_query
         reply_markup = self.image_menu
-        # await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'image_meme':
             media, caption, error = self.image_reqs.get_meme()
@@ -178,9 +178,9 @@ class NicoleBot:
         else:
             await query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-        # if os.path.exists('static/output.png'):
-        #     media.close()
-        #     os.remove('static/output.png')
+        if os.path.exists('static/output.png'):
+            media.close()
+            os.remove('static/output.png')
 
     async def quote_actions(self, update, context):
 
@@ -227,49 +227,44 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def quiz_actions(self, update, context):
+    async def quiz_actions(self, update, context):
 
         query = update.callback_query
         chat_id = query.message.chat.id
 
         if query.data == 'quiz_menu':
             if query.message.poll == None:
-                query.message.edit_reply_markup(self.main_menu)
+                await query.message.edit_reply_markup(self.main_menu)
             else:
-                context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-                context.bot.send_photo(chat_id=query.message.chat.id, photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
+                await context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+                await context.bot.send_photo(chat_id=query.message.chat.id, photo=urls.NICOLE_DP_URL, caption="Choose your poison: ", reply_markup=self.main_menu)
         else:
             reply_markup = self.quiz_menu
-            context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+            await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
             response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
 
             category, question = response['category'], response['question']
-            correct_answer, incorrect_answers = response['correct_answer'], response['incorrect_answers']
+            answers = [response['correct_answer']] + response['incorrect_answers']
+            random.shuffle(answers)
+            correct_answer_index = answers.index(response['correct_answer'])
 
             def escape(text):
                 """HTML-escape the text in `t`."""
                 return (text
                     .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
-                    .replace("&#39;", "'").replace("&quot;", '"')
+                    .replace("&#039;", "'").replace("&quot;", '"')
                     )
 
             question = escape(question)
-            answers = incorrect_answers + [correct_answer]
             answers = [escape(item) for item in answers]
-            random.shuffle(answers)
-            correct_answer_index = answers.index(correct_answer)
 
-            context.bot.send_poll(
-                chat_id=chat_id,
-                question=question,
-                options=answers,
-                type=tg.Poll.QUIZ,
-                correct_option_id=correct_answer_index,
-                open_period=urls.QUIZ_API[query.data]["timer"],
-                is_anonymous=True,
+            await context.bot.send_poll(
+                chat_id=chat_id, type=tg.Poll.QUIZ,
+                question=question, options=answers, correct_option_id=correct_answer_index,
+                open_period=urls.QUIZ_API[query.data]["timer"], is_anonymous=True,
                 explanation="Category : *{}*".format(category),
-                explanation_parse_mode=tg.ParseMode.MARKDOWN_V2,
+                explanation_parse_mode=tg.constants.ParseMode.MARKDOWN_V2,
                 reply_markup=reply_markup
             )
 

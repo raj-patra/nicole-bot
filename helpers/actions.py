@@ -107,7 +107,8 @@ class ImageActions:
             media = open('static/output.png', 'rb')
             caption = constants.IMG_PERSON_CAPTION
             error = False
-        except Exception:
+        except Exception as err:
+            print(str(err))
             media, caption, error = None, None, True
 
         return media, caption, error
