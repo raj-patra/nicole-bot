@@ -142,7 +142,13 @@ class ImageActions:
 
             response = response.json()
             media = response['images']['lg']
-            caption = constants.HERO_MSG.format(response['name'], *response['powerstats'].values(), *response['appearance'].values(), response['work']['occupation'], *response['biography'].values())
+            caption = constants.HERO_MSG.format(
+                response['name'],
+                *response['powerstats'].values(),
+                *response['appearance'].values(),
+                response['work']['occupation'],
+                *response['biography'].values()
+            )
 
             error = False
         except Exception:

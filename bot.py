@@ -174,9 +174,15 @@ class NicoleBot:
             media, caption, error = self.image_reqs.get_inspire()
 
         if error:
-            await query.message.edit_media(tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaPhoto(
+                media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, 
+                parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
+            )
         else:
-            await query.message.edit_media(tg.InputMediaPhoto(media=media, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaPhoto(
+                media=media, caption=caption, 
+                parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
+            )
 
         if os.path.exists('static/output.png'):
             media.close()
@@ -268,11 +274,11 @@ class NicoleBot:
                 reply_markup=reply_markup
             )
 
-    def service_actions(self, update, context):
+    async def service_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.service_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         if query.data == 'service_bored':
             rdm = requests.get(urls.RANDOM_WEBSITE_URL)
@@ -296,9 +302,9 @@ class NicoleBot:
         else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
-        query.message.edit_media(media=media, reply_markup=reply_markup)
+        await query.message.edit_media(media=media, reply_markup=reply_markup)
 
-    def respond(self, update, context):
+    async def respond(self, update, context):
 
         if update.message:
             query = update.message
@@ -317,15 +323,15 @@ class NicoleBot:
         if query.chat.type == 'private' or (query.reply_to_message and query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot'):
             title = query.chat.title or query.chat.username or first_name+' '+last_name
             response = self.kernel.respond(stimulus)
-            query.reply_text(response)
+            await query.reply_text(response)
 
             if chat_id != constants.EXCEMPT_GROUP:
                 QUERY = constants.MESSAGE_QUERY.format(stimulus, response,\
                     first_name, last_name, user_name, user_id, title, chat_type, chat_id)
-                context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
+                await context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
-    def error(self, update, context):
+    async def error(self, update, context):
 
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
         if update.callback_query.id:
-            context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=constants.ERROR_TXT, show_alert=True)
+            await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text=constants.ERROR_TXT, show_alert=True)
