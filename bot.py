@@ -197,35 +197,35 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def joke_actions(self, update, context):
+    async def joke_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.joke_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = self.text_reqs.get_joke(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
             reaction = requests.get(urls.YES_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    def trivia_actions(self, update, context):
+    async def trivia_actions(self, update, context):
 
         query = update.callback_query
         reply_markup = self.trivia_menu
-        context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
+        await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
         caption, error = self.text_reqs.get_trivia(query.data)
 
         if error:
             reaction = requests.get(urls.NO_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
             reaction = requests.get(urls.YES_RXN).json()['image']
-            query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
+            await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
     def quiz_actions(self, update, context):
 
