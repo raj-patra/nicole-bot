@@ -103,16 +103,16 @@ class NicoleBot:
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
 
-    def start(self, update, context):
+    async def start(self, update, context):
 
         reply_markup = self.main_menu
         intro = constants.INTRO_TXT.format("-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)]))
         menu = "Choose your poison: "
 
         if "/menu" in update.message.text:
-            update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption=menu, reply_markup=reply_markup)
+            await update.message.reply_photo(photo=urls.NICOLE_DP_URL, caption=menu, reply_markup=reply_markup)
         elif "/start"in update.message.text:
-            update.message.reply_text(intro, parse_mode="Markdown")
+            await update.message.reply_text(intro, parse_mode="Markdown")
 
     def menu_actions(self, update, context):
 
