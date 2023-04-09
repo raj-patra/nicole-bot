@@ -1,5 +1,5 @@
 python-aiml
-python-telegram-bot
+python-telegram-bot[webhooks]
 beautifulsoup4
 Pillow
 requests
