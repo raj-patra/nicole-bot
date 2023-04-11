@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------------
 
 ANIMALS_API = {
-    "cat_url": "https://thatcopy.pw/catapi/rest/",
-    "cat_file": "https://aws.random.cat/meow",
+    # "cat_url": "https://thatcopy.pw/catapi/rest/",
+    # "cat_file": "https://aws.random.cat/meow",
     "cat_shibe": "http://shibe.online/api/cats",
     "bird_shibe": "http://shibe.online/api/birds",
     "fox_image": "https://randomfox.ca/floof/",
@@ -34,9 +34,9 @@ QUIZ_API = {
 
 # ----------------------------------------------------------------------------------
 
-RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image"
-MEME_API = "https://meme-api.herokuapp.com/gimme"
-NAMO_API = "https://namo-memes.herokuapp.com/memes/1"
+RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image" #DEPR
+MEME_API = "https://meme-api.herokuapp.com/gimme" #DEPR
+NAMO_API = "https://namo-memes.herokuapp.com/memes/1" #DEPR
 HERO_BASE_API = "https://akabab.github.io/superhero-api/api/id/"
 HERO_CDN_API = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
 INSPIRE_BOT_API = "https://inspirobot.me/api?generate=true"
@@ -46,13 +46,13 @@ INSPIRE_BOT_API = "https://inspirobot.me/api?generate=true"
 QUOTE_API = "https://api.quotable.io/random"
 STOIC_API = "https://api.themotivate365.com/stoic-quote"
 ANIME_API = "https://animechan.vercel.app/api/random"
-HEROS_API = "https://superhero-quotes.herokuapp.com/random"
+HEROS_API = "https://superhero-quotes.herokuapp.com/random" #DEPR
 ADVICE_API = "https://api.adviceslip.com/advice"
 AFFIRMATION_API = "https://www.affirmations.dev"
 INSPIRE_API = "https://type.fit/api/quotes"
 
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
-POEMS_API = "https://www.poemist.com/api/v1/randompoems"
+POEMS_API = "https://www.poemist.com/api/v1/randompoems" #DEPR
 TRIVIA_API = {
     "number": "http://numbersapi.com/random/trivia",
     "date": "http://numbersapi.com/random/date",
@@ -64,7 +64,7 @@ KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
 ROAST_API = "https://insult.mattbas.org/api/insult"
 DAD_API = "https://icanhazdadjoke.com/"
-MOM_API = "https://yomomma-api.herokuapp.com/jokes"
+MOM_API = "https://yomomma-api.herokuapp.com/jokes" #DEPR
 CHUCK_API = "https://api.chucknorris.io/jokes/random"
 
 # ----------------------------------------------------------------------------------
@@ -78,3 +78,10 @@ YES_RXN = "https://yesno.wtf/api?force=yes"
 NO_RXN = "https://yesno.wtf/api?force=no"
 
 # ----------------------------------------------------------------------------------
+
+"""
+https://meowfacts.herokuapp.com/
+https://dogapi.dog/api/v2/facts?limit=1
+https://poetrydb.org/random
+https://corporatebs-generator.sameerkumar.website/
+"""
