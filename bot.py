@@ -13,6 +13,7 @@ from telegram.ext import ContextTypes
 from handler import CHandler
 from helpers import constants, urls
 from helpers.actions import ImageActions, TextActions
+from helpers.menus import MENUS
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -39,21 +40,18 @@ class NicoleBot:
 
         self.main_menu = tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
-                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
-                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_service")],
-                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_joke")],
-                [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
+                [MENUS["main_quiz"]],
+                [MENUS["main_visuals"], MENUS["main_quotify"]],
+                [MENUS["main_service"]],
+                [MENUS["main_trivia"], MENUS["main_recreation"]],
+                [MENUS["cancel"]],
             ]
         )
         self.image_menu= tg.InlineKeyboardMarkup(
             [
-                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='image_namo')],
-                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='image_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='image_inspire')],
-                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='image_hero')],
-                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='image_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='image_asciify')],
-                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='image_human')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
+                [MENUS["visuals_animal"], MENUS["visuals_inspire"]],
+                [MENUS["visuals_hero"]],
+                [MENUS["back"], MENUS["cancel"]],
             ]
         )
         self.quote_menu = tg.InlineKeyboardMarkup(
@@ -150,28 +148,14 @@ class NicoleBot:
         reply_markup = self.image_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'image_meme':
-            media, caption, error = self.image_reqs.get_meme()
-
         if query.data == 'image_animal':
             media, caption, error = self.image_reqs.get_animal()
 
-        if query.data == 'image_asciify':
-            user_dp = CHandler().get_dp(query.from_user.id, context)
-            media, caption, error = self.image_reqs.get_asciify(user_dp)
-            user_dp.close()
-
-        if query.data == 'image_human':
-            media, caption, error = self.image_reqs.get_human()
-
-        if query.data == 'image_namo':
-            media, caption, error = self.image_reqs.get_namo()
+        if query.data == 'image_inspire':
+            media, caption, error = self.image_reqs.get_inspire()
 
         if query.data == 'image_hero':
             media, caption, error = self.image_reqs.get_hero()
-
-        if query.data == 'image_inspire':
-            media, caption, error = self.image_reqs.get_inspire()
 
         if error:
             await query.message.edit_media(tg.InputMediaPhoto(
@@ -183,10 +167,6 @@ class NicoleBot:
                 media=media, caption=caption, 
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
-
-        if os.path.exists('static/output.png'):
-            media.close()
-            os.remove('static/output.png')
 
     async def quote_actions(self, update, context):
 

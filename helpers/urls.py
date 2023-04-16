@@ -34,9 +34,6 @@ QUIZ_API = {
 
 # ----------------------------------------------------------------------------------
 
-RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image" #DEPR
-MEME_API = "https://meme-api.herokuapp.com/gimme" #DEPR
-NAMO_API = "https://namo-memes.herokuapp.com/memes/1" #DEPR
 HERO_BASE_API = "https://akabab.github.io/superhero-api/api/id/"
 HERO_CDN_API = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/"
 INSPIRE_BOT_API = "https://inspirobot.me/api?generate=true"
@@ -85,3 +82,7 @@ https://dogapi.dog/api/v2/facts?limit=1
 https://poetrydb.org/random
 https://corporatebs-generator.sameerkumar.website/
 """
+
+DEPR_RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image" #DEPR
+DEPR_MEME_API = "https://meme-api.herokuapp.com/gimme" #DEPR
+DEPR_NAMO_API = "https://namo-memes.herokuapp.com/memes/1" #DEPR
