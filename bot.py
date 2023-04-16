@@ -13,7 +13,6 @@ from telegram.ext import ContextTypes
 from handler import CHandler
 from helpers import constants, menus, urls
 from helpers.actions import ImageActions, TextActions
-from helpers.menus import MENUS
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 

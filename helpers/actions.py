@@ -96,17 +96,13 @@ class TextActions:
                 response = requests.get(urls.AFFIRMATION_API).json()
                 caption = "Hey there... Put your chin up,\n\n*{}*".format(response['affirmation'])
 
-            elif query_data == 'quote_heros':
-                response = requests.get(urls.HEROS_API).json()
-                caption = "Banner - *{}*\n\n*{}*\n\n- {}".format(response['Banner'], response['Stuff']['data']['quote'], response['Stuff']['data']['author'])
+            elif query_data == 'quote_inspire':
+                response = random.choice(requests.get(urls.INSPIRE_API).json())
+                caption = "*{}* \n\n- {}".format(response['text'], response['author'])
 
             elif query_data == 'quote_anime':
                 response = requests.get(urls.ANIME_API).json()
                 caption = "Anime - *{}*\n\n*{}*\n\n- {}".format(response['anime'], response['quote'], response['character'])
-
-            elif query_data == 'quote_inspire':
-                response = random.choice(requests.get(urls.INSPIRE_API).json())
-                caption = "*{}* \n\n- {}".format(response['text'], response['author'])
 
             error = False
         except Exception:
@@ -119,13 +115,6 @@ class TextActions:
             if query_data == 'trivia_facts':
                 response = requests.get(urls.FACTS_API).json()
                 caption = "Did you know, \n\n*{}*".format(response['text'])
-
-            elif query_data == 'trivia_poems':
-                response = random.choice(requests.get(urls.POEMS_API).json())
-                if len(response['content']) > 1000:
-                    caption = constants.POEM_LIMIT_CAPTION
-                else:
-                    caption = "*{}* \n\n{} \n\nBy *{}*".format(response['title'], response['content'], response['poet']['name'])
 
             elif query_data in ['trivia_number', 'trivia_date', 'trivia_year', 'trivia_math']:
                 query_type = query_data.split('_')[1]
@@ -141,25 +130,21 @@ class TextActions:
 
     def get_joke(self, query_data):
         try:
-            if query_data == 'joke_kanye':
+            if query_data == 'joke_dad':
+                response = requests.get(urls.DAD_API, headers={"Accept": "application/json"}).json()
+                caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
+
+            elif query_data == 'joke_roast':
+                response = requests.get(urls.ROAST_API).text
+                caption = "In case nobody ever told you, \n\n*{}*".format(response)
+
+            elif query_data == 'joke_kanye':
                 response = requests.get(urls.KANYE_API).json()
                 caption = "Kanye West once said, \n\n*{}*".format(response['quote'])
 
             elif query_data == 'joke_trump':
                 response = requests.get(urls.TRUMP_API).json()
                 caption = "Donald Trump once said, \n\n*{}*".format(response['message'])
-
-            elif query_data == 'joke_roast':
-                response = requests.get(urls.ROAST_API).text
-                caption = "In case nobody ever told you, \n\n*{}*".format(response)
-
-            elif query_data == 'joke_dad':
-                response = requests.get(urls.DAD_API, headers={"Accept": "application/json"}).json()
-                caption = "You know, my dad used to say, \n\n*{}*".format(response['joke'])
-
-            elif query_data == 'joke_mom':
-                response = requests.get(urls.MOM_API).json()
-                caption = "You know what, \n\n*{}*".format(response['joke'])
 
             elif query_data == 'joke_chuck':
                 response = requests.get(urls.CHUCK_API).json()
