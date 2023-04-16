@@ -81,7 +81,7 @@ class NicoleBot:
         elif query.data == 'main_quiz':
             await  query.message.edit_reply_markup(self.quiz_menu)
 
-    async def image_actions(self, update, context):
+    async def image_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.image_menu
@@ -107,7 +107,7 @@ class NicoleBot:
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
 
-    async def quote_actions(self, update, context):
+    async def quote_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.quote_menu
@@ -122,7 +122,7 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def joke_actions(self, update, context):
+    async def joke_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.joke_menu
@@ -137,7 +137,7 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def trivia_actions(self, update, context):
+    async def trivia_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.trivia_menu
@@ -152,7 +152,7 @@ class NicoleBot:
             reaction = requests.get(urls.YES_RXN).json()['image']
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def quiz_actions(self, update, context):
+    async def quiz_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         chat_id = query.message.chat.id
@@ -193,7 +193,7 @@ class NicoleBot:
                 reply_markup=reply_markup
             )
 
-    async def service_actions(self, update, context):
+    async def service_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.service_menu
@@ -223,7 +223,7 @@ class NicoleBot:
 
         await query.message.edit_media(media=media, reply_markup=reply_markup)
 
-    async def misc_actions(self, update, context):
+    async def misc_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         query = update.callback_query
         
@@ -234,7 +234,7 @@ class NicoleBot:
             await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
             await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
-    async def respond(self, update, context):
+    async def respond(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if update.message:
             query = update.message
@@ -260,7 +260,7 @@ class NicoleBot:
                     first_name, last_name, user_name, user_id, title, chat_type, chat_id)
                 await context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
-    async def error(self, update, context):
+    async def error(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
         if update.callback_query.id:

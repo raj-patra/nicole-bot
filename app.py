@@ -11,7 +11,6 @@ from helpers.constants import meme_handler
 PORT = os.environ.get('PORT', 3000)
 TOKEN = os.environ.get('NICOLE_BOT_TOKEN')
 HOOK = os.environ.get('WEBHOOK')
-HOOK = "https://ecd8-2405-201-c009-4087-6926-4884-372b-54c2.ngrok.io"
 
 def app() -> None:
     bot = NicoleBot()

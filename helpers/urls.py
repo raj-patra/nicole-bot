@@ -80,9 +80,9 @@ https://poetrydb.org/random
 https://corporatebs-generator.sameerkumar.website/
 """
 
-DEPR_RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image" #DEPR
-DEPR_MEME_API = "https://meme-api.herokuapp.com/gimme" #DEPR
-DEPR_NAMO_API = "https://namo-memes.herokuapp.com/memes/1" #DEPR
-HEROS_API = "https://superhero-quotes.herokuapp.com/random" #DEPR
-POEMS_API = "https://www.poemist.com/api/v1/randompoems" #DEPR
-MOM_API = "https://yomomma-api.herokuapp.com/jokes" #DEPR
+DEPR_RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image"
+DEPR_MEME_API = "https://meme-api.herokuapp.com/gimme"
+DEPR_NAMO_API = "https://namo-memes.herokuapp.com/memes/1"
+DEPR_HEROS_API = "https://superhero-quotes.herokuapp.com/random"
+DEPR_POEMS_API = "https://www.poemist.com/api/v1/randompoems"
+DEPR_MOM_API = "https://yomomma-api.herokuapp.com/jokes"
