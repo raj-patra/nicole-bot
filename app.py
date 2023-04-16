@@ -32,6 +32,7 @@ def app() -> None:
     application.add_handler(CallbackQueryHandler(bot.joke_actions, pattern=re.compile(r'^joke')))
     application.add_handler(CallbackQueryHandler(bot.trivia_actions, pattern=re.compile(r'^trivia')))
     application.add_handler(CallbackQueryHandler(bot.service_actions, pattern=re.compile(r'^service')))
+    application.add_handler(CallbackQueryHandler(bot.misc_actions, pattern=re.compile(r'^misc')))
     application.add_handler(CallbackQueryHandler(cmd.help_actions, pattern=re.compile(r'^help')))
 
     application.add_handler(MessageHandler(filters.TEXT, bot.respond))

@@ -11,7 +11,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from handler import CHandler
-from helpers import constants, urls
+from helpers import constants, menus, urls
 from helpers.actions import ImageActions, TextActions
 from helpers.menus import MENUS
 
@@ -38,66 +38,13 @@ class NicoleBot:
         self.image_reqs = ImageActions()
         self.text_reqs = TextActions()
 
-        self.main_menu = tg.InlineKeyboardMarkup(
-            [
-                [MENUS["main_quiz"]],
-                [MENUS["main_visuals"], MENUS["main_quotify"]],
-                [MENUS["main_service"]],
-                [MENUS["main_trivia"], MENUS["main_recreation"]],
-                [MENUS["cancel"]],
-            ]
-        )
-        self.image_menu= tg.InlineKeyboardMarkup(
-            [
-                [MENUS["visuals_animal"], MENUS["visuals_inspire"]],
-                [MENUS["visuals_hero"]],
-                [MENUS["back"], MENUS["cancel"]],
-            ]
-        )
-        self.quote_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='quote_popular'),],
-                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='quote_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='quote_advice')],
-                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='quote_affirmation')],
-                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='quote_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='quote_anime')],
-                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='quote_inspire')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.joke_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='joke_mom')],
-                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='joke_roast')],
-                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump')],
-                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.trivia_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='trivia_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='trivia_poems')],
-                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='trivia_number')],
-                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='trivia_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='trivia_year'),],
-                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='trivia_math')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.service_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='service_bored'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='service_web')],
-                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='service_mod')],
-                [tg.InlineKeyboardButton('Password Generator', callback_data='service_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='service_alias')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.quiz_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Let Fate Decide 🔀', callback_data='quiz_random')],
-                [tg.InlineKeyboardButton('Beginner 🟢', callback_data='quiz_easy'),tg.InlineKeyboardButton('No Mercy 🟡', callback_data='quiz_medium')],
-                [tg.InlineKeyboardButton('Soul Crushing 🔴', callback_data='quiz_hard')],
-                [tg.InlineKeyboardButton('Main Menu', callback_data='quiz_menu'),tg.InlineKeyboardButton('Give Up 🙉', callback_data='main_cancel')]
-            ]
-        )
+        self.main_menu = menus.MAIN_MENU
+        self.quiz_menu = menus.QUIZ_MENU
+        self.image_menu= menus.VISUALS_MENU
+        self.quote_menu = menus.QUOTES_MENU
+        self.joke_menu = menus.RECREATION_MENU
+        self.trivia_menu = menus.TRIVIA_MENU
+        self.service_menu = menus.SERVICE_MENU
 
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
@@ -135,13 +82,6 @@ class NicoleBot:
         elif query.data == 'main_quiz':
             await  query.message.edit_reply_markup(self.quiz_menu)
 
-        elif query.data == 'main_back':
-            await  query.message.edit_reply_markup(self.main_menu)
-
-        elif query.data == 'main_cancel':
-            await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-            await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
-
     async def image_actions(self, update, context):
 
         query = update.callback_query
@@ -159,12 +99,12 @@ class NicoleBot:
 
         if error:
             await query.message.edit_media(tg.InputMediaPhoto(
-                media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, 
+                media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT,
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
         else:
             await query.message.edit_media(tg.InputMediaPhoto(
-                media=media, caption=caption, 
+                media=media, caption=caption,
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
 
@@ -283,6 +223,17 @@ class NicoleBot:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         await query.message.edit_media(media=media, reply_markup=reply_markup)
+
+    async def misc_actions(self, update, context):
+        
+        query = update.callback_query
+        
+        if query.data == 'misc_back':
+            await  query.message.edit_reply_markup(self.main_menu)
+
+        elif query.data == 'misc_cancel':
+            await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+            await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
     async def respond(self, update, context):
 
