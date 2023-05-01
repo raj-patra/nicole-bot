@@ -80,13 +80,18 @@ class TextActions:
 
     def get_quote(self, query_data):
         try:
-            if query_data == 'quote_popular':
+            if query_data == 'quotes_poem':
+                response = requests.get(urls.POEM_API).json()
+                content = "\n".join(response[0]["lines"])
+                caption = "*{}* \n\n{} \n\n- {}".format(response[0]['title'], content, response[0]['author'])
+
+            elif query_data == 'quote_popular':
                 response = requests.get(urls.QUOTE_API).json()
                 caption = "*{}* \n\n- {}".format(response['content'], response['author'])
 
             elif query_data == 'quote_stoic':
                 response = requests.get(urls.STOIC_API).json()
-                caption = "*{}* \n\n- {}".format(response['data']['quote'], response['data']['author'])
+                caption = "*{}* \n\n- {}".format(response['quote'], response['author'])
 
             elif query_data == 'quote_advice':
                 response = requests.get(urls.ADVICE_API).json()

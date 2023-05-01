@@ -20,6 +20,7 @@ MENUS = {
     "visuals_hero": tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='image_hero'),
     "visuals_inspire": tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='image_inspire'),
 
+    "quotes_poem": tg.InlineKeyboardButton("Poemist ✍️", callback_data='quotes_poem'),
     "quotes_popular": tg.InlineKeyboardButton('Random Quotes 💯', callback_data='quote_popular'),
     "quotes_stoic": tg.InlineKeyboardButton('Stoicism 🦾', callback_data='quote_stoic'),
     "quotes_advice": tg.InlineKeyboardButton('Free Advice 🆓', callback_data='quote_advice'),
@@ -77,6 +78,7 @@ VISUALS_MENU = tg.InlineKeyboardMarkup(
 )
 QUOTES_MENU = tg.InlineKeyboardMarkup(
     [
+        [MENUS["quotes_poem"]],
         [MENUS["quotes_popular"], MENUS["quotes_stoic"]],
         [MENUS["quotes_advice"]],
         [MENUS["quotes_affirmation"], MENUS["quotes_inspire"]],

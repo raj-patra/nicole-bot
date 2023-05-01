@@ -40,6 +40,7 @@ INSPIRE_BOT_API = "https://inspirobot.me/api?generate=true"
 
 # ----------------------------------------------------------------------------------
 
+POEM_API = "https://poetrydb.org/random"
 QUOTE_API = "https://api.quotable.io/random"
 STOIC_API = "https://api.themotivate365.com/stoic-quote"
 ADVICE_API = "https://api.adviceslip.com/advice"
@@ -76,7 +77,6 @@ NO_RXN = "https://yesno.wtf/api?force=no"
 # ----------------------------------------------------------------------------------
 
 """
-https://poetrydb.org/random
 https://corporatebs-generator.sameerkumar.website/
 """
 
