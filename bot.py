@@ -10,11 +10,10 @@ from bs4 import BeautifulSoup
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from handler import CHandler
-from helpers import constants, urls
+from helpers import constants, menus, urls
 from helpers.actions import ImageActions, TextActions
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 
 class NicoleBot:
@@ -37,69 +36,13 @@ class NicoleBot:
         self.image_reqs = ImageActions()
         self.text_reqs = TextActions()
 
-        self.main_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Quizzeria 💡', callback_data="main_quiz")],
-                [tg.InlineKeyboardButton('Visuals 🌆', callback_data="main_image"),tg.InlineKeyboardButton('Quotify 📝', callback_data="main_quote")],
-                [tg.InlineKeyboardButton('Services & Utilities 🛠', callback_data="main_service")],
-                [tg.InlineKeyboardButton('Trivia 🔀', callback_data="main_trivia"),tg.InlineKeyboardButton('Recreation 🥳', callback_data="main_joke")],
-                [tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.image_menu= tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('NaMo NaMo 🙏🏻', callback_data='image_namo')],
-                [tg.InlineKeyboardButton('Reddit Guild 🤙', callback_data='image_meme'),tg.InlineKeyboardButton('Inspire Robot 🎇', callback_data='image_inspire')],
-                [tg.InlineKeyboardButton('Summon a Superhero 🦸‍♂️🦸‍♀️', callback_data='image_hero')],
-                [tg.InlineKeyboardButton('Nat Geo 🌏', callback_data='image_animal'),tg.InlineKeyboardButton('Asciify 🧑', callback_data='image_asciify')],
-                [tg.InlineKeyboardButton('Imaginary Person 👁👄👁', callback_data='image_human')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.quote_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Random Quotes 💯', callback_data='quote_popular'),],
-                [tg.InlineKeyboardButton('Stoicism 🦾', callback_data='quote_stoic'),tg.InlineKeyboardButton('Free Advice 🆓', callback_data='quote_advice')],
-                [tg.InlineKeyboardButton('Build Morale 😇', callback_data='quote_affirmation')],
-                [tg.InlineKeyboardButton('Super Hero 🦸‍♂️🦸‍♀️', callback_data='quote_heros'),tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='quote_anime')],
-                [tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='quote_inspire')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.joke_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),tg.InlineKeyboardButton('Yo Momma 🤶', callback_data='joke_mom')],
-                [tg.InlineKeyboardButton('Roast Me 🔥', callback_data='joke_roast')],
-                [tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump')],
-                [tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.trivia_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='trivia_facts'),tg.InlineKeyboardButton('Good Reads 🎶', callback_data='trivia_poems')],
-                [tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='trivia_number')],
-                [tg.InlineKeyboardButton('Date Trivia 📆', callback_data='trivia_date'),tg.InlineKeyboardButton('Year Trivia 📅', callback_data='trivia_year'),],
-                [tg.InlineKeyboardButton('Math Trivia ➕', callback_data='trivia_math')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.service_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Bored Button 🥱', callback_data='service_bored'),tg.InlineKeyboardButton('Useful Websites </>', callback_data='service_web')],
-                [tg.InlineKeyboardButton('Spotify Premium Mod 💚', callback_data='service_mod')],
-                [tg.InlineKeyboardButton('Password Generator', callback_data='service_pwd'),tg.InlineKeyboardButton('Alias Generator', callback_data='service_alias')],
-                [tg.InlineKeyboardButton('◀ Back', callback_data='main_back'),tg.InlineKeyboardButton('Cancel ❌', callback_data='main_cancel')]
-            ]
-        )
-        self.quiz_menu = tg.InlineKeyboardMarkup(
-            [
-                [tg.InlineKeyboardButton('Let Fate Decide 🔀', callback_data='quiz_random')],
-                [tg.InlineKeyboardButton('Beginner 🟢', callback_data='quiz_easy'),tg.InlineKeyboardButton('No Mercy 🟡', callback_data='quiz_medium')],
-                [tg.InlineKeyboardButton('Soul Crushing 🔴', callback_data='quiz_hard')],
-                [tg.InlineKeyboardButton('Main Menu', callback_data='quiz_menu'),tg.InlineKeyboardButton('Give Up 🙉', callback_data='main_cancel')]
-            ]
-        )
+        self.main_menu = menus.MAIN_MENU
+        self.quiz_menu = menus.QUIZ_MENU
+        self.image_menu= menus.VISUALS_MENU
+        self.quote_menu = menus.QUOTES_MENU
+        self.joke_menu = menus.RECREATION_MENU
+        self.trivia_menu = menus.TRIVIA_MENU
+        self.service_menu = menus.SERVICE_MENU
 
     def __str__(self):
         return "Nicole, is a conversational chatbot made to serve as a telegram client side bot."
@@ -119,76 +62,51 @@ class NicoleBot:
 
         query = update.callback_query
 
-        if query.data == 'main_image':
+        if query.data == "main_image":
             await query.message.edit_reply_markup(self.image_menu)
 
-        elif query.data == 'main_service':
+        elif query.data == "main_service":
             await  query.message.edit_reply_markup(self.service_menu)
 
-        elif query.data == 'main_quote':
+        elif query.data == "main_quote":
             await  query.message.edit_reply_markup(self.quote_menu)
 
-        elif query.data == 'main_joke':
+        elif query.data == "main_joke":
             await  query.message.edit_reply_markup(self.joke_menu)
 
-        elif query.data == 'main_trivia':
+        elif query.data == "main_trivia":
             await  query.message.edit_reply_markup(self.trivia_menu)
 
-        elif query.data == 'main_quiz':
+        elif query.data == "main_quiz":
             await  query.message.edit_reply_markup(self.quiz_menu)
 
-        elif query.data == 'main_back':
-            await  query.message.edit_reply_markup(self.main_menu)
-
-        elif query.data == 'main_cancel':
-            await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
-            await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
-
-    async def image_actions(self, update, context):
+    async def visual_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.image_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'image_meme':
-            media, caption, error = self.image_reqs.get_meme()
-
-        if query.data == 'image_animal':
+        if query.data == "visual_animal":
             media, caption, error = self.image_reqs.get_animal()
 
-        if query.data == 'image_asciify':
-            user_dp = CHandler().get_dp(query.from_user.id, context)
-            media, caption, error = self.image_reqs.get_asciify(user_dp)
-            user_dp.close()
-
-        if query.data == 'image_human':
-            media, caption, error = self.image_reqs.get_human()
-
-        if query.data == 'image_namo':
-            media, caption, error = self.image_reqs.get_namo()
-
-        if query.data == 'image_hero':
-            media, caption, error = self.image_reqs.get_hero()
-
-        if query.data == 'image_inspire':
+        if query.data == "visual_inspire":
             media, caption, error = self.image_reqs.get_inspire()
+
+        if query.data == "visual_hero":
+            media, caption, error = self.image_reqs.get_hero()
 
         if error:
             await query.message.edit_media(tg.InputMediaPhoto(
-                media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT, 
+                media=urls.NICOLE_DP_URL, caption=constants.ERROR_TXT,
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
         else:
             await query.message.edit_media(tg.InputMediaPhoto(
-                media=media, caption=caption, 
+                media=media, caption=caption,
                 parse_mode=tg.constants.ParseMode.MARKDOWN), reply_markup=reply_markup
             )
 
-        if os.path.exists('static/output.png'):
-            media.close()
-            os.remove('static/output.png')
-
-    async def quote_actions(self, update, context):
+    async def quote_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.quote_menu
@@ -197,28 +115,28 @@ class NicoleBot:
         caption, error = self.text_reqs.get_quote(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def joke_actions(self, update, context):
+    async def recreation_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.joke_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = self.text_reqs.get_joke(query.data)
+        caption, error = self.text_reqs.get_recreation(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def trivia_actions(self, update, context):
+    async def trivia_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.trivia_menu
@@ -227,18 +145,18 @@ class NicoleBot:
         caption, error = self.text_reqs.get_trivia(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def quiz_actions(self, update, context):
+    async def quiz_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         chat_id = query.message.chat.id
 
-        if query.data == 'quiz_menu':
+        if query.data == "quiz_menu":
             if query.message.poll == None:
                 await query.message.edit_reply_markup(self.main_menu)
             else:
@@ -248,12 +166,12 @@ class NicoleBot:
             reply_markup = self.quiz_menu
             await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-            response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
+            response = requests.get(urls.QUIZ_API[query.data]["url"]).json()["results"][0]
 
-            category, question = response['category'], response['question']
-            answers = [response['correct_answer']] + response['incorrect_answers']
+            category, question = response["category"], response["question"]
+            answers = [response["correct_answer"]] + response["incorrect_answers"]
             random.shuffle(answers)
-            correct_answer_index = answers.index(response['correct_answer'])
+            correct_answer_index = answers.index(response["correct_answer"])
 
             def escape(text):
                 """HTML-escape the text in `t`."""
@@ -274,37 +192,48 @@ class NicoleBot:
                 reply_markup=reply_markup
             )
 
-    async def service_actions(self, update, context):
+    async def service_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.service_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'service_bored':
+        if query.data == "service_bored":
             rdm = requests.get(urls.RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
-            site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
+            site = soup.find("iframe")["title"]+"\n"+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
 
-        elif query.data == 'service_pwd':
-            pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
+        elif query.data == "service_pwd":
+            pwd = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
 
-        elif query.data == 'service_alias':
+        elif query.data == "service_alias":
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
             text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
 
-        elif query.data == 'service_web':
+        elif query.data == "service_web":
             text = constants.USEFUL_WEBSITE_MSG
 
-        if query.data == 'service_mod':
+        if query.data == "service_mod":
             media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
         else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
 
         await query.message.edit_media(media=media, reply_markup=reply_markup)
 
-    async def respond(self, update, context):
+    async def misc_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+        query = update.callback_query
+
+        if query.data == "misc_back":
+            await  query.message.edit_reply_markup(self.main_menu)
+
+        elif query.data == "misc_cancel":
+            await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
+            await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
+
+    async def respond(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if update.message:
             query = update.message
@@ -320,8 +249,8 @@ class NicoleBot:
                 query.chat.type
 
         # Nicole replies if DMed privately or replied to in a group
-        if query.chat.type == 'private' or (query.reply_to_message and query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot'):
-            title = query.chat.title or query.chat.username or first_name+' '+last_name
+        if query.chat.type == "private" or (query.reply_to_message and query.reply_to_message.from_user.username == "a_ignorant_mortal_bot"):
+            title = query.chat.title or query.chat.username or first_name+" "+last_name
             response = self.kernel.respond(stimulus)
             await query.reply_text(response)
 
@@ -330,7 +259,7 @@ class NicoleBot:
                     first_name, last_name, user_name, user_id, title, chat_type, chat_id)
                 await context.bot.send_message(chat_id=constants.DATABASE_GROUP, text=QUERY, parse_mode="Markdown")
 
-    async def error(self, update, context):
+    async def error(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         self.logger.warning('Update that caused the error, \n\n"%s" \n\nThe Error "%s"', update, context.error)
         if update.callback_query.id:
