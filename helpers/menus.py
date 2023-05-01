@@ -33,7 +33,9 @@ MENUS = {
     "recreation_trump": tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump'),
     "recreation_chuck": tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck'),
 
-    "trivia_facts": tg.InlineKeyboardButton('Useless Facts 🤯', callback_data='trivia_facts'),
+    "trivia_facts": tg.InlineKeyboardButton('Useless Trivia 🤯', callback_data='trivia_facts'),
+    "trivia_cats": tg.InlineKeyboardButton('Cat Trivia 😺', callback_data='trivia_cats'),
+    "trivia_dogs": tg.InlineKeyboardButton('Dog Trivia 🐶', callback_data='trivia_dogs'),
     "trivia_number": tg.InlineKeyboardButton('Number Trivia 🔢', callback_data='trivia_number'),
     "trivia_date": tg.InlineKeyboardButton('Date Trivia 📆', callback_data='trivia_date'),
     "trivia_year": tg.InlineKeyboardButton('Year Trivia 📅', callback_data='trivia_year'),
@@ -92,9 +94,11 @@ RECREATION_MENU = tg.InlineKeyboardMarkup(
 )
 TRIVIA_MENU = tg.InlineKeyboardMarkup(
     [
-        [MENUS["trivia_facts"],MENUS["trivia_number"]],
-        [MENUS["trivia_date"]],
-        [MENUS["trivia_year"],MENUS["trivia_math"]],
+        [MENUS["trivia_facts"]],
+        [MENUS["trivia_cats"], MENUS["trivia_dogs"]],
+        [MENUS["trivia_number"]],
+        [MENUS["trivia_date"], MENUS["trivia_year"]],
+        [MENUS["trivia_math"]],
         [MENUS["back"], MENUS["cancel"]],
     ]
 )

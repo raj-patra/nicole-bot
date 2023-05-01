@@ -116,6 +116,14 @@ class TextActions:
                 response = requests.get(urls.FACTS_API).json()
                 caption = "Did you know, \n\n*{}*".format(response['text'])
 
+            elif query_data == 'trivia_cats':
+                response = requests.get(urls.TRIVIA_CATS_API).json()
+                caption = "Did you know, \n\n*{}*".format(response['data'][0])
+
+            elif query_data == 'trivia_dogs':
+                response = requests.get(urls.TRIVIA_DOGS_API).json()
+                caption = "Did you know, \n\n*{}*".format(response['data'][0]["attributes"]["body"])
+
             elif query_data in ['trivia_number', 'trivia_date', 'trivia_year', 'trivia_math']:
                 query_type = query_data.split('_')[1]
                 url = urls.TRIVIA_API[query_type]

@@ -54,6 +54,8 @@ KANYE_API = "https://api.kanye.rest/"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
 
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
+TRIVIA_CATS_API = "https://meowfacts.herokuapp.com/"
+TRIVIA_DOGS_API = "https://dogapi.dog/api/v2/facts?limit=1"
 TRIVIA_API = {
     "number": "http://numbersapi.com/random/trivia",
     "date": "http://numbersapi.com/random/date",
@@ -74,8 +76,6 @@ NO_RXN = "https://yesno.wtf/api?force=no"
 # ----------------------------------------------------------------------------------
 
 """
-https://meowfacts.herokuapp.com/
-https://dogapi.dog/api/v2/facts?limit=1
 https://poetrydb.org/random
 https://corporatebs-generator.sameerkumar.website/
 """
