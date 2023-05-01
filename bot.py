@@ -10,11 +10,10 @@ from bs4 import BeautifulSoup
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from handler import CHandler
 from helpers import constants, menus, urls
 from helpers.actions import ImageActions, TextActions
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
 
 class NicoleBot:
@@ -63,37 +62,37 @@ class NicoleBot:
 
         query = update.callback_query
 
-        if query.data == 'main_image':
+        if query.data == "main_image":
             await query.message.edit_reply_markup(self.image_menu)
 
-        elif query.data == 'main_service':
+        elif query.data == "main_service":
             await  query.message.edit_reply_markup(self.service_menu)
 
-        elif query.data == 'main_quote':
+        elif query.data == "main_quote":
             await  query.message.edit_reply_markup(self.quote_menu)
 
-        elif query.data == 'main_joke':
+        elif query.data == "main_joke":
             await  query.message.edit_reply_markup(self.joke_menu)
 
-        elif query.data == 'main_trivia':
+        elif query.data == "main_trivia":
             await  query.message.edit_reply_markup(self.trivia_menu)
 
-        elif query.data == 'main_quiz':
+        elif query.data == "main_quiz":
             await  query.message.edit_reply_markup(self.quiz_menu)
 
-    async def image_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def visual_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.image_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'image_animal':
+        if query.data == "visual_animal":
             media, caption, error = self.image_reqs.get_animal()
 
-        if query.data == 'image_inspire':
+        if query.data == "visual_inspire":
             media, caption, error = self.image_reqs.get_inspire()
 
-        if query.data == 'image_hero':
+        if query.data == "visual_hero":
             media, caption, error = self.image_reqs.get_hero()
 
         if error:
@@ -116,25 +115,25 @@ class NicoleBot:
         caption, error = self.text_reqs.get_quote(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
-    async def joke_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def recreation_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         query = update.callback_query
         reply_markup = self.joke_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        caption, error = self.text_reqs.get_joke(query.data)
+        caption, error = self.text_reqs.get_recreation(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
     async def trivia_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -146,10 +145,10 @@ class NicoleBot:
         caption, error = self.text_reqs.get_trivia(query.data)
 
         if error:
-            reaction = requests.get(urls.NO_RXN).json()['image']
+            reaction = requests.get(urls.NO_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=constants.ERROR_TXT, parse_mode="Markdown"), reply_markup=reply_markup)
         else:
-            reaction = requests.get(urls.YES_RXN).json()['image']
+            reaction = requests.get(urls.YES_RXN).json()["image"]
             await query.message.edit_media(tg.InputMediaVideo(media=reaction, caption=caption, parse_mode="Markdown"), reply_markup=reply_markup)
 
     async def quiz_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -157,7 +156,7 @@ class NicoleBot:
         query = update.callback_query
         chat_id = query.message.chat.id
 
-        if query.data == 'quiz_menu':
+        if query.data == "quiz_menu":
             if query.message.poll == None:
                 await query.message.edit_reply_markup(self.main_menu)
             else:
@@ -167,12 +166,12 @@ class NicoleBot:
             reply_markup = self.quiz_menu
             await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-            response = requests.get(urls.QUIZ_API[query.data]["url"]).json()['results'][0]
+            response = requests.get(urls.QUIZ_API[query.data]["url"]).json()["results"][0]
 
-            category, question = response['category'], response['question']
-            answers = [response['correct_answer']] + response['incorrect_answers']
+            category, question = response["category"], response["question"]
+            answers = [response["correct_answer"]] + response["incorrect_answers"]
             random.shuffle(answers)
-            correct_answer_index = answers.index(response['correct_answer'])
+            correct_answer_index = answers.index(response["correct_answer"])
 
             def escape(text):
                 """HTML-escape the text in `t`."""
@@ -199,24 +198,24 @@ class NicoleBot:
         reply_markup = self.service_menu
         await context.bot.answerCallbackQuery(callback_query_id=update.callback_query.id, text="Working on it...", show_alert=False)
 
-        if query.data == 'service_bored':
+        if query.data == "service_bored":
             rdm = requests.get(urls.RANDOM_WEBSITE_URL)
             soup = BeautifulSoup(rdm.text, features="html.parser")
-            site = soup.find("iframe")["title"]+'\n'+soup.find("iframe")["src"]
+            site = soup.find("iframe")["title"]+"\n"+soup.find("iframe")["src"]
             text = "This is the bored button, an archive of internet's most useless websites curated to cure you of your boredom. \n\n*{}*\n\nFor best results, use a PC.".format(site)
 
-        elif query.data == 'service_pwd':
-            pwd = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
+        elif query.data == "service_pwd":
+            pwd = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             text = "*Here's your password. Click to copy.*\n\n`{}`".format(pwd)
 
-        elif query.data == 'service_alias':
+        elif query.data == "service_alias":
             alias = "-".join([random.choice(constants.ADJECTIVES), random.choice(constants.NOUNS)])
             text = "*Here's your alias. Click to copy*.\n\n`{}`".format(alias)
 
-        elif query.data == 'service_web':
+        elif query.data == "service_web":
             text = constants.USEFUL_WEBSITE_MSG
 
-        if query.data == 'service_mod':
+        if query.data == "service_mod":
             media = tg.InputMediaDocument(media=constants.SPOTIFY_MOD, caption=constants.SPOTIFY_CAP, parse_mode="Markdown")
         else:
             media = tg.InputMediaPhoto(media=urls.NICOLE_DP_URL, caption=text, parse_mode="Markdown")
@@ -224,13 +223,13 @@ class NicoleBot:
         await query.message.edit_media(media=media, reply_markup=reply_markup)
 
     async def misc_actions(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        
+
         query = update.callback_query
-        
-        if query.data == 'misc_back':
+
+        if query.data == "misc_back":
             await  query.message.edit_reply_markup(self.main_menu)
 
-        elif query.data == 'misc_cancel':
+        elif query.data == "misc_cancel":
             await  context.bot.delete_message(chat_id=query.message.chat.id, message_id=query.message.message_id)
             await  context.bot.send_message(chat_id=query.message.chat.id, text="Sure, I wasn't doing anything anyway. ¯\_ಠಿ‿ಠ_/¯")
 
@@ -250,8 +249,8 @@ class NicoleBot:
                 query.chat.type
 
         # Nicole replies if DMed privately or replied to in a group
-        if query.chat.type == 'private' or (query.reply_to_message and query.reply_to_message.from_user.username == 'a_ignorant_mortal_bot'):
-            title = query.chat.title or query.chat.username or first_name+' '+last_name
+        if query.chat.type == "private" or (query.reply_to_message and query.reply_to_message.from_user.username == "a_ignorant_mortal_bot"):
+            title = query.chat.title or query.chat.username or first_name+" "+last_name
             response = self.kernel.respond(stimulus)
             await query.reply_text(response)
 
