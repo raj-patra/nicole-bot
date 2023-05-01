@@ -60,13 +60,16 @@ RECREATION_KANYE_API = "https://api.kanye.rest/"
 
 # ----------------------------------------------------------------------------------
 
-RANDOM_WEBSITE_URL = "https://www.boredbutton.com/random"
-NICOLE_DP_URL = "https://telegra.ph/file/7bb2425b8c76f45442f7e.jpg"
-DEV_QR_URL = "https://telegra.ph/file/8cf54a60bf37d55730e52.png"
-LINKTREE_URL = "https://linktr.ee/ign_mortal"
-GITHUB_REPO_URL = "https://github.com/raj-patra/nicole-bot"
 YES_RXN = "https://yesno.wtf/api?force=yes"
 NO_RXN = "https://yesno.wtf/api?force=no"
+
+RANDOM_WEBSITE_URL = "https://www.boredbutton.com/random"
+NICOLE_DP_URL = "https://telegra.ph/file/7bb2425b8c76f45442f7e.jpg"
+
+DEV_QR_URL = "https://telegra.ph/file/8cf54a60bf37d55730e52.png"
+DEV_LINKTREE_URL = "https://linktr.ee/ign_mortal"
+DEV_GITHUB_URL = "https://github.com/raj-patra/"
+DEV_PORTFOLIO_URL = "https://rajpatra.com"
 
 # ----------------------------------------------------------------------------------
 
