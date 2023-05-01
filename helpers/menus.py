@@ -28,11 +28,12 @@ MENUS = {
     "quotes_inspire": tg.InlineKeyboardButton('Stay Inspired 🐱‍👤', callback_data='quote_inspire'),
     "quotes_anime": tg.InlineKeyboardButton('Anime Chan 🗯', callback_data='quote_anime'),
 
-    "recreation_dad": tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),
     "recreation_roast": tg.InlineKeyboardButton('Roast Me 🔥', callback_data='joke_roast'),
-    "recreation_kanye": tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),
-    "recreation_trump": tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump'),
+    "recreation_dad": tg.InlineKeyboardButton('Dad Energy 🧔', callback_data='joke_dad'),
+    "recreation_corp": tg.InlineKeyboardButton('Corporate Lingo 🤵', callback_data='joke_lingo'),
     "recreation_chuck": tg.InlineKeyboardButton('Chuck Norris 😈', callback_data='joke_chuck'),
+    "recreation_trump": tg.InlineKeyboardButton('Donald Trump 🎺', callback_data='joke_trump'),
+    "recreation_kanye": tg.InlineKeyboardButton('Kanye West 🧭', callback_data='joke_kanye'),
 
     "trivia_facts": tg.InlineKeyboardButton('Useless Trivia 🤯', callback_data='trivia_facts'),
     "trivia_cats": tg.InlineKeyboardButton('Cat Trivia 😺', callback_data='trivia_cats'),
@@ -88,9 +89,10 @@ QUOTES_MENU = tg.InlineKeyboardMarkup(
 )
 RECREATION_MENU = tg.InlineKeyboardMarkup(
     [
-        [MENUS["recreation_dad"],MENUS["recreation_roast"]],
-        [MENUS["recreation_kanye"]],
-        [MENUS["recreation_trump"],MENUS["recreation_chuck"]],
+        [MENUS["recreation_roast"]],
+        [MENUS["recreation_dad"],MENUS["recreation_corp"]],
+        [MENUS["recreation_chuck"]],
+        [MENUS["recreation_trump"],MENUS["recreation_kanye"]],
         [MENUS["back"], MENUS["cancel"]],
     ]
 )

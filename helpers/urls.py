@@ -48,10 +48,11 @@ AFFIRMATION_API = "https://www.affirmations.dev"
 INSPIRE_API = "https://type.fit/api/quotes"
 ANIME_API = "https://animechan.vercel.app/api/random"
 
-DAD_API = "https://icanhazdadjoke.com/"
 ROAST_API = "https://insult.mattbas.org/api/insult"
-CHUCK_API = "https://api.chucknorris.io/jokes/random"
+DAD_API = "https://icanhazdadjoke.com/"
 KANYE_API = "https://api.kanye.rest/"
+CORP_LINGO_API = "https://corporatebs-generator.sameerkumar.website/"
+CHUCK_API = "https://api.chucknorris.io/jokes/random"
 TRUMP_API = "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
 
 FACTS_API = "https://uselessfacts.jsph.pl//random.json?language=en"
@@ -75,10 +76,6 @@ YES_RXN = "https://yesno.wtf/api?force=yes"
 NO_RXN = "https://yesno.wtf/api?force=no"
 
 # ----------------------------------------------------------------------------------
-
-"""
-https://corporatebs-generator.sameerkumar.website/
-"""
 
 DEPR_RANDOM_HUMAN_API = "https://thispersondoesnotexist.com/image"
 DEPR_MEME_API = "https://meme-api.herokuapp.com/gimme"
